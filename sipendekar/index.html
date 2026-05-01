@@ -30,10 +30,10 @@
   </style>
 </head>
 <body>
-
   <!-- HALAMAN LOGIN -->
   <div id="loginPage">
     <div class="login-card text-center">
+      <img src="https://lh3.googleusercontent.com/d/1hGSRD5dNVoF7TKUgF7nAZVqQ6wXFI3wj" height="80" class="mb-3 rounded-circle shadow-sm" alt="Logo">
       <h2 class="fw-bold mb-1 text-teal" style="color: #0d9488;">SIPENDEKAR</h2>
       <p class="text-muted mb-4">Sistem Pencatatan Gizi Terpadu</p>
       <form id="formLogin" onsubmit="doLogin(event)">
@@ -48,7 +48,6 @@
   <nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top">
     <div class="container-fluid">
       <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
-        <!-- GANTI ID PADA URL DI BAWAH DENGAN ID FILE LOGO DARI GOOGLE DRIVE ANDA -->
         <img src="https://lh3.googleusercontent.com/d/1hGSRD5dNVoF7TKUgF7nAZVqQ6wXFI3wj" height="35" class="me-2 rounded-circle bg-white" alt="Logo">
         SIPENDEKAR
       </a>
@@ -69,7 +68,7 @@
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h5 class="fw-bold text-teal m-0" style="color: #0d9488;">Wilayah Tugas: <span id="wilayahBadge" class="badge bg-secondary"></span></h5>
     </div>
-
+    
     <!-- TABS NAVIGASI TERPISAH -->
     <ul class="nav nav-pills mb-4 flex-nowrap overflow-auto" id="roleTabs" role="tablist" style="white-space: nowrap;">
       <li class="nav-item"><a class="nav-link active" data-bs-toggle="pill" href="#tab-dashboard">📊 Pantauan</a></li>
@@ -80,7 +79,6 @@
     </ul>
 
     <div class="tab-content">
-      
       <!-- DASHBOARD PANTAUAN PENGISIAN -->
       <div class="tab-pane fade show active" id="tab-dashboard">
         <div class="row">
@@ -92,25 +90,21 @@
           Gunakan menu tab di atas untuk mulai mengisi formulir untuk masing-masing anak.
         </div>
       </div>
-
       <!-- TAB PMT MINGGUAN -->
       <div class="tab-pane fade" id="tab-pmt">
         <h5 class="section-title">Pilih Anak untuk PMT Mingguan</h5>
         <div class="row" id="listPMT"></div>
       </div>
-
       <!-- TAB FISIK -->
       <div class="tab-pane fade" id="tab-fisik">
         <h5 class="section-title">Pilih Anak untuk Pemantauan Fisik</h5>
         <div class="row" id="listFisik"></div>
       </div>
-
       <!-- TAB BULANAN -->
       <div class="tab-pane fade" id="tab-bulanan">
         <h5 class="section-title">Pilih Anak untuk Laporan Bulanan</h5>
         <div class="row" id="listBulanan"></div>
       </div>
-
       <!-- TAB NAKES -->
       <div class="tab-pane fade" id="tab-nakes">
         <h5 class="section-title text-primary">Pilih Anak untuk Konfirmasi Medis</h5>
@@ -124,15 +118,40 @@
   <!-- Modal PMT -->
   <div class="modal fade" id="modalPMT" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
-      <div class="modal-header bg-teal text-white" style="background-color: #0d9488;"><h5 class="modal-title">Form PMT Mingguan</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
+      <div class="modal-header bg-teal text-white" style="background-color: #0d9488;"><h5 class="modal-title">Form PMT Mingguan (7 Hari)</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
       <div class="modal-body">
         <form id="formKaderPMT" onsubmit="submitPMT(event)">
           <input type="hidden" id="pmtIdAnak">
           <div class="alert alert-light border"><strong>Nama:</strong> <span id="pmtNamaAnak"></span></div>
-          <div class="mb-3"><label class="form-label">PMT Minggu Ke-</label><input type="number" class="form-control" id="pmtKe" required></div>
-          <div class="mb-3"><label class="form-label">Keterangan PMT</label><select class="form-select" id="keteranganPmt" required><option value="Habis">Habis</option><option value="Tidak Habis">Tidak Habis</option></select></div>
-          <div class="mb-3"><label class="form-label">Kondisi Kesehatan</label><input type="text" class="form-control" id="kondisiKesehatan" placeholder="Sehat / Tulis sakitnya" required></div>
-          <div class="mb-4"><label class="form-label">Upload Bukti PMT (1 Foto)</label><input type="file" class="form-control" id="filePmt" accept="image/*" required></div>
+          
+          <div class="mb-3">
+            <label class="form-label fw-bold">Minggu Ke-</label>
+            <input type="number" class="form-control" id="pmtMingguKe" required>
+          </div>
+          
+          <div class="table-responsive mb-3">
+            <label class="form-label fw-bold">Pengisian Harian (1-7 Hari)</label>
+            <table class="table table-bordered table-sm text-center align-middle" style="font-size: 0.9rem;">
+              <thead class="table-light">
+                <tr><th>Hari</th><th>Keterangan</th><th>Kondisi (Sehat/Sakit)</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>1</td><td><select class="form-select form-select-sm" id="ket1"><option>Habis</option><option>Tidak Habis</option></select></td><td><input type="text" class="form-control form-control-sm" id="kon1" value="Sehat" required></td></tr>
+                <tr><td>2</td><td><select class="form-select form-select-sm" id="ket2"><option>Habis</option><option>Tidak Habis</option></select></td><td><input type="text" class="form-control form-control-sm" id="kon2" value="Sehat" required></td></tr>
+                <tr><td>3</td><td><select class="form-select form-select-sm" id="ket3"><option>Habis</option><option>Tidak Habis</option></select></td><td><input type="text" class="form-control form-control-sm" id="kon3" value="Sehat" required></td></tr>
+                <tr><td>4</td><td><select class="form-select form-select-sm" id="ket4"><option>Habis</option><option>Tidak Habis</option></select></td><td><input type="text" class="form-control form-control-sm" id="kon4" value="Sehat" required></td></tr>
+                <tr><td>5</td><td><select class="form-select form-select-sm" id="ket5"><option>Habis</option><option>Tidak Habis</option></select></td><td><input type="text" class="form-control form-control-sm" id="kon5" value="Sehat" required></td></tr>
+                <tr><td>6</td><td><select class="form-select form-select-sm" id="ket6"><option>Habis</option><option>Tidak Habis</option></select></td><td><input type="text" class="form-control form-control-sm" id="kon6" value="Sehat" required></td></tr>
+                <tr><td>7</td><td><select class="form-select form-select-sm" id="ket7"><option>Habis</option><option>Tidak Habis</option></select></td><td><input type="text" class="form-control form-control-sm" id="kon7" value="Sehat" required></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label fw-bold">Upload Bukti PMT (1 Foto untuk 7 Hari)</label>
+            <input type="file" class="form-control" id="filePmt" accept="image/*" required>
+          </div>
+          
           <button type="submit" class="btn btn-teal w-100 fw-bold" id="btnPmt">📤 Simpan PMT Mingguan</button>
         </form>
       </div>
@@ -239,8 +258,9 @@
       e.preventDefault();
       const user = $('#user').val(); const pass = $('#pass').val();
       const btn = $('#btnLogin'); btn.prop('disabled', true).text('Memverifikasi...');
-
+      
       const res = await kirimDataKeServer({ action: 'login', username: user, password: pass });
+      
       if (res.success) { sessionUser = res; loadApplication(); } 
       else { Swal.fire('Gagal', res.message, 'error'); btn.prop('disabled', false).text('MASUK APLIKASI'); }
     }
@@ -249,7 +269,7 @@
       $('#loginPage').fadeOut(); $('#mainApp, .navbar').fadeIn();
       $('#displayUser').text(`Halo, ${sessionUser.nama}`);
       $('#wilayahBadge').text(sessionUser.wilayah);
-
+      
       if (sessionUser.role === "Kader") {
         $('.tab-nakes').hide();
       } else if (sessionUser.role === "Nakes") {
@@ -257,6 +277,7 @@
       }
       
       const res = await kirimDataKeServer({ action: 'getDashboard', wilayah: sessionUser.wilayah, role: sessionUser.role });
+      
       if (res.success) {
         listAnakData = res.listAnak;
         
@@ -264,7 +285,7 @@
         $('#statAnak').text(res.stats.totalAnak);
         $('#statPMT').text(res.stats.totalPMT);
         $('#statFisik').text(res.stats.totalFisik);
-
+        
         renderChildLists();
       }
     }
@@ -295,7 +316,6 @@
         renderCards('listPMT', 'PMT', 'btn-outline-teal', 'Isi Form PMT', '🍲');
         renderCards('listFisik', 'FISIK', 'btn-outline-teal', 'Isi Fisik', '⚖️');
         renderCards('listBulanan', 'BULANAN', 'btn-outline-teal', 'Laporan Bulanan', '📅');
-        // Custom CSS rule for outline teal
         $("<style>").prop("type", "text/css").html(".btn-outline-teal { color: #0d9488; border-color: #0d9488; } .btn-outline-teal:hover { background-color: #0d9488; color: white; }").appendTo("head");
       } else {
         renderCards('listNakes', 'NAKES', 'btn-outline-primary', 'Konfirmasi Medis', '🩺');
@@ -319,15 +339,27 @@
       }
     }
 
-    // Aksi Submit Form PMT
+    // Aksi Submit Form PMT Mingguan (7 Hari)
     async function submitPMT(e) {
       e.preventDefault();
       const btn = $('#btnPmt'); btn.prop('disabled', true).text('⏳ Menyimpan...');
       const base64 = await getBase64(document.getElementById('filePmt').files[0]);
+      
+      let dataHari = [];
+      for(let i=1; i<=7; i++){
+        dataHari.push({
+          hari: i,
+          keterangan: $('#ket'+i).val(),
+          kondisi: $('#kon'+i).val()
+        });
+      }
 
       const res = await kirimDataKeServer({
-        action: 'simpanPMT', idAnak: $('#pmtIdAnak').val(), pmtKe: $('#pmtKe').val(),
-        keterangan: $('#keteranganPmt').val(), kondisi: $('#kondisiKesehatan').val(), buktiData: base64
+        action: 'simpanPMT', 
+        idAnak: $('#pmtIdAnak').val(), 
+        mingguKe: $('#pmtMingguKe').val(),
+        dataHari: dataHari, 
+        buktiData: base64
       });
 
       if (res.success) {
@@ -335,6 +367,7 @@
         document.getElementById('formKaderPMT').reset();
         bootstrap.Modal.getInstance(document.getElementById('modalPMT')).hide();
       } else { Swal.fire('Gagal!', res.message, 'error'); }
+      
       btn.prop('disabled', false).text('📤 Simpan PMT Mingguan');
     }
 
@@ -343,7 +376,7 @@
       e.preventDefault();
       const btn = $('#btnFisik'); btn.prop('disabled', true).text('⏳ Menyimpan...');
       const base64 = await getBase64(document.getElementById('fileTimbang').files[0]);
-
+      
       const res = await kirimDataKeServer({
         action: 'simpanFisik', idAnak: $('#fisikIdAnak').val(), idRecord: "F" + Date.now(),
         mingguKe: $('#fisikMinggu').val(), bbKader: $('#bbKader').val(), tbKader: $('#tbKader').val(), buktiTimbang: base64
@@ -354,6 +387,7 @@
         document.getElementById('formKaderFisik').reset();
         bootstrap.Modal.getInstance(document.getElementById('modalFisik')).hide();
       } else { Swal.fire('Gagal!', res.message, 'error'); }
+      
       btn.prop('disabled', false).text('📤 Simpan Data Pengukuran');
     }
 
@@ -361,7 +395,7 @@
     async function submitBulanan(e) {
       e.preventDefault();
       const btn = $('#btnBulanan'); btn.prop('disabled', true).text('⏳ Menyimpan...');
-
+      
       const res = await kirimDataKeServer({
         action: 'simpanBulanan', idAnak: $('#bulanIdAnak').val(), q1: $('#q1').val(), q2: $('#q2').val(), q3: $('#q3').val(), q4: $('#q4').val(),
         q5: $('#q5').val(), q6: $('#q6').val(), q7: $('#q7').val(), q8: $('#q8').val(), q9: $('#q9').val(), q10: $('#q10').val(), q11: $('#q11').val(), q12: $('#q12').val()
@@ -372,6 +406,7 @@
         document.getElementById('formKaderBulanan').reset();
         bootstrap.Modal.getInstance(document.getElementById('modalBulanan')).hide();
       } else { Swal.fire('Gagal!', res.message, 'error'); }
+      
       btn.prop('disabled', false).text('📤 Simpan Form Bulanan');
     }
 
@@ -379,7 +414,7 @@
     async function submitNakes(e) {
       e.preventDefault();
       const btn = $('#btnNakes'); btn.prop('disabled', true).text('⏳ Mengirim WA...');
-
+      
       const res = await kirimDataKeServer({
         action: 'simpanNakes', idAnak: $('#nakesIdAnak').val(), namaAnak: $('#nakesNamaAnak').text(),
         noWa: $('#nakesWaAnak').val(), mingguKe: 1, bbNakes: $('#bbNakes').val(), tbNakes: $('#tbNakes').val(),
@@ -392,6 +427,7 @@
         document.getElementById('formNakes').reset();
         bootstrap.Modal.getInstance(document.getElementById('modalNakes')).hide();
       } else { Swal.fire('Gagal!', res.message, 'error'); }
+      
       btn.prop('disabled', false).text('📲 Konfirmasi & Kirim WA');
     }
   </script>
