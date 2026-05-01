@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>SIPENDEKAR - Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+  <style>
+    body { background-color: #f4f7f6; font-family: 'Segoe UI', sans-serif; }
+    .navbar { background-color: #0d9488; display: none; } 
+    #mainApp { display: none; } 
+    
+    #loginPage {
+      height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%); padding: 15px;
+    }
+    .login-card {
+      width: 100%; max-width: 400px; padding: 2rem;
+      background: white; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    .btn-teal { background-color: #0d9488; color: white; border-radius: 8px;}
+    .btn-teal:hover { background-color: #0f766e; color: white; }
+    .card-custom { border-radius: 12px; border: none; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 20px;}
+    .section-title { color: #0f766e; font-weight: 700; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 20px;}
+  </style>
+</head>
+<body>
+
+  <!-- HALAMAN LOGIN -->
+  <div id="loginPage">
+    <div class="login-card text-center">
+      <h2 class="fw-bold mb-1 text-teal" style="color: #0d9488;">SIPENDEKAR</h2>
+      <p class="text-muted mb-4">Sistem Pencatatan Gizi Terpadu</p>
+      <form id="formLogin" onsubmit="doLogin(event)">
+        <div class="mb-3 text-start">
+          <label class="form-label fw-bold">Username</label>
+          <input type="text" id="user" class="form-control" required>
+        </div>
+        <div class="mb-4 text-start">
+          <label class="form-label fw-bold">Password</label>
+          <input type="password" id="pass" class="form-control" required>
+        </div>
+        <button type="submit" id="btnLogin" class="btn btn-teal w-100 py-2 fw-bold">MASUK APLIKASI</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- NAVBAR & HAMBURGER MENU -->
+  <nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold" href="#">👶 SIPENDEKAR</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center mt-2 mt-lg-0">
+          <li class="nav-item me-3 mb-2 mb-lg-0 text-white">
+            <span id="displayUser" class="d-block text-center text-lg-start fw-semibold"></span>
+          </li>
+          <li class="nav-item">
+            <button class="btn btn-sm btn-danger w-100 fw-bold" onclick="location.reload()">LOGOUT</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- APLIKASI UTAMA -->
+  <div id="mainApp" class="container-fluid py-4">
+    
+    <!-- Pilih Data Anak Global -->
+    <div class="card card-custom p-3 bg-white">
+      <label class="form-label fw-bold text-teal" style="color: #0d9488;">Pilih Sasaran Balita (<span id="wilayahBadge" class="badge bg-secondary"></span>):</label>
+      <select class="form-select select2-anak" id="globalIdAnak"></select>
+      <input type="hidden" id="globalNamaAnak">
+      <input type="hidden" id="globalWaAnak">
+    </div>
+
+    <!-- TABS NAVIGASI -->
+    <ul class="nav nav-pills mb-4 gap-2" id="roleTabs" role="tablist">
+      <li class="nav-item" id="menu-kader">
+        <button class="nav-link active fw-bold" data-bs-toggle="pill" data-bs-target="#kader-view">👨‍⚕️ Panel Kader</button>
+      </li>
+      <li class="nav-item" id="menu-nakes">
+        <button class="nav-link fw-bold" data-bs-toggle="pill" data-bs-target="#nakes-view">🩺 Panel Nakes</button>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <!-- ================= PANEL KADER ================= -->
+      <div class="tab-pane fade show active" id="kader-view" role="tabpanel">
+        <div class="card card-custom p-4">
+          <h5 class="section-title">1. Kartu Kontrol PMT Harian</h5>
+          <form id="formKaderPMT" onsubmit="submitPMT(event)">
+            <div class="row">
+              <div class="col-md-6 mb-3"><label class="form-label">PMT Hari Ke-</label><input type="number" class="form-control" id="pmtKe" required></div>
+              <div class="col-md-6 mb-3"><label class="form-label">Keterangan PMT</label><select class="form-select" id="keteranganPmt" required><option value="Habis">Habis</option><option value="Tidak Habis">Tidak Habis</option></select></div>
+              <div class="col-md-6 mb-3"><label class="form-label">Kondisi Kesehatan</label><input type="text" class="form-control" id="kondisiKesehatan" placeholder="Sehat / Tulis sakitnya" required></div>
+              <div class="col-md-6 mb-3"><label class="form-label">Upload Bukti PMT</label><input type="file" class="form-control" id="filePmt" accept="image/*" required></div>
+            </div>
+            <button type="submit" class="btn btn-teal w-100 fw-bold" id="btnPmt">📤 Kirim Kartu Kontrol</button>
+          </form>
+        </div>
+
+        <div class="card card-custom p-4">
+          <h5 class="section-title">2. Pemantauan BB & TB</h5>
+          <form id="formKaderFisik" onsubmit="submitFisikKader(event)">
+            <div class="row">
+              <div class="col-md-4 mb-3"><label class="form-label">Minggu Ke-</label><input type="number" class="form-control" id="mingguKe" required></div>
+              <div class="col-md-4 mb-3"><label class="form-label">Hasil BB (kg)</label><input type="number" step="0.1" class="form-control" id="bbKader" required></div>
+              <div class="col-md-4 mb-3"><label class="form-label">Hasil TB (cm)</label><input type="number" step="0.1" class="form-control" id="tbKader" required></div>
+              <div class="col-12 mb-3"><label class="form-label">Upload Bukti Timbang/Ukur</label><input type="file" class="form-control" id="fileTimbang" accept="image/*" required></div>
+            </div>
+            <button type="submit" class="btn btn-teal w-100 fw-bold" id="btnFisik">📤 Kirim Data Pengukuran</button>
+          </form>
+        </div>
+
+        <div class="card card-custom p-4">
+          <h5 class="section-title">3. Formulir Pemantauan Bulanan</h5>
+          <form id="formKaderBulanan" onsubmit="submitBulanan(event)">
+             <div class="mb-3"><label class="form-label small fw-bold">1. Apakah Balita mendapat PMT?</label><select class="form-select" id="q1"><option value="Ya">Ya</option><option value="Tidak">Tidak</option></select></div>
+             <div class="mb-3"><label class="form-label small fw-bold">2. Sejak kapan menerima PMT?</label><input type="text" class="form-control" id="q2"></div>
+             <div class="mb-3"><label class="form-label small fw-bold">3. Jenis PMT?</label><select class="form-select" id="q3"><option value="Makanan Lengkap">Lengkap</option><option value="Kudapan">Kudapan</option></select></div>
+             <div class="mb-3"><label class="form-label small fw-bold">4. Tempat diberi PMT?</label><select class="form-select" id="q4"><option value="Posyandu">Posyandu</option><option value="Rumah">Rumah</option></select></div>
+             <div class="mb-3"><label class="form-label small fw-bold">5. Berapa kali dalam sebulan?</label><select class="form-select" id="q5"><option value="Setiap Hari">Setiap Hari</option><option value="Tidak Setiap Hari">Tidak</option></select></div>
+             <div class="row">
+               <div class="col-md-6 mb-3"><label class="form-label small fw-bold">6. Menyukai MT?</label><select class="form-select" id="q6"><option value="Ya">Ya</option><option value="Tidak">Tidak</option></select></div>
+               <div class="col-md-6 mb-3"><label class="form-label small fw-bold">7. Alasan tidak suka?</label><input type="text" class="form-control" id="q7"></div>
+             </div>
+             <div class="mb-3"><label class="form-label small fw-bold">8. Keluhan setelah makan?</label><input type="text" class="form-control" id="q8"></div>
+             <div class="mb-3"><label class="form-label small fw-bold">9. Mendapat penyuluhan gizi?</label><select class="form-select" id="q9"><option value="Ya">Ya</option><option value="Tidak">Tidak</option></select></div>
+             <div class="mb-3"><label class="form-label small fw-bold">10. Pesan yang disampaikan?</label><input type="text" class="form-control" id="q10"></div>
+             <div class="row">
+               <div class="col-md-6 mb-3"><label class="form-label small fw-bold">11. Ibu mengerti pesan?</label><select class="form-select" id="q11"><option value="Ya">Ya</option><option value="Tidak">Tidak</option></select></div>
+               <div class="col-md-6 mb-3"><label class="form-label small fw-bold">12. Dapat mempraktikkan?</label><select class="form-select" id="q12"><option value="Ya">Ya</option><option value="Tidak">Tidak</option></select></div>
+             </div>
+             <button type="submit" class="btn btn-teal w-100 fw-bold" id="btnBulanan">📤 Kirim Form Bulanan</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- ================= PANEL NAKES ================= -->
+      <div class="tab-pane fade" id="nakes-view" role="tabpanel">
+        <div class="card card-custom p-4 border-primary shadow">
+          <h5 class="section-title text-primary">🩺 Konfirmasi Nakes & Kirim WA</h5>
+          <form id="formNakes" onsubmit="submitNakes(event)">
+            <div class="row">
+              <div class="col-md-4 mb-3"><label class="form-label fw-bold">Konfirmasi BB (kg)</label><input type="number" step="0.1" class="form-control border-primary" id="bbNakes" required></div>
+              <div class="col-md-4 mb-3"><label class="form-label fw-bold">Konfirmasi TB (cm)</label><input type="number" step="0.1" class="form-control border-primary" id="tbNakes" required></div>
+              <div class="col-md-4 mb-3"><label class="form-label fw-bold">Kesimpulan</label><select class="form-select border-primary" id="kesimpulanNakes" required><option value="Naik (N)">Naik (N)</option><option value="Tidak Naik (T)">Tidak Naik (T)</option></select></div>
+              <div class="col-12 mb-3"><label class="form-label fw-bold">Red Flag / Penyakit Penyerta</label><textarea class="form-control" id="redFlag" rows="2" placeholder="Tulis 'Tidak Ada' jika aman"></textarea></div>
+              <div class="col-md-6 mb-3"><label class="form-label fw-bold">Penanganan Puskesmas</label><input type="text" class="form-control" id="penanganan"></div>
+              <div class="col-md-6 mb-3"><label class="form-label fw-bold">Rujuk RS</label><select class="form-select" id="rujuk"><option value="Tidak">Tidak</option><option value="Ya">Ya</option></select></div>
+              <div class="col-12 mb-4"><label class="form-label fw-bold text-danger">Status Gizi Akhir</label><select class="form-select border-danger bg-light" id="statusGiziNakes" required><option value="Normal">Normal</option><option value="Gizi Kurang">Gizi Kurang</option><option value="Stunting">Stunting</option><option value="Gizi Buruk">Gizi Buruk</option></select></div>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 py-3 fw-bold fs-5" id="btnNakes">📲 Konfirmasi & Kirim WA</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+  <script>
+    // MASUKKAN URL WEB APP ANDA DI SINI
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzefJ8cXUC-t6VBpnCSNnXE-1GhsjamG0Ew1aGigpSesaZbI5bZ5FLRDwCzsGZYWOSZ/exec'; 
+    
+    let sessionUser = null;
+    let listAnakData = [];
+
+    // FUNGSI KOMUNIKASI KE APPS SCRIPT
+    async function kirimDataKeServer(payload) {
+      try {
+        const response = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          body: JSON.stringify(payload)
+        });
+        return await response.json();
+      } catch (e) {
+        return { success: false, message: "Koneksi ke server gagal!" };
+      }
+    }
+
+    function getBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+      });
+    }
+
+    function checkAnak() {
+      if(!$('#globalIdAnak').val()) { Swal.fire('Oops!', 'Pilih Sasaran Balita terlebih dahulu!', 'warning'); return false; }
+      return true;
+    }
+
+    async function doLogin(e) {
+      e.preventDefault();
+      const user = $('#user').val();
+      const pass = $('#pass').val();
+      const btn = $('#btnLogin');
+      btn.prop('disabled', true).text('Memverifikasi...');
+
+      const res = await kirimDataKeServer({ action: 'login', username: user, password: pass });
+      
+      if (res.success) {
+        sessionUser = res;
+        loadApplication();
+      } else {
+        Swal.fire('Login Gagal', res.message, 'error');
+        btn.prop('disabled', false).text('MASUK APLIKASI');
+      }
+    }
+
+    async function loadApplication() {
+      $('#loginPage').fadeOut();
+      $('#mainApp, .navbar').fadeIn();
+      
+      $('#displayUser').text(`Halo, ${sessionUser.nama} (${sessionUser.role})`);
+      $('#wilayahBadge').text(sessionUser.wilayah);
+
+      if (sessionUser.role === "Kader") {
+        $('#menu-nakes').hide();
+      } else if (sessionUser.role === "Nakes") {
+        $('#menu-kader').hide();
+        $('#roleTabs button[data-bs-target="#nakes-view"]').tab('show');
+      }
+      loadAnakData();
+    }
+
+    async function loadAnakData() {
+      $('.select2-anak').select2({ theme: 'bootstrap-5', placeholder: 'Cari Nama Anak...', width: '100%' });
+      
+      const res = await kirimDataKeServer({ action: 'getDashboard', wilayah: sessionUser.wilayah, role: sessionUser.role });
+      
+      if (res.success) {
+        listAnakData = res.listAnak;
+        let select = $('#globalIdAnak');
+        select.empty().append('<option value=""></option>');
+        res.listAnak.forEach(a => { select.append(new Option(`${a.nama} (Desa: ${a.wilayah})`, a.id)); });
+      }
+    }
+
+    $('#globalIdAnak').on('change', function() {
+      let id = $(this).val();
+      let anak = listAnakData.find(a => a.id === id);
+      if(anak) { $('#globalNamaAnak').val(anak.nama); $('#globalWaAnak').val(anak.wa); }
+    });
+
+    async function submitPMT(e) {
+      e.preventDefault();
+      if(!checkAnak()) return;
+      const btn = $('#btnPmt');
+      btn.prop('disabled', true).text('⏳ Mengupload...');
+      const file = document.getElementById('filePmt').files[0];
+      const base64 = await getBase64(file);
+
+      const res = await kirimDataKeServer({
+        action: 'simpanPMT', idAnak: $('#globalIdAnak').val(), pmtKe: $('#pmtKe').val(),
+        keterangan: $('#keteranganPmt').val(), kondisi: $('#kondisiKesehatan').val(), buktiData: base64
+      });
+
+      if (res.success) {
+        Swal.fire('Berhasil!', res.message, 'success');
+        document.getElementById('formKaderPMT').reset();
+      } else { Swal.fire('Gagal!', res.message, 'error'); }
+      btn.prop('disabled', false).text('📤 Kirim Kartu Kontrol');
+    }
+
+    async function submitFisikKader(e) {
+      e.preventDefault();
+      if(!checkAnak()) return;
+      const btn = $('#btnFisik');
+      btn.prop('disabled', true).text('⏳ Mengupload...');
+      const file = document.getElementById('fileTimbang').files[0];
+      const base64 = await getBase64(file);
+
+      const res = await kirimDataKeServer({
+        action: 'simpanFisik', idAnak: $('#globalIdAnak').val(), idRecord: "F" + Date.now(),
+        mingguKe: $('#mingguKe').val(), bbKader: $('#bbKader').val(), tbKader: $('#tbKader').val(), buktiTimbang: base64
+      });
+
+      if (res.success) {
+        Swal.fire('Tersimpan!', res.message, 'success');
+        document.getElementById('formKaderFisik').reset();
+      } else { Swal.fire('Gagal!', res.message, 'error'); }
+      btn.prop('disabled', false).text('📤 Kirim Data Pengukuran');
+    }
+
+    async function submitBulanan(e) {
+      e.preventDefault();
+      if(!checkAnak()) return;
+      const btn = $('#btnBulanan');
+      btn.prop('disabled', true).text('⏳ Menyimpan...');
+
+      const res = await kirimDataKeServer({
+        action: 'simpanBulanan', idAnak: $('#globalIdAnak').val(), q1: $('#q1').val(), q2: $('#q2').val(), q3: $('#q3').val(), q4: $('#q4').val(),
+        q5: $('#q5').val(), q6: $('#q6').val(), q7: $('#q7').val(), q8: $('#q8').val(), q9: $('#q9').val(), q10: $('#q10').val(), q11: $('#q11').val(), q12: $('#q12').val()
+      });
+
+      if (res.success) {
+        Swal.fire('Tersimpan!', res.message, 'success');
+        document.getElementById('formKaderBulanan').reset();
+      } else { Swal.fire('Gagal!', res.message, 'error'); }
+      btn.prop('disabled', false).text('📤 Kirim Form Bulanan');
+    }
+
+    async function submitNakes(e) {
+      e.preventDefault();
+      if(!checkAnak()) return;
+      const btn = $('#btnNakes');
+      btn.prop('disabled', true).text('⏳ Mengirim WA...');
+
+      const res = await kirimDataKeServer({
+        action: 'simpanNakes', idAnak: $('#globalIdAnak').val(), namaAnak: $('#globalNamaAnak').val(),
+        noWa: $('#globalWaAnak').val(), mingguKe: 1, bbNakes: $('#bbNakes').val(), tbNakes: $('#tbNakes').val(),
+        kesimpulan: $('#kesimpulanNakes').val(), redFlag: $('#redFlag').val() || "Tidak Ada", penanganan: $('#penanganan').val() || "-",
+        rujuk: $('#rujuk').val(), statusGizi: $('#statusGiziNakes').val()
+      });
+
+      if (res.success) {
+        Swal.fire('Berhasil!', res.message, 'success');
+        document.getElementById('formNakes').reset();
+      } else { Swal.fire('Gagal!', res.message, 'error'); }
+      btn.prop('disabled', false).text('📲 Konfirmasi & Kirim WA');
+    }
+  </script>
+</body>
+</html>
