@@ -31,9 +31,12 @@
     .anak-card:hover { border-color: #0d9488; box-shadow: 0 4px 10px rgba(13, 148, 136, 0.2); }
     
     @media print {
-      body { background-color: white; }
-      #loginPage, .navbar, #mainApp, .modal { display: none !important; }
+      @page { size: landscape; margin: 10mm; }
+      body { background-color: white; margin: 0; padding: 0;}
+      #loginPage, .navbar, #mainApp, .modal, .swal2-container { display: none !important; }
       #printArea { display: block !important; width: 100%; }
+      .table-bordered th, .table-bordered td { border: 1px solid #000 !important; font-size: 11px; padding: 4px; }
+      img.bukti-foto { max-height: 50px !important; }
     }
   </style>
 </head>
@@ -42,8 +45,8 @@
     <div class="login-card text-center">
       <img src="https://lh3.googleusercontent.com/d/1hGSRD5dNVoF7TKUgF7nAZVqQ6wXFI3wj" height="80" class="mb-3 rounded-circle shadow-sm" alt="Logo">
       <h2 class="fw-bold mb-1 text-teal" style="color: #0d9488;">SIPENDEKAR</h2>
-      <p class="text-muted mb-4">Sistem Pemantauan Terpadu & Pemberian Makanan Lokal Kader</p>
-      <p class="text-muted mb-4">Pukesmas Nelayan</p>
+      <p class="text-muted mb-2">Sistem Pemantauan Terpadu & Pemberian Makanan Lokal Kader</p>
+      <p class="text-muted mb-4 fw-bold">Puskesmas Nelayan</p>
       <form id="formLogin" onsubmit="doLogin(event)">
         <div class="mb-3 text-start"><label class="form-label fw-bold">Username</label><input type="text" id="user" class="form-control" required></div>
         <div class="mb-4 text-start"><label class="form-label fw-bold">Password</label><input type="password" id="pass" class="form-control" required></div>
@@ -81,7 +84,7 @@
       <li class="nav-item tab-kader"><a class="nav-link" data-bs-toggle="pill" href="#tab-fisik">⚖️ Fisik & Ukur</a></li>
       <li class="nav-item tab-kader"><a class="nav-link" data-bs-toggle="pill" href="#tab-bulanan">📅 Lap. Bulanan</a></li>
       <li class="nav-item tab-nakes"><a class="nav-link" data-bs-toggle="pill" href="#tab-nakes">🩺 Konfirmasi Nakes</a></li>
-      <li class="nav-item tab-laporan"><a class="nav-link bg-secondary text-white" data-bs-toggle="pill" href="#tab-laporan">🖨️ Cetak Laporan</a></li>
+      <li class="nav-item tab-laporan"><a class="nav-link bg-dark text-white" data-bs-toggle="pill" href="#tab-laporan">🖨️ Cetak Laporan</a></li>
     </ul>
 
     <div class="tab-content">
@@ -99,8 +102,8 @@
       
       <div class="tab-pane fade" id="tab-laporan">
         <div class="card card-custom p-4 border-dark">
-          <h5 class="section-title text-dark">🖨️ Cetak Laporan</h5>
-          <form onsubmit="cetakLaporan(event)">
+          <h5 class="section-title text-dark">🖨️ Pusat Laporan SIPENDEKAR</h5>
+          <form onsubmit="previewLaporan(event)">
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label class="form-label fw-bold">Jenis Laporan</label>
@@ -117,21 +120,32 @@
                 </select>
               </div>
             </div>
-            <button type="submit" class="btn btn-dark w-100 fw-bold" id="btnCetak">🖨️ Proses & Cetak</button>
+            <div class="row">
+              <div class="col-md-6 mb-2"><button type="submit" class="btn btn-teal w-100 fw-bold" id="btnTampil">👁️ Tampilkan Data</button></div>
+              <div class="col-md-6 mb-2"><button type="button" class="btn btn-dark w-100 fw-bold" onclick="window.print()">🖨️ Cetak PDF</button></div>
+            </div>
           </form>
+          
+          <div id="previewArea" class="mt-4 table-responsive bg-white border p-3 rounded d-none" style="max-height: 500px; overflow-y: auto;">
+            <h6 id="previewTitle" class="fw-bold mb-3 text-center"></h6>
+            <table class="table table-bordered table-striped table-hover table-sm align-middle text-center" style="font-size: 13px;">
+              <thead class="table-dark" id="previewHead"></thead>
+              <tbody id="previewBody"></tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div id="printArea" class="p-4">
+  <div id="printArea" class="p-3">
     <div class="text-center mb-4">
-      <img src="https://lh3.googleusercontent.com/d/1hGSRD5dNVoF7TKUgF7nAZVqQ6wXFI3wj" height="60" alt="Logo">
-      <h3 class="fw-bold mt-2">LAPORAN SIPENDEKAR</h3>
+      <img src="https://lh3.googleusercontent.com/d/1hGSRD5dNVoF7TKUgF7nAZVqQ6wXFI3wj" height="70" alt="Logo">
+      <h3 class="fw-bold mt-2 mb-0">LAPORAN SIPENDEKAR</h3>
       <p id="printTitle" class="mb-0"></p>
     </div>
     <div class="table-responsive">
-      <table class="table table-bordered table-sm" id="printTable" style="font-size: 12px;">
+      <table class="table table-bordered table-sm text-center align-middle" style="font-size: 12px; width: 100%;">
         <thead class="table-light" id="printHead"></thead>
         <tbody id="printBody"></tbody>
       </table>
@@ -219,15 +233,13 @@
         <form id="formNakes" onsubmit="submitNakes(event)">
           <input type="hidden" id="nakesIdAnak">
           <input type="hidden" id="nakesWaAnak">
-          <input type="hidden" id="nakesBbKader">
-          <input type="hidden" id="nakesTbKader">
           
           <div class="alert alert-light border border-primary mb-3">
             <h6 class="mb-1"><strong>Nama:</strong> <span id="nakesNamaAnak"></span></h6>
             <div id="dataKaderAlert" class="small text-danger fw-bold">Data Kader Belum Masuk</div>
           </div>
           
-          <div class="mb-3"><label class="form-label fw-bold">Minggu Ke-</label><input type="number" class="form-control border-primary" id="nakesMingguKe" required></div>
+          <div class="mb-3"><label class="form-label fw-bold">Minggu Ke-</label><input type="number" class="form-control border-primary bg-light" id="nakesMingguKe" readonly required></div>
           
           <div class="row">
             <div class="col-md-6 mb-3"><label class="form-label fw-bold">Konf. BB (kg)</label><input type="number" step="0.1" class="form-control" id="bbNakes" required></div>
@@ -239,9 +251,9 @@
           <div class="card p-3 mb-3 bg-light border-0">
             <label class="form-label fw-bold text-danger">Status Gizi Detail</label>
             <div class="row">
-              <div class="col-4"><label class="small">BB/U</label><select class="form-select form-select-sm" id="statusBBU"><option>Normal</option><option>Kurang</option><option>Sangat Kurang</option><option>Risiko Lebih</option></select></div>
-              <div class="col-4"><label class="small">TB/U</label><select class="form-select form-select-sm" id="statusTBU"><option>Normal</option><option>Pendek</option><option>Sangat Pendek</option><option>Tinggi</option></select></div>
-              <div class="col-4"><label class="small">BB/TB</label><select class="form-select form-select-sm" id="statusBBTB"><option>Gizi Baik</option><option>Gizi Kurang</option><option>Gizi Buruk</option><option>Risiko Gizi Lebih</option></select></div>
+              <div class="col-4"><label class="small fw-bold">BB/U</label><select class="form-select form-select-sm border-danger" id="statusBBU"><option>Normal</option><option>Kurang</option><option>Sangat Kurang</option><option>Risiko Lebih</option></select></div>
+              <div class="col-4"><label class="small fw-bold">TB/U</label><select class="form-select form-select-sm border-danger" id="statusTBU"><option>Normal</option><option>Pendek</option><option>Sangat Pendek</option><option>Tinggi</option></select></div>
+              <div class="col-4"><label class="small fw-bold">BB/TB</label><select class="form-select form-select-sm border-danger" id="statusBBTB"><option>Gizi Baik</option><option>Gizi Kurang</option><option>Gizi Buruk</option><option>Risiko Gizi Lebih</option></select></div>
             </div>
           </div>
 
@@ -250,7 +262,7 @@
             <div class="col-6 mb-4"><label class="form-label fw-bold">Penanganan</label><input type="text" class="form-control" id="penanganan"></div>
             <div class="col-6 mb-4"><label class="form-label fw-bold">Rujuk RS</label><select class="form-select" id="rujuk"><option value="Tidak">Tidak</option><option value="Ya">Ya</option></select></div>
           </div>
-          <button type="submit" class="btn btn-primary w-100 fw-bold" id="btnNakes">📲 Konfirmasi & Kirim WA</button>
+          <button type="submit" class="btn btn-primary w-100 fw-bold" id="btnNakes">📲 Simpan Evaluasi Medis & Kirim WA</button>
         </form>
       </div>
     </div></div>
@@ -260,6 +272,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
+    // MASUKKAN URL WEB APP SCRIPT ANDA DI BAWAH INI
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzefJ8cXUC-t6VBpnCSNnXE-1GhsjamG0Ew1aGigpSesaZbI5bZ5FLRDwCzsGZYWOSZ/exec'; 
     
     let sessionUser = null;
@@ -313,6 +326,7 @@
         $('#statFisik').text(res.stats.totalFisik);
         
         let selectFilter = $('#filterAnakCetak');
+        selectFilter.empty().append('<option value="semua">-- Semua Anak --</option>');
         res.listAnak.forEach(a => { selectFilter.append(new Option(`${a.nama} (${a.id})`, a.id)); });
 
         renderChildLists();
@@ -368,10 +382,12 @@
         if(dataFisikUnconfirmed[idAnak]) {
           let kd = dataFisikUnconfirmed[idAnak];
           $('#dataKaderAlert').html(`✅ Kader melapor (Minggu ${kd.mingguKe}): BB = ${kd.bbKader} kg, TB = ${kd.tbKader} cm`).removeClass('text-danger').addClass('text-success');
-          $('#nakesMingguKe').val(kd.mingguKe); $('#nakesBbKader').val(kd.bbKader); $('#nakesTbKader').val(kd.tbKader);
+          $('#nakesMingguKe').val(kd.mingguKe); 
+          $('#bbNakes').val(kd.bbKader); // Auto-fill 
+          $('#tbNakes').val(kd.tbKader); // Auto-fill
         } else {
           $('#dataKaderAlert').html(`⚠️ Belum ada data masuk dari Kader`).removeClass('text-success').addClass('text-danger');
-          $('#nakesMingguKe').val(''); $('#nakesBbKader').val(''); $('#nakesTbKader').val('');
+          $('#nakesMingguKe').val(''); $('#bbNakes').val(''); $('#tbNakes').val('');
         }
         new bootstrap.Modal(document.getElementById('modalNakes')).show();
       }
@@ -409,6 +425,7 @@
         Swal.fire('Tersimpan!', res.message, 'success');
         document.getElementById('formKaderFisik').reset();
         bootstrap.Modal.getInstance(document.getElementById('modalFisik')).hide();
+        loadApplication(); // Reload to refresh unconfirmed tags
       } else { Swal.fire('Gagal!', res.message, 'error'); }
       btn.prop('disabled', false).text('📤 Simpan Data Pengukuran');
     }
@@ -431,13 +448,12 @@
 
     async function submitNakes(e) {
       e.preventDefault();
-      const btn = $('#btnNakes'); btn.prop('disabled', true).text('⏳ Mengirim WA...');
+      const btn = $('#btnNakes'); btn.prop('disabled', true).text('⏳ Menyimpan & Mengirim WA...');
       
       const res = await kirimDataKeServer({
         action: 'simpanNakes', idAnak: $('#nakesIdAnak').val(), namaAnak: $('#nakesNamaAnak').text(), noWa: $('#nakesWaAnak').val(),
-        mingguKe: $('#nakesMingguKe').val(), bbKader: $('#nakesBbKader').val(), tbKader: $('#nakesTbKader').val(),
-        bbNakes: $('#bbNakes').val(), tbNakes: $('#tbNakes').val(), kesimpulan: $('#kesimpulanNakes').val(), 
-        bbu: $('#statusBBU').val(), tbu: $('#statusTBU').val(), bbtb: $('#statusBBTB').val(),
+        mingguKe: $('#nakesMingguKe').val() || 1, bbNakes: $('#bbNakes').val(), tbNakes: $('#tbNakes').val(),
+        kesimpulan: $('#kesimpulanNakes').val(), bbu: $('#statusBBU').val(), tbu: $('#statusTBU').val(), bbtb: $('#statusBBTB').val(),
         redFlag: $('#redFlag').val() || "Tidak Ada", penanganan: $('#penanganan').val() || "-", rujuk: $('#rujuk').val()
       });
 
@@ -447,12 +463,12 @@
         bootstrap.Modal.getInstance(document.getElementById('modalNakes')).hide();
         loadApplication(); // Reload to clear unconfirmed tag
       } else { Swal.fire('Gagal!', res.message, 'error'); }
-      btn.prop('disabled', false).text('📲 Konfirmasi & Kirim WA');
+      btn.prop('disabled', false).text('📲 Simpan Evaluasi Medis & Kirim WA');
     }
 
-    async function cetakLaporan(e) {
+    async function previewLaporan(e) {
       e.preventDefault();
-      const btn = $('#btnCetak'); btn.prop('disabled', true).text('Menyiapkan Laporan...');
+      const btn = $('#btnTampil'); btn.prop('disabled', true).text('⏳ Memuat...');
       const jenis = $('#jenisLaporan').val();
       const idAnak = $('#filterAnakCetak').val();
       
@@ -467,21 +483,29 @@
         res.data.forEach(row => {
           tbody += '<tr>';
           row.forEach(cell => { 
-            if(cell.toString().startsWith('http')) { tbody += `<td><a href="${cell}" target="_blank">Bukti</a></td>`; } 
-            else { tbody += `<td>${cell}</td>`; }
+            let stringCell = cell.toString();
+            // Menampilkan Foto dalam mode Preview & Cetak jika terdeteksi URL Drive
+            if(stringCell.includes('drive.google.com')) { 
+              tbody += `<td><a href="${stringCell}" target="_blank"><img src="${stringCell}" class="bukti-foto shadow-sm border" style="max-height: 80px; border-radius: 6px;"></a></td>`; 
+            } else { 
+              tbody += `<td>${stringCell}</td>`; 
+            }
           });
           tbody += '</tr>';
         });
         
-        $('#printTitle').text('Filter: ' + (idAnak === 'semua' ? 'Semua Anak' : $('#filterAnakCetak option:selected').text()));
-        $('#printHead').html(thead);
-        $('#printBody').html(tbody);
+        let filterTitle = 'Data: ' + (idAnak === 'semua' ? 'Semua Anak' : $('#filterAnakCetak option:selected').text());
+        $('#previewTitle, #printTitle').text(filterTitle);
         
-        window.print();
+        $('#previewHead, #printHead').html(thead);
+        $('#previewBody, #printBody').html(tbody);
+        $('#previewArea').removeClass('d-none');
+        
       } else {
-        Swal.fire('Info', 'Data kosong atau tidak ditemukan.', 'info');
+        $('#previewArea').addClass('d-none');
+        Swal.fire('Info', 'Data kosong atau tidak ditemukan untuk filter ini.', 'info');
       }
-      btn.prop('disabled', false).text('🖨️ Proses & Cetak');
+      btn.prop('disabled', false).text('👁️ Tampilkan Data');
     }
   </script>
 </body>
