@@ -29,14 +29,15 @@
     .nav-pills .nav-link { color: #0d9488; font-weight: bold; cursor: pointer; }
     .anak-card { cursor: pointer; transition: 0.3s; border: 1px solid #e2e8f0; border-radius: 10px;}
     .anak-card:hover { border-color: #0d9488; box-shadow: 0 4px 10px rgba(13, 148, 136, 0.2); }
+    .foto-bukti { max-height: 50px; border-radius: 6px; cursor: pointer; border: 1px solid #ccc; }
     
     @media print {
       @page { size: landscape; margin: 10mm; }
       body { background-color: white; margin: 0; padding: 0;}
       #loginPage, .navbar, #mainApp, .modal, .swal2-container { display: none !important; }
       #printArea { display: block !important; width: 100%; }
-      .table-bordered th, .table-bordered td { border: 1px solid #000 !important; font-size: 11px; padding: 4px; }
-      img.bukti-foto { max-height: 50px !important; }
+      .table-bordered th, .table-bordered td { border: 1px solid #000 !important; font-size: 11px; padding: 4px; vertical-align: middle;}
+      img.bukti-foto { max-height: 60px !important; }
     }
   </style>
 </head>
@@ -79,22 +80,56 @@
     </div>
     
     <ul class="nav nav-pills mb-4 flex-nowrap overflow-auto" id="roleTabs" role="tablist" style="white-space: nowrap;">
-      <li class="nav-item"><a class="nav-link active" data-bs-toggle="pill" href="#tab-dashboard">📊 Pantauan</a></li>
+      <li class="nav-item"><a class="nav-link active" data-bs-toggle="pill" href="#tab-dashboard">📊 Pantauan & Rekap</a></li>
       <li class="nav-item tab-kader"><a class="nav-link" data-bs-toggle="pill" href="#tab-pmt">🍲 PMT Mingguan</a></li>
       <li class="nav-item tab-kader"><a class="nav-link" data-bs-toggle="pill" href="#tab-fisik">⚖️ Fisik & Ukur</a></li>
       <li class="nav-item tab-kader"><a class="nav-link" data-bs-toggle="pill" href="#tab-bulanan">📅 Lap. Bulanan</a></li>
       <li class="nav-item tab-nakes"><a class="nav-link" data-bs-toggle="pill" href="#tab-nakes">🩺 Konfirmasi Nakes</a></li>
-      <li class="nav-item tab-laporan"><a class="nav-link bg-dark text-white" data-bs-toggle="pill" href="#tab-laporan">🖨️ Cetak Laporan</a></li>
+      <li class="nav-item tab-laporan"><a class="nav-link bg-dark text-white ms-1" data-bs-toggle="pill" href="#tab-laporan">🖨️ Cetak Laporan</a></li>
     </ul>
 
     <div class="tab-content">
+      <!-- TAB DASHBOARD & REKAP (Diperbarui dengan Tabel) -->
       <div class="tab-pane fade show active" id="tab-dashboard">
+        <!-- Kotak Statistik -->
         <div class="row">
           <div class="col-md-4 col-6 mb-3"><div class="card card-custom p-3 bg-primary text-white"><h6 class="opacity-75">Total Sasaran Anak</h6><h2 id="statAnak" class="fw-bold m-0">0</h2></div></div>
           <div class="col-md-4 col-6 mb-3"><div class="card card-custom p-3 bg-success text-white"><h6 class="opacity-75">Total PMT Masuk</h6><h2 id="statPMT" class="fw-bold m-0">0</h2></div></div>
           <div class="col-md-4 col-12 mb-3"><div class="card card-custom p-3 bg-warning text-dark"><h6 class="opacity-75">Total Fisik Masuk</h6><h2 id="statFisik" class="fw-bold m-0">0</h2></div></div>
         </div>
+
+        <!-- Bagian Rekap Pengisian Terbaru -->
+        <div class="card card-custom p-3 mt-2 shadow-sm border-0">
+          <h5 class="fw-bold text-teal mb-3">📋 Rekap Pengisian Terbaru</h5>
+          <ul class="nav nav-tabs mb-3" id="rekapTabs" role="tablist">
+            <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#rekap-pmt">🍲 PMT</a></li>
+            <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#rekap-fisik">⚖️ Fisik</a></li>
+            <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#rekap-bulanan">📅 Bulanan</a></li>
+          </ul>
+          
+          <div class="tab-content">
+            <div class="tab-pane fade show active table-responsive" id="rekap-pmt">
+              <table class="table table-bordered table-sm text-center align-middle" style="font-size: 13px;">
+                <thead class="table-light"><tr><th>Tgl</th><th>Nama Anak</th><th>Hari Ke</th><th>Ket</th><th>Kondisi</th><th>Foto</th></tr></thead>
+                <tbody id="tbodyRekapPMT"></tbody>
+              </table>
+            </div>
+            <div class="tab-pane fade table-responsive" id="rekap-fisik">
+              <table class="table table-bordered table-sm text-center align-middle" style="font-size: 13px;">
+                <thead class="table-light"><tr><th>Tgl</th><th>Nama Anak</th><th>Minggu Ke</th><th>BB/TB</th><th>Status Gizi</th><th>Foto</th></tr></thead>
+                <tbody id="tbodyRekapFisik"></tbody>
+              </table>
+            </div>
+            <div class="tab-pane fade table-responsive" id="rekap-bulanan">
+              <table class="table table-bordered table-sm text-center align-middle" style="font-size: 13px;">
+                <thead class="table-light"><tr><th>Tgl</th><th>Nama Anak</th><th>Dapat PMT</th><th>Jenis PMT</th><th>Keluhan</th></tr></thead>
+                <tbody id="tbodyRekapBulanan"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
+
       <div class="tab-pane fade" id="tab-pmt"><h5 class="section-title">Pilih Anak untuk PMT Mingguan</h5><div class="row" id="listPMT"></div></div>
       <div class="tab-pane fade" id="tab-fisik"><h5 class="section-title">Pilih Anak untuk Pemantauan Fisik</h5><div class="row" id="listFisik"></div></div>
       <div class="tab-pane fade" id="tab-bulanan"><h5 class="section-title">Pilih Anak untuk Laporan Bulanan</h5><div class="row" id="listBulanan"></div></div>
@@ -121,11 +156,12 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-6 mb-2"><button type="submit" class="btn btn-teal w-100 fw-bold" id="btnTampil">👁️ Tampilkan Data</button></div>
+              <div class="col-md-6 mb-2"><button type="submit" class="btn btn-teal w-100 fw-bold" id="btnTampil">👁️ Tampilkan Data Dulu</button></div>
               <div class="col-md-6 mb-2"><button type="button" class="btn btn-dark w-100 fw-bold" onclick="window.print()">🖨️ Cetak PDF</button></div>
             </div>
           </form>
           
+          <!-- Area Pratinjau Cetak di Dashboard -->
           <div id="previewArea" class="mt-4 table-responsive bg-white border p-3 rounded d-none" style="max-height: 500px; overflow-y: auto;">
             <h6 id="previewTitle" class="fw-bold mb-3 text-center"></h6>
             <table class="table table-bordered table-striped table-hover table-sm align-middle text-center" style="font-size: 13px;">
@@ -138,6 +174,7 @@
     </div>
   </div>
 
+  <!-- AREA CETAK KHUSUS (Hanya muncul saat Print Ctrl+P) -->
   <div id="printArea" class="p-3">
     <div class="text-center mb-4">
       <img src="https://lh3.googleusercontent.com/d/1hGSRD5dNVoF7TKUgF7nAZVqQ6wXFI3wj" height="70" alt="Logo">
@@ -152,6 +189,7 @@
     </div>
   </div>
 
+  <!-- MODALS -->
   <div class="modal fade" id="modalPMT" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
       <div class="modal-header bg-teal text-white" style="background-color: #0d9488;"><h5 class="modal-title">Form PMT Mingguan (7 Hari)</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
@@ -242,8 +280,20 @@
           <div class="mb-3"><label class="form-label fw-bold">Minggu Ke-</label><input type="number" class="form-control border-primary bg-light" id="nakesMingguKe" readonly required></div>
           
           <div class="row">
-            <div class="col-md-6 mb-3"><label class="form-label fw-bold">Konf. BB (kg)</label><input type="number" step="0.1" class="form-control" id="bbNakes" required></div>
-            <div class="col-md-6 mb-3"><label class="form-label fw-bold">Konf. TB (cm)</label><input type="number" step="0.1" class="form-control" id="tbNakes" required></div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-bold">Konf. BB (kg)</label>
+              <div class="input-group">
+                <span class="input-group-text bg-light" id="addon-bb-kader" title="Data dari Kader" style="font-size:12px; font-weight:bold;">Kader: -</span>
+                <input type="number" step="0.1" class="form-control" id="bbNakes" required>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-bold">Konf. TB (cm)</label>
+              <div class="input-group">
+                <span class="input-group-text bg-light" id="addon-tb-kader" title="Data dari Kader" style="font-size:12px; font-weight:bold;">Kader: -</span>
+                <input type="number" step="0.1" class="form-control" id="tbNakes" required>
+              </div>
+            </div>
           </div>
           
           <div class="mb-3"><label class="form-label fw-bold">Kesimpulan</label><select class="form-select" id="kesimpulanNakes" required><option value="Naik (N)">Naik (N)</option><option value="Tidak Naik (T)">Tidak Naik (T)</option></select></div>
@@ -325,11 +375,15 @@
         $('#statPMT').text(res.stats.totalPMT);
         $('#statFisik').text(res.stats.totalFisik);
         
+        // Update Select Filter Cetak
         let selectFilter = $('#filterAnakCetak');
         selectFilter.empty().append('<option value="semua">-- Semua Anak --</option>');
         res.listAnak.forEach(a => { selectFilter.append(new Option(`${a.nama} (${a.id})`, a.id)); });
 
         renderChildLists();
+        
+        // Render Tabel Rekap Terbaru
+        renderRekapTabel(res.rekap);
       }
     }
 
@@ -367,6 +421,23 @@
       }
     }
 
+    function renderRekapTabel(rekap) {
+      // Helper untuk menampilkan foto
+      const formatFoto = (link) => link && link.includes('drive.google.com') ? `<a href="${link}" target="_blank"><img src="${link}" class="foto-bukti shadow-sm"></a>` : '-';
+      
+      let htmlPMT = '';
+      rekap.pmt.forEach(r => { htmlPMT += `<tr><td>${r.tgl}</td><td>${r.nama}</td><td>${r.pmtKe}</td><td>${r.ket}</td><td>${r.kondisi}</td><td>${formatFoto(r.foto)}</td></tr>`; });
+      $('#tbodyRekapPMT').html(htmlPMT || '<tr><td colspan="6">Data belum tersedia</td></tr>');
+
+      let htmlFisik = '';
+      rekap.fisik.forEach(r => { htmlFisik += `<tr><td>${r.tgl}</td><td>${r.nama}</td><td>Mg ${r.mingguKe}</td><td>${r.bb}kg / ${r.tb}cm</td><td>${r.statusGizi}</td><td>${formatFoto(r.foto)}</td></tr>`; });
+      $('#tbodyRekapFisik').html(htmlFisik || '<tr><td colspan="6">Data belum tersedia</td></tr>');
+
+      let htmlBulanan = '';
+      rekap.bulanan.forEach(r => { htmlBulanan += `<tr><td>${r.tgl}</td><td>${r.nama}</td><td>${r.dapatPMT}</td><td>${r.jenisPMT}</td><td>${r.keluhan || '-'}</td></tr>`; });
+      $('#tbodyRekapBulanan').html(htmlBulanan || '<tr><td colspan="5">Data belum tersedia</td></tr>');
+    }
+
     function bukaModal(formType, idAnak, namaAnak, waAnak) {
       if (formType === 'PMT') {
         $('#pmtIdAnak').val(idAnak); $('#pmtNamaAnak').text(namaAnak);
@@ -381,13 +452,21 @@
         $('#nakesIdAnak').val(idAnak); $('#nakesNamaAnak').text(namaAnak); $('#nakesWaAnak').val(waAnak);
         if(dataFisikUnconfirmed[idAnak]) {
           let kd = dataFisikUnconfirmed[idAnak];
-          $('#dataKaderAlert').html(`✅ Kader melapor (Minggu ${kd.mingguKe}): BB = ${kd.bbKader} kg, TB = ${kd.tbKader} cm`).removeClass('text-danger').addClass('text-success');
+          $('#dataKaderAlert').html(`✅ Ada antrian masuk dari Kader (Minggu ${kd.mingguKe})`).removeClass('text-danger').addClass('text-success');
           $('#nakesMingguKe').val(kd.mingguKe); 
-          $('#bbNakes').val(kd.bbKader); // Auto-fill 
-          $('#tbNakes').val(kd.tbKader); // Auto-fill
+          
+          // Render nilai dari Kader ke text addon agar Nakes bisa melihat
+          $('#addon-bb-kader').text(`Kader: ${kd.bbKader}kg`);
+          $('#addon-tb-kader').text(`Kader: ${kd.tbKader}cm`);
+          
+          // Auto-fill form Nakes dengan nilai Kader sebagai nilai awal
+          $('#bbNakes').val(kd.bbKader); 
+          $('#tbNakes').val(kd.tbKader); 
         } else {
-          $('#dataKaderAlert').html(`⚠️ Belum ada data masuk dari Kader`).removeClass('text-success').addClass('text-danger');
-          $('#nakesMingguKe').val(''); $('#bbNakes').val(''); $('#tbNakes').val('');
+          $('#dataKaderAlert').html(`⚠️ Belum ada data terbaru dari Kader`).removeClass('text-success').addClass('text-danger');
+          $('#nakesMingguKe').val(''); 
+          $('#addon-bb-kader').text(`Kader: -`); $('#addon-tb-kader').text(`Kader: -`);
+          $('#bbNakes').val(''); $('#tbNakes').val('');
         }
         new bootstrap.Modal(document.getElementById('modalNakes')).show();
       }
@@ -408,6 +487,7 @@
         Swal.fire('Berhasil!', res.message, 'success');
         document.getElementById('formKaderPMT').reset();
         bootstrap.Modal.getInstance(document.getElementById('modalPMT')).hide();
+        loadApplication(); // Reload agar tabel rekap langsung update
       } else { Swal.fire('Gagal!', res.message, 'error'); }
       btn.prop('disabled', false).text('📤 Simpan PMT Mingguan');
     }
@@ -425,7 +505,7 @@
         Swal.fire('Tersimpan!', res.message, 'success');
         document.getElementById('formKaderFisik').reset();
         bootstrap.Modal.getInstance(document.getElementById('modalFisik')).hide();
-        loadApplication(); // Reload to refresh unconfirmed tags
+        loadApplication(); 
       } else { Swal.fire('Gagal!', res.message, 'error'); }
       btn.prop('disabled', false).text('📤 Simpan Data Pengukuran');
     }
@@ -442,6 +522,7 @@
         Swal.fire('Tersimpan!', res.message, 'success');
         document.getElementById('formKaderBulanan').reset();
         bootstrap.Modal.getInstance(document.getElementById('modalBulanan')).hide();
+        loadApplication();
       } else { Swal.fire('Gagal!', res.message, 'error'); }
       btn.prop('disabled', false).text('📤 Simpan Form Bulanan');
     }
@@ -452,8 +533,11 @@
       
       const res = await kirimDataKeServer({
         action: 'simpanNakes', idAnak: $('#nakesIdAnak').val(), namaAnak: $('#nakesNamaAnak').text(), noWa: $('#nakesWaAnak').val(),
-        mingguKe: $('#nakesMingguKe').val() || 1, bbNakes: $('#bbNakes').val(), tbNakes: $('#tbNakes').val(),
-        kesimpulan: $('#kesimpulanNakes').val(), bbu: $('#statusBBU').val(), tbu: $('#statusTBU').val(), bbtb: $('#statusBBTB').val(),
+        mingguKe: $('#nakesMingguKe').val() || 1, 
+        bbKader: $('#addon-bb-kader').text().replace('Kader: ', '').replace('kg', '').trim(), 
+        tbKader: $('#addon-tb-kader').text().replace('Kader: ', '').replace('cm', '').trim(),
+        bbNakes: $('#bbNakes').val(), tbNakes: $('#tbNakes').val(), kesimpulan: $('#kesimpulanNakes').val(), 
+        bbu: $('#statusBBU').val(), tbu: $('#statusTBU').val(), bbtb: $('#statusBBTB').val(),
         redFlag: $('#redFlag').val() || "Tidak Ada", penanganan: $('#penanganan').val() || "-", rujuk: $('#rujuk').val()
       });
 
@@ -461,7 +545,7 @@
         Swal.fire('Berhasil!', res.message, 'success');
         document.getElementById('formNakes').reset();
         bootstrap.Modal.getInstance(document.getElementById('modalNakes')).hide();
-        loadApplication(); // Reload to clear unconfirmed tag
+        loadApplication(); 
       } else { Swal.fire('Gagal!', res.message, 'error'); }
       btn.prop('disabled', false).text('📲 Simpan Evaluasi Medis & Kirim WA');
     }
@@ -483,10 +567,10 @@
         res.data.forEach(row => {
           tbody += '<tr>';
           row.forEach(cell => { 
-            let stringCell = cell.toString();
-            // Menampilkan Foto dalam mode Preview & Cetak jika terdeteksi URL Drive
+            let stringCell = cell ? cell.toString() : "";
+            // Tampilkan foto khusus jika kolom memiliki URL dari Drive
             if(stringCell.includes('drive.google.com')) { 
-              tbody += `<td><a href="${stringCell}" target="_blank"><img src="${stringCell}" class="bukti-foto shadow-sm border" style="max-height: 80px; border-radius: 6px;"></a></td>`; 
+              tbody += `<td><img src="${stringCell}" class="bukti-foto shadow-sm border" style="max-height: 50px; border-radius: 6px;"></td>`; 
             } else { 
               tbody += `<td>${stringCell}</td>`; 
             }
@@ -494,18 +578,18 @@
           tbody += '</tr>';
         });
         
-        let filterTitle = 'Data: ' + (idAnak === 'semua' ? 'Semua Anak' : $('#filterAnakCetak option:selected').text());
+        let filterTitle = 'Data Laporan: ' + (idAnak === 'semua' ? 'Semua Anak' : $('#filterAnakCetak option:selected').text());
         $('#previewTitle, #printTitle').text(filterTitle);
         
         $('#previewHead, #printHead').html(thead);
         $('#previewBody, #printBody').html(tbody);
-        $('#previewArea').removeClass('d-none');
+        $('#previewArea').removeClass('d-none'); // Munculkan tabel pratinjau di layar
         
       } else {
         $('#previewArea').addClass('d-none');
         Swal.fire('Info', 'Data kosong atau tidak ditemukan untuk filter ini.', 'info');
       }
-      btn.prop('disabled', false).text('👁️ Tampilkan Data');
+      btn.prop('disabled', false).text('👁️ Tampilkan Data Dulu');
     }
   </script>
 </body>
