@@ -37,7 +37,7 @@
       #loginPage, .navbar, #mainApp, .modal, .swal2-container { display: none !important; }
       #printArea { display: block !important; width: 100%; }
       .table-bordered th, .table-bordered td { border: 1px solid #000 !important; font-size: 11px; padding: 4px; vertical-align: middle;}
-      img.bukti-foto { max-height: 60px !important; }
+      img.foto-bukti { max-height: 60px !important; }
     }
   </style>
 </head>
@@ -89,16 +89,13 @@
     </ul>
 
     <div class="tab-content">
-      <!-- TAB DASHBOARD & REKAP (Diperbarui dengan Tabel) -->
       <div class="tab-pane fade show active" id="tab-dashboard">
-        <!-- Kotak Statistik -->
         <div class="row">
           <div class="col-md-4 col-6 mb-3"><div class="card card-custom p-3 bg-primary text-white"><h6 class="opacity-75">Total Sasaran Anak</h6><h2 id="statAnak" class="fw-bold m-0">0</h2></div></div>
           <div class="col-md-4 col-6 mb-3"><div class="card card-custom p-3 bg-success text-white"><h6 class="opacity-75">Total PMT Masuk</h6><h2 id="statPMT" class="fw-bold m-0">0</h2></div></div>
           <div class="col-md-4 col-12 mb-3"><div class="card card-custom p-3 bg-warning text-dark"><h6 class="opacity-75">Total Fisik Masuk</h6><h2 id="statFisik" class="fw-bold m-0">0</h2></div></div>
         </div>
 
-        <!-- Bagian Rekap Pengisian Terbaru -->
         <div class="card card-custom p-3 mt-2 shadow-sm border-0">
           <h5 class="fw-bold text-teal mb-3">📋 Rekap Pengisian Terbaru</h5>
           <ul class="nav nav-tabs mb-3" id="rekapTabs" role="tablist">
@@ -161,7 +158,6 @@
             </div>
           </form>
           
-          <!-- Area Pratinjau Cetak di Dashboard -->
           <div id="previewArea" class="mt-4 table-responsive bg-white border p-3 rounded d-none" style="max-height: 500px; overflow-y: auto;">
             <h6 id="previewTitle" class="fw-bold mb-3 text-center"></h6>
             <table class="table table-bordered table-striped table-hover table-sm align-middle text-center" style="font-size: 13px;">
@@ -174,7 +170,6 @@
     </div>
   </div>
 
-  <!-- AREA CETAK KHUSUS (Hanya muncul saat Print Ctrl+P) -->
   <div id="printArea" class="p-3">
     <div class="text-center mb-4">
       <img src="https://lh3.googleusercontent.com/d/1hGSRD5dNVoF7TKUgF7nAZVqQ6wXFI3wj" height="70" alt="Logo">
@@ -375,14 +370,11 @@
         $('#statPMT').text(res.stats.totalPMT);
         $('#statFisik').text(res.stats.totalFisik);
         
-        // Update Select Filter Cetak
         let selectFilter = $('#filterAnakCetak');
         selectFilter.empty().append('<option value="semua">-- Semua Anak --</option>');
         res.listAnak.forEach(a => { selectFilter.append(new Option(`${a.nama} (${a.id})`, a.id)); });
 
         renderChildLists();
-        
-        // Render Tabel Rekap Terbaru
         renderRekapTabel(res.rekap);
       }
     }
@@ -422,8 +414,7 @@
     }
 
     function renderRekapTabel(rekap) {
-      // Helper untuk menampilkan foto
-      const formatFoto = (link) => link && link.includes('drive.google.com') ? `<a href="${link}" target="_blank"><img src="${link}" class="foto-bukti shadow-sm"></a>` : '-';
+      const formatFoto = (link) => link && (link.includes('drive.google.com') || link.includes('lh3.googleusercontent.com')) ? `<a href="${link}" target="_blank"><img src="${link}" class="foto-bukti shadow-sm"></a>` : '-';
       
       let htmlPMT = '';
       rekap.pmt.forEach(r => { htmlPMT += `<tr><td>${r.tgl}</td><td>${r.nama}</td><td>${r.pmtKe}</td><td>${r.ket}</td><td>${r.kondisi}</td><td>${formatFoto(r.foto)}</td></tr>`; });
@@ -455,11 +446,9 @@
           $('#dataKaderAlert').html(`✅ Ada antrian masuk dari Kader (Minggu ${kd.mingguKe})`).removeClass('text-danger').addClass('text-success');
           $('#nakesMingguKe').val(kd.mingguKe); 
           
-          // Render nilai dari Kader ke text addon agar Nakes bisa melihat
           $('#addon-bb-kader').text(`Kader: ${kd.bbKader}kg`);
           $('#addon-tb-kader').text(`Kader: ${kd.tbKader}cm`);
           
-          // Auto-fill form Nakes dengan nilai Kader sebagai nilai awal
           $('#bbNakes').val(kd.bbKader); 
           $('#tbNakes').val(kd.tbKader); 
         } else {
@@ -487,7 +476,7 @@
         Swal.fire('Berhasil!', res.message, 'success');
         document.getElementById('formKaderPMT').reset();
         bootstrap.Modal.getInstance(document.getElementById('modalPMT')).hide();
-        loadApplication(); // Reload agar tabel rekap langsung update
+        loadApplication(); 
       } else { Swal.fire('Gagal!', res.message, 'error'); }
       btn.prop('disabled', false).text('📤 Simpan PMT Mingguan');
     }
@@ -568,9 +557,8 @@
           tbody += '<tr>';
           row.forEach(cell => { 
             let stringCell = cell ? cell.toString() : "";
-            // Tampilkan foto khusus jika kolom memiliki URL dari Drive
-            if(stringCell.includes('drive.google.com')) { 
-              tbody += `<td><img src="${stringCell}" class="bukti-foto shadow-sm border" style="max-height: 50px; border-radius: 6px;"></td>`; 
+            if(stringCell.includes('drive.google.com') || stringCell.includes('lh3.googleusercontent.com')) { 
+              tbody += `<td><img src="${stringCell}" class="foto-bukti shadow-sm border" style="max-height: 50px; border-radius: 6px;"></td>`; 
             } else { 
               tbody += `<td>${stringCell}</td>`; 
             }
@@ -583,7 +571,7 @@
         
         $('#previewHead, #printHead').html(thead);
         $('#previewBody, #printBody').html(tbody);
-        $('#previewArea').removeClass('d-none'); // Munculkan tabel pratinjau di layar
+        $('#previewArea').removeClass('d-none'); 
         
       } else {
         $('#previewArea').addClass('d-none');
