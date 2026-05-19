@@ -2,18 +2,16 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>SIPENDEKAR - Dashboard Terpadu</title>
+<title>SIPENDEKAR - Dashboard Terpadu | Belajar Inovasi</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1hGSRD5dNVoF7TKUgF7nAZVqQ6wXFI3wj">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <style>
 body { background-color: #f4f7f6; font-family: 'Segoe UI', sans-serif; }
 .navbar { background-color: #0d9488; display: none; }
 #mainApp { display: none; }
 #printArea { display: none; }
-
 #loginPage {
 height: 100vh; display: flex; align-items: center; justify-content: center;
 background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%); padding: 15px;
@@ -30,7 +28,6 @@ width: 100%; max-width: 400px; padding: 2rem; background: white; border-radius: 
 .anak-card { cursor: pointer; transition: 0.3s; border: 1px solid #e2e8f0; border-radius: 10px;}
 .anak-card:hover { border-color: #0d9488; box-shadow: 0 4px 10px rgba(13, 148, 136, 0.2); }
 .foto-bukti { max-height: 50px; border-radius: 6px; cursor: pointer; border: 1px solid #ccc; }
-
 @media print {
 @page { size: landscape; margin: 10mm; }
 body { background-color: white; margin: 0; padding: 0;}
@@ -76,13 +73,12 @@ SIPENDEKAR
 <div class="d-flex justify-content-between align-items-center mb-3">
 <h5 class="fw-bold text-teal m-0" style="color: #0d9488;">Wilayah Tugas: <span id="wilayahBadge" class="badge bg-secondary"></span></h5>
 </div>
-
 <ul class="nav nav-pills mb-4 flex-nowrap overflow-auto" id="roleTabs" role="tablist" style="white-space: nowrap;">
-<li class="nav-item"><a class="nav-link active" data-bs-toggle="pill" href="#tab-dashboard"> 📊  Pantauan & Rekap</a></li>
-<li class="nav-item tab-kader"><a class="nav-link" data-bs-toggle="pill" href="#tab-pmt"> 🍲  PMT Mingguan</a></li>
+<li class="nav-item"><a class="nav-link active" data-bs-toggle="pill" href="#tab-dashboard"> 📊 Pantauan & Rekap</a></li>
+<li class="nav-item tab-kader"><a class="nav-link" data-bs-toggle="pill" href="#tab-pmt"> 🍲 PMT Mingguan</a></li>
 <li class="nav-item tab-kader"><a class="nav-link" data-bs-toggle="pill" href="#tab-fisik"> ⚖ ️ Fisik & Ukur</a></li>
-<li class="nav-item tab-kader"><a class="nav-link" data-bs-toggle="pill" href="#tab-bulanan"> 📅  Lap. Bulanan</a></li>
-<li class="nav-item tab-nakes"><a class="nav-link" data-bs-toggle="pill" href="#tab-nakes"> 🩺  Konfirmasi Nakes</a></li>
+<li class="nav-item tab-kader"><a class="nav-link" data-bs-toggle="pill" href="#tab-bulanan"> 📅 Lap. Bulanan</a></li>
+<li class="nav-item tab-nakes"><a class="nav-link" data-bs-toggle="pill" href="#tab-nakes"> 🩺 Konfirmasi Nakes</a></li>
 <li class="nav-item tab-laporan"><a class="nav-link bg-dark text-white ms-1" data-bs-toggle="pill" href="#tab-laporan"> 🖨 ️ Cetak Laporan</a></li>
 </ul>
 <div class="tab-content">
@@ -93,13 +89,12 @@ SIPENDEKAR
 <div class="col-md-4 col-12 mb-3"><div class="card card-custom p-3 bg-warning text-dark"><h6 class="opacity-75">Total Fisik Masuk</h6><h2 id="statFisik" class="fw-bold m-0">0</h2></div></div>
 </div>
 <div class="card card-custom p-3 mt-2 shadow-sm border-0">
-<h5 class="fw-bold text-teal mb-3"> 📋  Rekap Pengisian Terbaru</h5>
+<h5 class="fw-bold text-teal mb-3"> 📋 Rekap Pengisian Terbaru</h5>
 <ul class="nav nav-tabs mb-3" id="rekapTabs" role="tablist">
-<li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#rekap-pmt"> 🍲  PMT</a></li>
+<li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#rekap-pmt"> 🍲 PMT</a></li>
 <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#rekap-fisik"> ⚖ ️ Fisik</a></li>
-<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#rekap-bulanan"> 📅  Bulanan</a></li>
+<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#rekap-bulanan"> 📅 Bulanan</a></li>
 </ul>
-
 <div class="tab-content">
 <div class="tab-pane fade show active table-responsive" id="rekap-pmt">
 <table class="table table-bordered table-sm text-center align-middle" style="font-size: 13px;">
@@ -126,7 +121,6 @@ SIPENDEKAR
 <div class="tab-pane fade" id="tab-fisik"><h5 class="section-title">Pilih Anak untuk Pemantauan Fisik</h5><div class="row" id="listFisik"></div></div>
 <div class="tab-pane fade" id="tab-bulanan"><h5 class="section-title">Pilih Anak untuk Laporan Bulanan</h5><div class="row" id="listBulanan"></div></div>
 <div class="tab-pane fade" id="tab-nakes"><h5 class="section-title text-primary">Pilih Anak untuk Konfirmasi Medis</h5><div class="row" id="listNakes"></div></div>
-
 <div class="tab-pane fade" id="tab-laporan">
 <div class="card card-custom p-4 border-dark">
 <h5 class="section-title text-dark"> 🖨 ️ Pusat Laporan SIPENDEKAR</h5>
@@ -152,7 +146,6 @@ SIPENDEKAR
 <div class="col-md-6 mb-2"><button type="button" class="btn btn-dark w-100 fw-bold" onclick="window.print()"> 🖨 ️ Cetak PDF</button></div>
 </div>
 </form>
-
 <div id="previewArea" class="mt-4 table-responsive bg-white border p-3 rounded d-none" style="max-height: 500px; overflow-y: auto;">
 <h6 id="previewTitle" class="fw-bold mb-3 text-center"></h6>
 <table class="table table-bordered table-striped table-hover table-sm align-middle text-center" style="font-size: 13px;">
@@ -201,7 +194,7 @@ SIPENDEKAR
 </table>
 </div>
 <div class="mb-4"><label class="form-label fw-bold">Upload Bukti PMT (1 Foto)</label><input type="file" class="form-control" id="filePmt" accept="image/*" required></div>
-<button type="submit" class="btn btn-teal w-100 fw-bold" id="btnPmt"> 📤  Simpan PMT Mingguan</button>
+<button type="submit" class="btn btn-teal w-100 fw-bold" id="btnPmt"> 📤 Simpan PMT Mingguan</button>
 </form>
 </div>
 </div></div>
@@ -219,7 +212,7 @@ SIPENDEKAR
 <div class="col-6 mb-3"><label class="form-label">Hasil TB (cm)</label><input type="number" step="0.1" class="form-control" id="tbKader" required></div>
 </div>
 <div class="mb-4"><label class="form-label">Upload Bukti Ukur (1 Foto)</label><input type="file" class="form-control" id="fileTimbang" accept="image/*" required></div>
-<button type="submit" class="btn btn-teal w-100 fw-bold" id="btnFisik"> 📤  Simpan Data Pengukuran</button>
+<button type="submit" class="btn btn-teal w-100 fw-bold" id="btnFisik"> 📤 Simpan Data Pengukuran</button>
 </form>
 </div>
 </div></div>
@@ -243,7 +236,7 @@ SIPENDEKAR
 <div class="mb-3"><label class="form-label small fw-bold">10. Pesan disampaikan?</label><input type="text" class="form-control" id="q10"></div>
 <div class="mb-3"><label class="form-label small fw-bold">11. Ibu mengerti?</label><select class="form-select" id="q11"><option value="Ya">Ya</option><option value="Tidak">Tidak</option></select></div>
 <div class="mb-4"><label class="form-label small fw-bold">12. Praktik di rumah?</label><select class="form-select" id="q12"><option value="Ya">Ya</option><option value="Tidak">Tidak</option></select></div>
-<button type="submit" class="btn btn-teal w-100 fw-bold" id="btnBulanan"> 📤  Simpan Form Bulanan</button>
+<button type="submit" class="btn btn-teal w-100 fw-bold" id="btnBulanan"> 📤 Simpan Form Bulanan</button>
 </form>
 </div>
 </div></div>
@@ -255,14 +248,11 @@ SIPENDEKAR
 <form id="formNakes" onsubmit="submitNakes(event)">
 <input type="hidden" id="nakesIdAnak">
 <input type="hidden" id="nakesWaAnak">
-
 <div class="alert alert-light border border-primary mb-3">
 <h6 class="mb-1"><strong>Nama:</strong> <span id="nakesNamaAnak"></span></h6>
 <div id="dataKaderAlert" class="small text-danger fw-bold">Data Kader Belum Masuk</div>
 </div>
-
 <div class="mb-3"><label class="form-label fw-bold">Minggu Ke-</label><input type="number" class="form-control border-primary bg-light" id="nakesMingguKe" readonly required></div>
-
 <div class="row">
 <div class="col-md-6 mb-3">
 <label class="form-label fw-bold">Konf. BB (kg)</label>
@@ -279,9 +269,7 @@ SIPENDEKAR
 </div>
 </div>
 </div>
-
 <div class="mb-3"><label class="form-label fw-bold">Kesimpulan</label><select class="form-select" id="kesimpulanNakes" required><option value="Naik (N)">Naik (N)</option><option value="Tidak Naik (T)">Tidak Naik (T)</option></select></div>
-
 <div class="card p-3 mb-3 bg-light border-0">
 <label class="form-label fw-bold text-danger">Status Gizi Detail</label>
 <div class="row">
@@ -295,7 +283,7 @@ SIPENDEKAR
 <div class="col-6 mb-4"><label class="form-label fw-bold">Penanganan</label><input type="text" class="form-control" id="penanganan"></div>
 <div class="col-6 mb-4"><label class="form-label fw-bold">Rujuk RS</label><select class="form-select" id="rujuk"><option value="Tidak">Tidak</option><option value="Ya">Ya</option></select></div>
 </div>
-<button type="submit" class="btn btn-primary w-100 fw-bold" id="btnNakes"> 📲  Simpan Evaluasi Medis & Kirim WA</button>
+<button type="submit" class="btn btn-primary w-100 fw-bold" id="btnNakes"> 📲 Simpan Evaluasi Medis & Kirim WA</button>
 </form>
 </div>
 </div></div>
@@ -303,8 +291,7 @@ SIPENDEKAR
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzYd-_c_5Yoo-3HvEmMbU4utgDc7ASXPnDFPk7F-ETwX9GtTTy55Kbjb7d2s-JNPwjRcA/exec';
-
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzZgXVo183oVLquwo_y5Ss-kiiiq_KA1w-HPW2kShtuUEGSuvHL4a5DE8PD_0_z-9w/exec';
 let sessionUser = null;
 let listAnakData = [];
 let dataFisikUnconfirmed = {};
@@ -314,17 +301,53 @@ const response = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(
 return await response.json();
 } catch (e) { return { success: false, message: "Koneksi gagal!" }; }
 }
+
+// PERBAIKAN: Fungsi kompresi gambar menggunakan Canvas
 function getBase64(file) {
-return new Promise((resolve, reject) => {
-const reader = new FileReader(); reader.readAsDataURL(file);
-reader.onload = () => resolve(reader.result); reader.onerror = error => reject(error);
-});
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      const img = new Image();
+      img.src = event.target.result;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const MAX_WIDTH = 800; // Lebar maksimal gambar diubah jadi 800px
+        const MAX_HEIGHT = 800;
+        let width = img.width;
+        let height = img.height;
+
+        // Proses Resize / Mengecilkan dimensi
+        if (width > height) {
+          if (width > MAX_WIDTH) {
+            height *= MAX_WIDTH / width;
+            width = MAX_WIDTH;
+          }
+        } else {
+          if (height > MAX_HEIGHT) {
+            width *= MAX_HEIGHT / height;
+            height = MAX_HEIGHT;
+          }
+        }
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // Kompres menjadi JPEG dengan kualitas 60% agar file sangat kecil namun tetap jelas
+        const compressedBase64 = canvas.toDataURL('image/jpeg', 0.6);
+        resolve(compressedBase64);
+      };
+      img.onerror = error => reject(error);
+    };
+    reader.onerror = error => reject(error);
+  });
 }
+
 async function doLogin(e) {
 e.preventDefault();
 const user = $('#user').val(); const pass = $('#pass').val();
 const btn = $('#btnLogin'); btn.prop('disabled', true).text('Memverifikasi...');
-
 const res = await kirimDataKeServer({ action: 'login', username: user, password: pass });
 if (res.success) { sessionUser = res; loadApplication(); }
 else { Swal.fire('Gagal', res.message, 'error'); btn.prop('disabled', false).text('MASUK APLIKASI'); }
@@ -333,7 +356,6 @@ async function loadApplication() {
 $('#loginPage').fadeOut(); $('#mainApp, .navbar').fadeIn();
 $('#displayUser').text(`Halo, ${sessionUser.nama}`);
 $('#wilayahBadge').text(sessionUser.wilayah);
-
 if (sessionUser.role === "Kader") {
 $('.tab-nakes, .tab-laporan').hide();
 } else if (sessionUser.role === "Nakes") {
@@ -341,16 +363,13 @@ $('.tab-kader').hide();
 } else if (sessionUser.role === "Admin") {
 $('.tab-kader, .tab-nakes, .tab-laporan').show();
 }
-
 const res = await kirimDataKeServer({ action: 'getDashboard', wilayah: sessionUser.wilayah, role: sessionUser.role });
 if (res.success) {
 listAnakData = res.listAnak;
 dataFisikUnconfirmed = res.fisikUnconfirmed || {};
-
 $('#statAnak').text(res.stats.totalAnak);
 $('#statPMT').text(res.stats.totalPMT);
 $('#statFisik').text(res.stats.totalFisik);
-
 let selectFilter = $('#filterAnakCetak');
 selectFilter.empty().append('<option value="semua">-- Semua Anak --</option>');
 res.listAnak.forEach(a => { selectFilter.append(new Option(`${a.nama} (${a.id})`, a.id)); });
@@ -392,7 +411,6 @@ renderCards('listNakes', 'NAKES', 'btn-outline-primary', 'Konfirmasi Medis', ' �
 }
 function renderRekapTabel(rekap) {
 const formatFoto = (link) => link && (link.includes('drive.google.com') || link.includes('lh3.googleusercontent.com')) ? `<a href="${link}" target="_blank"><img src="${link}" class="foto-bukti shadow-sm"></a>` : '-';
-
 let htmlPMT = '';
 rekap.pmt.forEach(r => { htmlPMT += `<tr><td>${r.tgl}</td><td>${r.nama}</td><td>${r.pmtKe}</td><td>${r.ket}</td><td>${r.kondisi}</td><td>${formatFoto(r.foto)}</td></tr>`; });
 $('#tbodyRekapPMT').html(htmlPMT || '<tr><td colspan="6">Data belum tersedia</td></tr>');
@@ -417,7 +435,7 @@ new bootstrap.Modal(document.getElementById('modalBulanan')).show();
 $('#nakesIdAnak').val(idAnak); $('#nakesNamaAnak').text(namaAnak); $('#nakesWaAnak').val(waAnak);
 if(dataFisikUnconfirmed[idAnak]) {
 let kd = dataFisikUnconfirmed[idAnak];
-$('#dataKaderAlert').html(` ✅  Ada antrian masuk dari Kader (Minggu ${kd.mingguKe})`).removeClass('text-danger').addClass('text-success');
+$('#dataKaderAlert').html(` ✅ Ada antrian masuk dari Kader (Minggu ${kd.mingguKe})`).removeClass('text-danger').addClass('text-success');
 $('#nakesMingguKe').val(kd.mingguKe);
 $('#addon-bb-kader').text(`Kader: ${kd.bbKader}kg`);
 $('#addon-tb-kader').text(`Kader: ${kd.tbKader}cm`);
@@ -434,7 +452,7 @@ new bootstrap.Modal(document.getElementById('modalNakes')).show();
 }
 async function submitPMT(e) {
 e.preventDefault();
-const btn = $('#btnPmt'); btn.prop('disabled', true).text(' ⏳  Menyimpan...');
+const btn = $('#btnPmt'); btn.prop('disabled', true).text(' ⏳ Menyimpan...');
 const base64 = await getBase64(document.getElementById('filePmt').files[0]);
 let dataHari = [];
 for(let i=1; i<=7; i++){ dataHari.push({ hari: i, keterangan: $('#ket'+i).val(), kondisi: $('#kon'+i).val() }); }
@@ -447,11 +465,11 @@ document.getElementById('formKaderPMT').reset();
 bootstrap.Modal.getInstance(document.getElementById('modalPMT')).hide();
 loadApplication();
 } else { Swal.fire('Gagal!', res.message, 'error'); }
-btn.prop('disabled', false).text(' 📤  Simpan PMT Mingguan');
+btn.prop('disabled', false).text(' 📤 Simpan PMT Mingguan');
 }
 async function submitFisik(e) {
 e.preventDefault();
-const btn = $('#btnFisik'); btn.prop('disabled', true).text(' ⏳  Menyimpan...');
+const btn = $('#btnFisik'); btn.prop('disabled', true).text(' ⏳ Menyimpan...');
 const base64 = await getBase64(document.getElementById('fileTimbang').files[0]);
 const res = await kirimDataKeServer({
 action: 'simpanFisik', idAnak: $('#fisikIdAnak').val(), idRecord: "F" + Date.now(),
@@ -463,11 +481,11 @@ document.getElementById('formKaderFisik').reset();
 bootstrap.Modal.getInstance(document.getElementById('modalFisik')).hide();
 loadApplication();
 } else { Swal.fire('Gagal!', res.message, 'error'); }
-btn.prop('disabled', false).text(' 📤  Simpan Data Pengukuran');
+btn.prop('disabled', false).text(' 📤 Simpan Data Pengukuran');
 }
 async function submitBulanan(e) {
 e.preventDefault();
-const btn = $('#btnBulanan'); btn.prop('disabled', true).text(' ⏳  Menyimpan...');
+const btn = $('#btnBulanan'); btn.prop('disabled', true).text(' ⏳ Menyimpan...');
 const res = await kirimDataKeServer({
 action: 'simpanBulanan', idAnak: $('#bulanIdAnak').val(), q1: $('#q1').val(), q2: $('#q2').val(), q3: $('#q3').val(), q4: $('#q4').val(),
 q5: $('#q5').val(), q6: $('#q6').val(), q7: $('#q7').val(), q8: $('#q8').val(), q9: $('#q9').val(), q10: $('#q10').val(), q11: $('#q11').val(), q12: $('#q12').val()
@@ -478,12 +496,11 @@ document.getElementById('formKaderBulanan').reset();
 bootstrap.Modal.getInstance(document.getElementById('modalBulanan')).hide();
 loadApplication();
 } else { Swal.fire('Gagal!', res.message, 'error'); }
-btn.prop('disabled', false).text(' 📤  Simpan Form Bulanan');
+btn.prop('disabled', false).text(' 📤 Simpan Form Bulanan');
 }
 async function submitNakes(e) {
 e.preventDefault();
-const btn = $('#btnNakes'); btn.prop('disabled', true).text(' ⏳  Menyimpan & Mengirim WA...');
-
+const btn = $('#btnNakes'); btn.prop('disabled', true).text(' ⏳ Menyimpan & Mengirim WA...');
 const res = await kirimDataKeServer({
 action: 'simpanNakes', idAnak: $('#nakesIdAnak').val(), namaAnak: $('#nakesNamaAnak').text(), noWa: $('#nakesWaAnak').val(),
 mingguKe: $('#nakesMingguKe').val() || 1,
@@ -499,21 +516,18 @@ document.getElementById('formNakes').reset();
 bootstrap.Modal.getInstance(document.getElementById('modalNakes')).hide();
 loadApplication();
 } else { Swal.fire('Gagal!', res.message, 'error'); }
-btn.prop('disabled', false).text(' 📲  Simpan Evaluasi Medis & Kirim WA');
+btn.prop('disabled', false).text(' 📲 Simpan Evaluasi Medis & Kirim WA');
 }
 async function previewLaporan(e) {
 e.preventDefault();
-const btn = $('#btnTampil'); btn.prop('disabled', true).text(' ⏳  Memuat...');
+const btn = $('#btnTampil'); btn.prop('disabled', true).text(' ⏳ Memuat...');
 const jenis = $('#jenisLaporan').val();
 const idAnak = $('#filterAnakCetak').val();
-
 const res = await kirimDataKeServer({ action: 'getReportData', jenis: jenis, idAnak: idAnak });
-
 if(res.success && res.data.length > 0) {
 let thead = '<tr>';
 res.headers.forEach(h => { thead += `<th>${h}</th>`; });
 thead += '</tr>';
-
 let tbody = '';
 res.data.forEach(row => {
 tbody += '<tr>';
@@ -527,13 +541,11 @@ tbody += `<td>${stringCell}</td>`;
 });
 tbody += '</tr>';
 });
-
 let filterTitle = 'Data Laporan: ' + (idAnak === 'semua' ? 'Semua Anak' : $('#filterAnakCetak option:selected').text());
 $('#previewTitle, #printTitle').text(filterTitle);
 $('#previewHead, #printHead').html(thead);
 $('#previewBody, #printBody').html(tbody);
 $('#previewArea').removeClass('d-none');
-
 } else {
 $('#previewArea').addClass('d-none');
 Swal.fire('Info', 'Data kosong atau tidak ditemukan untuk filter ini.', 'info');
