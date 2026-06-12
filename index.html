@@ -3,264 +3,346 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Optimasi SEO: Title dan Description yang lebih tertarget -->
-    <meta name="description" content="Pencarian ahli gizi terdekat di Surabaya. Sidnaahligizi melayani pendampingan gizi anak stunting, program diet, dan terapi diet penyakit khusus. Melayani seluruh area Surabaya.">
-    <!-- Optimasi SEO: Keywords lengkap dengan seluruh kecamatan di Surabaya -->
-    <meta name="keywords" content="pencarian ahli gizi, pendampingan gizi, ahli gizi surabaya, ahli gizi terdekat, klinik gizi surabaya, ahli gizi stunting surabaya, ahli gizi diet surabaya, ahli gizi Asemrowo, ahli gizi Benowo, ahli gizi Bubutan, ahli gizi Bulak, ahli gizi Dukuh Pakis, ahli gizi Gayungan, ahli gizi Genteng, ahli gizi Gubeng, ahli gizi Gunung Anyar, ahli gizi Jambangan, ahli gizi Karang Pilang, ahli gizi Kenjeran, ahli gizi Krembangan, ahli gizi Lakarsantri, ahli gizi Mulyorejo, ahli gizi Pabean Cantian, ahli gizi Pakal, ahli gizi Rungkut, ahli gizi Sambikerep, ahli gizi Sawahan, ahli gizi Semampir, ahli gizi Simokerto, ahli gizi Sukolilo, ahli gizi Sukomanunggal, ahli gizi Tambaksari, ahli gizi Tandes, ahli gizi Tegalsari, ahli gizi Tenggilis Mejoyo, ahli gizi Wiyung, ahli gizi Wonocolo, ahli gizi Wonokromo">
+    <meta name="theme-color" content="#10b981">
+    
+    <!-- Optimasi SEO: Title, Description, dan Keywords -->
+    <title>Ahli Gizi Surabaya Terdekat - Konsultasi & Diet | Sidnaahligizi</title>
+    <meta name="description" content="Cari ahli gizi terdekat di Surabaya? Sidnaahligizi melayani pendampingan gizi anak stunting, manajemen diet, dan terapi penyakit klinis secara profesional.">
+    <meta name="keywords" content="ahli gizi surabaya, konsultasi gizi terdekat, klinik gizi surabaya, diet stunting anak, ahli gizi diet, terapi nutrisi surabaya, konsultasi gizi online">
     <meta name="author" content="Sidnaahligizi">
     
-    <title>Sidnaahligizi | Ahli Gizi Surabaya Terdekat - Konsultasi & Pendampingan</title>
+    <!-- Open Graph untuk Social Media Share -->
+    <meta property="og:title" content="Ahli Gizi Surabaya Terdekat - Sidnaahligizi">
+    <meta property="og:description" content="Pendampingan gizi anak stunting, program diet, dan terapi medis bersama ahli gizi terpercaya di Surabaya.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sidnaahligizi.my.id/">
+    
+    <!-- Schema.org Markup untuk Local SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HealthAndBeautyBusiness",
+      "name": "Sidnaahligizi",
+      "image": "https://lh3.googleusercontent.com/d/1hGSRD5dNVoF7TKUgF7nAZVqQ6wXFI3wj",
+      "@id": "https://sidnaahligizi.my.id/",
+      "url": "https://sidnaahligizi.my.id/",
+      "telephone": "+6285536666320",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Surabaya",
+        "addressRegion": "Jawa Timur",
+        "addressCountry": "ID"
+      },
+      "description": "Layanan konsultasi gizi profesional di Surabaya untuk anak stunting, diet, dan terapi gizi penyakit khusus.",
+      "areaServed": "Surabaya",
+      "priceRange": "$$"
+    }
+    </script>
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts: Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        :root {
+            --primary-green: #059669; /* Emerald Green - Sayuran */
+            --light-green: #d1fae5;
+            --accent-orange: #f59e0b; /* Amber - Energi/Buah */
+            --dark-text: #1e293b;
+        }
+
         body { 
             font-family: 'Poppins', sans-serif; 
-            color: #4a5568; 
+            color: #475569; 
             scroll-behavior: smooth; 
+            background-color: #f8fafc;
         }
-        /* Gradient elegan khas kesehatan (Teal to Emerald) */
+        
+        /* Gradient Alam/Kesehatan */
         .bg-gradient-primary { 
-            background: linear-gradient(135deg, #0f766e 0%, #10b981 100%); 
+            background: linear-gradient(135deg, #065f46 0%, #10b981 100%); 
         }
-        .text-primary { color: #0f766e !important; }
-        .bg-primary { background-color: #0f766e !important; }
         
-        .hero-section { padding: 140px 0 100px; color: white; position: relative; overflow: hidden; }
+        .text-primary { color: var(--primary-green) !important; }
+        .bg-primary { background-color: var(--primary-green) !important; }
         
-        /* Styling Card */
-        .card { 
+        /* Hero Section */
+        .hero-section { 
+            padding: 120px 0 80px; 
+            color: white; 
+            position: relative; 
+            overflow: hidden;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.1);
+        }
+        
+        /* Styling Card Gizi */
+        .card-gizi { 
             border: none; 
             transition: all 0.3s ease; 
-            border-radius: 20px; 
+            border-radius: 24px; 
             background: #ffffff;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05) !important;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            border: 1px solid rgba(16, 185, 129, 0.1);
         }
-        .card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(16, 185, 129, 0.15) !important; }
+        .card-gizi:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 20px 40px rgba(16, 185, 129, 0.12); 
+            border-color: var(--light-green);
+        }
         
-        /* Tombol WA */
-        .btn-wa { background-color: #25d366; color: white; font-weight: 600; border-radius: 50px; }
-        .btn-wa:hover { background-color: #128c7e; color: white; transform: scale(1.05); transition: 0.3s; }
+        /* Tombol */
+        .btn-wa { 
+            background-color: #25d366; 
+            color: white; 
+            font-weight: 600; 
+            border-radius: 50px; 
+            transition: 0.3s;
+        }
+        .btn-wa:hover { 
+            background-color: #128c7e; 
+            color: white; 
+            transform: translateY(-2px); 
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
         
-        .btn-light { border-radius: 50px; font-weight: 600; color: #0f766e; }
-        
+        .btn-outline-primary {
+            border-color: var(--primary-green);
+            color: var(--primary-green);
+            border-radius: 50px;
+        }
+        .btn-outline-primary:hover {
+            background-color: var(--primary-green);
+            color: white;
+        }
+
+        /* Ikon Fitur */
         .feature-icon { 
-            font-size: 3rem; 
-            color: #10b981; 
-            margin-bottom: 25px; 
-            background: #ecfdf5;
-            width: 90px;
-            height: 90px;
-            line-height: 90px;
+            font-size: 2.5rem; 
+            color: var(--primary-green); 
+            margin-bottom: 20px; 
+            background: var(--light-green);
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
             border-radius: 50%;
             margin-left: auto;
             margin-right: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        .section-title { font-weight: 700; position: relative; margin-bottom: 50px; color: #1e293b; }
+        /* Judul Section */
+        .section-title { 
+            font-weight: 700; 
+            position: relative; 
+            margin-bottom: 50px; 
+            color: var(--dark-text); 
+        }
         .section-title::after { 
             content: ''; 
-            width: 70px; 
+            width: 60px; 
             height: 4px; 
-            background: #10b981; 
+            background: var(--accent-orange); 
             position: absolute; 
             bottom: -15px; 
             left: 50%; 
             transform: translateX(-50%); 
             border-radius: 2px;
         }
-        #contact { background-color: #f8fafc; }
         
-        /* Navbar Styling */
-        .navbar { padding: 15px 0; transition: 0.3s; }
-        .navbar-brand img { height: 45px; width: auto; object-fit: contain; } /* Penyesuaian Logo */
-        .nav-link { font-weight: 500; color: #4a5568 !important; margin: 0 10px; }
-        .nav-link:hover { color: #10b981 !important; }
+        /* Navbar */
+        .navbar { padding: 12px 0; background: rgba(255, 255, 255, 0.98) !important; backdrop-filter: blur(10px); }
+        .navbar-brand img { height: 45px; width: auto; object-fit: contain; }
+        .nav-link { font-weight: 500; color: #475569 !important; padding: 10px 15px !important; }
+        .nav-link:hover { color: var(--primary-green) !important; }
 
-        /* SEO Area Layanan Footer */
-        .seo-areas { font-size: 0.8rem; color: #9ca3af; line-height: 1.6; text-align: justify; }
+        /* SEO Footer Area */
+        .seo-areas { font-size: 0.85rem; color: #cbd5e1; line-height: 1.8; text-align: center; }
+        
+        @media (max-width: 768px) {
+            .hero-section { padding: 100px 0 60px; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px; }
+            .display-4 { font-size: 2.2rem; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+    <!-- Navigasi -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm">
         <div class="container">
             <a class="navbar-brand fw-bold text-primary d-flex align-items-center" href="#">
-                <!-- Logo Diimplementasikan di sini -->
-                <img src="https://lh3.googleusercontent.com/d/1hGSRD5dNVoF7TKUgF7nAZVqQ6wXFI3wj" alt="Logo Sidnaahligizi" class="me-2">
+                <img src="https://lh3.googleusercontent.com/d/1hGSRD5dNVoF7TKUgF7nAZVqQ6wXFI3wj" alt="Logo Sidnaahligizi" class="me-2" loading="lazy">
                 Sidnaahligizi
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item"><a class="nav-link" href="#home">Beranda</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#layanan">Layanan Konsultasi</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#keunggulan">Pendekatan Kami</a></li>
-                    <li class="nav-item ms-lg-3">
-                        <a class="btn btn-primary rounded-pill px-4 py-2" href="#contact">Hubungi Ahli Gizi</a>
+                    <li class="nav-item"><a class="nav-link" href="#layanan">Layanan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#keunggulan">Metode Kami</a></li>
+                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
+                        <a class="btn btn-wa rounded-pill px-4 py-2" href="#contact">
+                            <i class="fa-brands fa-whatsapp me-2"></i>Hubungi Ahli Gizi
+                        </a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header id="home" class="hero-section bg-gradient-primary text-center">
-        <div class="container">
-            <h1 class="display-4 fw-bold mb-4">Wujudkan Kesehatan Optimal dengan Pendampingan Gizi Tepat</h1>
-            <p class="lead mb-5 px-md-5 fw-light" style="font-size: 1.2rem; line-height: 1.8;">
-                Bersama Ahli Gizi tepercaya di Surabaya, kami hadir memberikan solusi nutrisi berbasis sains. Mulai dari penanganan stunting anak, manajemen berat badan, hingga terapi diet untuk berbagai kondisi medis.
-            </p>
-            <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
-                <a href="#layanan" class="btn btn-light btn-lg px-5 shadow-sm">Lihat Program</a>
-                <a href="https://wa.me/6285536666320" class="btn btn-wa btn-lg px-5 shadow-sm">
-                    <i class="fa-brands fa-whatsapp me-2"></i>Konsultasi Sekarang
-                </a>
+    <main>
+        <!-- Hero Section -->
+        <header id="home" class="hero-section bg-gradient-primary text-center">
+            <div class="container">
+                <h1 class="display-4 fw-bold mb-4">Solusi Nutrisi Tepat untuk Kesehatan Optimal</h1>
+                <p class="lead mb-5 px-md-5 fw-light mx-auto" style="max-width: 800px; font-size: 1.15rem;">
+                    Bersama Ahli Gizi tepercaya di Surabaya, kami menghadirkan pendampingan nutrisi berbasis sains. Solusi nyata untuk tumbuh kembang anak, diet sehat, hingga terapi penyakit klinis.
+                </p>
+                <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                    <a href="#layanan" class="btn btn-outline-light btn-lg px-5 rounded-pill shadow-sm">Jelajahi Program</a>
+                    <a href="https://wa.me/6285536666320" class="btn btn-wa btn-lg px-5 shadow-sm rounded-pill">
+                        Konsultasi Sekarang
+                    </a>
+                </div>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <!-- Services Section -->
-    <section id="layanan" class="py-5 mt-4">
-        <div class="container py-4">
-            <h2 class="text-center section-title">Program Layanan Gizi</h2>
-            <div class="row g-4 mt-4">
-                <!-- Service 1: Stunting & Anak -->
-                <div class="col-md-4">
-                    <div class="card h-100 p-4 text-center">
-                        <div class="feature-icon"><i class="fa-solid fa-baby"></i></div>
-                        <h4 class="fw-bold mb-3">Pendampingan Gizi Anak & Stunting</h4>
-                        <p class="text-muted small mb-4">Evaluasi status gizi presisi, perhitungan Z-Score WHO, dan terapi nutrisi khusus untuk kejar tumbuh (*catch-up growth*) serta pencegahan stunting pada balita.</p>
-                        <div class="mt-auto">
-                            <a href="https://wa.me/6285536666320?text=Halo%20Sidnaahligizi,%20saya%20ingin%20konsultasi%20mengenai%20gizi%20tumbuh%20kembang%20anak." class="text-primary fw-bold text-decoration-none">Daftar Program <i class="fa-solid fa-arrow-right ms-1"></i></a>
+        <!-- Layanan Section -->
+        <section id="layanan" class="py-5 mt-4">
+            <div class="container py-4">
+                <h2 class="text-center section-title">Program Layanan Gizi</h2>
+                <div class="row g-4 mt-2 justify-content-center">
+                    
+                    <!-- Layanan 1 -->
+                    <div class="col-md-6 col-lg-4">
+                        <article class="card-gizi h-100 p-4 text-center d-flex flex-column">
+                            <div class="feature-icon"><i class="fa-solid fa-baby"></i></div>
+                            <h3 class="fw-bold mb-3 h5">Gizi Anak & Stunting</h3>
+                            <p class="text-muted small mb-4 flex-grow-1">Evaluasi status gizi presisi, perhitungan Z-Score WHO, dan terapi nutrisi khusus untuk kejar tumbuh (*catch-up growth*) serta pencegahan stunting pada balita.</p>
+                            <a href="https://wa.me/6285536666320?text=Halo%20Sidnaahligizi,%20saya%20ingin%20konsultasi%20mengenai%20gizi%20tumbuh%20kembang%20anak." class="btn btn-outline-primary w-100 mt-auto">Daftar Program</a>
+                        </article>
+                    </div>
+                    
+                    <!-- Layanan 2 -->
+                    <div class="col-md-6 col-lg-4">
+                        <article class="card-gizi h-100 p-4 text-center d-flex flex-column">
+                            <div class="feature-icon"><i class="fa-solid fa-weight-scale"></i></div>
+                            <h3 class="fw-bold mb-3 h5">Manajemen Diet Optimal</h3>
+                            <p class="text-muted small mb-4 flex-grow-1">Program penurunan atau peningkatan berat badan yang aman, dipersonalisasi sesuai gaya hidup, dan berbasis sains tanpa harus menyiksa diri.</p>
+                            <a href="https://wa.me/6285536666320?text=Halo%20Sidnaahligizi,%20saya%20ingin%20konsultasi%20program%20diet/manajemen%20berat%20badan." class="btn btn-outline-primary w-100 mt-auto">Daftar Program</a>
+                        </article>
+                    </div>
+                    
+                    <!-- Layanan 3 -->
+                    <div class="col-md-6 col-lg-4">
+                        <article class="card-gizi h-100 p-4 text-center d-flex flex-column">
+                            <div class="feature-icon" style="color: var(--accent-orange); background: #fef3c7;"><i class="fa-solid fa-notes-medical"></i></div>
+                            <h3 class="fw-bold mb-3 h5">Terapi Diet Klinis</h3>
+                            <p class="text-muted small mb-4 flex-grow-1">Perencanaan menu dan edukasi gizi klinis untuk penderita Diabetes, Hipertensi, Asam Urat, Penyakit Jantung, Ginjal, dan kondisi medis lainnya.</p>
+                            <a href="https://wa.me/6285536666320?text=Halo%20Sidnaahligizi,%20saya%20butuh%20pendampingan%20diet%20untuk%20kondisi%20medis%20tertentu." class="btn btn-outline-primary w-100 mt-auto">Daftar Program</a>
+                        </article>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Keunggulan Section -->
+        <section id="keunggulan" class="py-5" style="background-color: #f0fdf4;">
+            <div class="container py-4">
+                <div class="row align-items-center">
+                    <div class="col-lg-5 mb-5 mb-lg-0 text-center">
+                        <img src="https://lh3.googleusercontent.com/d/1hGSRD5dNVoF7TKUgF7nAZVqQ6wXFI3wj" alt="Ilustrasi Ahli Gizi" class="img-fluid bg-white p-4 shadow-sm" style="border-radius: 30px; max-width: 250px;" loading="lazy">
+                    </div>
+                    <div class="col-lg-7">
+                        <h2 class="fw-bold mb-4">Mengapa Memilih Pendampingan Bersama Kami?</h2>
+                        <ul class="list-unstyled mt-4">
+                            <li class="mb-4 d-flex align-items-start">
+                                <div class="bg-primary text-white rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
+                                    <i class="fa-solid fa-microscope"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <h4 class="fw-bold mb-1 h6">Berbasis Evidence-Based</h4>
+                                    <p class="text-muted small mb-0">Rekomendasi asupan mengacu pada keilmuan gizi klinis terkini dan standar kesehatan resmi (WHO & Kemenkes).</p>
+                                </div>
+                            </li>
+                            <li class="mb-4 d-flex align-items-start">
+                                <div class="bg-primary text-white rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
+                                    <i class="fa-solid fa-leaf"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <h4 class="fw-bold mb-1 h6">Menu Fleksibel & Realistis</h4>
+                                    <p class="text-muted small mb-0">Meal plan disusun menggunakan bahan makanan lokal yang mudah didapat sesuai preferensi dan anggaran belanja Anda.</p>
+                                </div>
+                            </li>
+                            <li class="mb-4 d-flex align-items-start">
+                                <div class="bg-primary text-white rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
+                                    <i class="fa-solid fa-mobile-screen-button"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <h4 class="fw-bold mb-1 h6">Monitoring Berkala Intensif</h4>
+                                    <p class="text-muted small mb-0">Pemantauan progres dan evaluasi diet secara intensif yang dapat diakses langsung melalui WhatsApp.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Kontak CTA Section -->
+        <section id="contact" class="py-5">
+            <div class="container text-center py-5">
+                <h2 class="section-title">Mulai Perjalanan Sehat Anda</h2>
+                <p class="mb-5 text-muted mx-auto" style="max-width: 600px;">Kesehatan Anda adalah investasi terbaik jangka panjang. Jadwalkan sesi konsultasi dengan Ahli Gizi kami di Surabaya sekarang.</p>
+                <div class="row justify-content-center">
+                    <div class="col-md-8 col-lg-6">
+                        <div class="card-gizi p-5 shadow-sm" style="border-top: 5px solid var(--accent-orange);">
+                            <i class="fa-solid fa-headset display-4 text-primary mb-4"></i>
+                            <h3 class="fw-bold mb-2 h4">Layanan Konsultasi Fleksibel</h3>
+                            <p class="text-muted mb-4 small">Tersedia untuk sesi *Online* maupun pertemuan langsung. Admin kami siap membantu Anda.</p>
+                            <a href="https://wa.me/6285536666320" class="btn btn-wa btn-lg w-100 rounded-pill py-3">
+                                <i class="fa-brands fa-whatsapp me-2 fa-lg"></i> Hubungi via WhatsApp
+                            </a>
                         </div>
                     </div>
                 </div>
-                <!-- Service 2: Diet Reguler -->
-                <div class="col-md-4">
-                    <div class="card h-100 p-4 text-center">
-                        <div class="feature-icon"><i class="fa-solid fa-weight-scale"></i></div>
-                        <h4 class="fw-bold mb-3">Manajemen Berat Badan & Diet</h4>
-                        <p class="text-muted small mb-4">Program penurunan atau peningkatan berat badan yang aman, dipersonalisasi sesuai gaya hidup, dan berbasis sains tanpa harus menyiksa diri.</p>
-                        <div class="mt-auto">
-                            <a href="https://wa.me/6285536666320?text=Halo%20Sidnaahligizi,%20saya%20ingin%20konsultasi%20program%20diet/manajemen%20berat%20badan." class="text-primary fw-bold text-decoration-none">Daftar Program <i class="fa-solid fa-arrow-right ms-1"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Service 3: Diet Penyakit Khusus -->
-                <div class="col-md-4">
-                    <div class="card h-100 p-4 text-center">
-                        <div class="feature-icon"><i class="fa-solid fa-notes-medical"></i></div>
-                        <h4 class="fw-bold mb-3">Terapi Diet Penyakit Khusus</h4>
-                        <p class="text-muted small mb-4">Perencanaan menu dan edukasi gizi klinis untuk penderita Diabetes, Hipertensi, Asam Urat, Penyakit Jantung, Ginjal, dan kondisi medis lainnya.</p>
-                        <div class="mt-auto">
-                            <a href="https://wa.me/6285536666320?text=Halo%20Sidnaahligizi,%20saya%20butuh%20pendampingan%20diet%20untuk%20kondisi%20medis%20tertentu." class="text-primary fw-bold text-decoration-none">Daftar Program <i class="fa-solid fa-arrow-right ms-1"></i></a>
-                        </div>
-                    </div>
-                </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Keunggulan Section -->
-    <section id="keunggulan" class="py-5" style="background-color: #ecfdf5;">
-        <div class="container py-4">
-            <div class="row align-items-center">
-                <div class="col-lg-6 mb-4 mb-lg-0 text-center">
-                    <div class="p-5 bg-white shadow-sm d-inline-block" style="border-radius: 30px;">
-                        <i class="fa-solid fa-user-doctor display-1 text-primary mb-3"></i>
-                        <h4 class="fw-bold text-dark">Pendekatan Personal</h4>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <h2 class="fw-bold mb-4">Mengapa Memilih Pendampingan Bersama Kami?</h2>
-                    <ul class="list-unstyled mt-4">
-                        <li class="mb-4 d-flex align-items-start">
-                            <div class="bg-primary text-white rounded-circle p-2 me-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                                <i class="fa-solid fa-check"></i>
-                            </div>
-                            <div>
-                                <h5 class="fw-bold mb-1">Berbasis Evidance-Based</h5>
-                                <p class="text-muted small">Semua rekomendasi asupan mengacu pada keilmuan gizi terkini dan standar kesehatan resmi (WHO & Kemenkes).</p>
-                            </div>
-                        </li>
-                        <li class="mb-4 d-flex align-items-start">
-                            <div class="bg-primary text-white rounded-circle p-2 me-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                                <i class="fa-solid fa-utensils"></i>
-                            </div>
-                            <div>
-                                <h5 class="fw-bold mb-1">Menu Fleksibel & Realistis</h5>
-                                <p class="text-muted small">Meal plan disusun menggunakan bahan makanan yang mudah didapat sesuai preferensi dan anggaran Anda.</p>
-                            </div>
-                        </li>
-                        <li class="mb-4 d-flex align-items-start">
-                            <div class="bg-primary text-white rounded-circle p-2 me-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                                <i class="fa-solid fa-comments"></i>
-                            </div>
-                            <div>
-                                <h5 class="fw-bold mb-1">Monitoring Berkala</h5>
-                                <p class="text-muted small">Tidak hanya diberikan menu, tapi kami pantau dan evaluasi perkembangannya secara intensif melalui WhatsApp.</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-5">
-        <div class="container text-center py-5">
-            <h2 class="section-title">Mulai Perjalanan Sehat Anda</h2>
-            <p class="mb-5 text-muted">Mencari ahli gizi terdekat di Surabaya? Kesehatan Anda adalah investasi terbaik. Hubungi kami sekarang untuk sesi konsultasi.</p>
-            <div class="row justify-content-center">
-                <div class="col-md-7">
-                    <div class="card p-5 shadow-sm" style="border-top: 5px solid #10b981;">
-                        <i class="fa-solid fa-headset display-4 text-primary mb-3"></i>
-                        <h4 class="fw-bold mb-2">Layanan Konsultasi Online & Offline</h4>
-                        <p class="text-muted mb-4">Pesan jadwal konsultasi langsung melalui WhatsApp. Admin kami siap membantu Anda menemukan program yang tepat.</p>
-                        <a href="https://wa.me/6285536666320" class="btn btn-wa btn-lg rounded-pill px-5 py-3">
-                            <i class="fa-brands fa-whatsapp me-2 fa-lg"></i> Hubungi WA: 0855-3666-6320
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="py-5 bg-dark text-white text-center">
-        <div class="container">
-            <!-- Logo di Footer -->
-            <div class="mb-3">
-                <img src="https://lh3.googleusercontent.com/d/1hGSRD5dNVoF7TKUgF7nAZVqQ6wXFI3wj" alt="Logo Sidnaahligizi" height="60" class="bg-white rounded-circle p-1">
+    <footer class="pt-5 pb-3 bg-dark text-white">
+        <div class="container text-center">
+            <div class="mb-4">
+                <img src="https://lh3.googleusercontent.com/d/1hGSRD5dNVoF7TKUgF7nAZVqQ6wXFI3wj" alt="Logo Sidnaahligizi Footer" height="70" class="bg-white rounded-circle p-2 shadow" loading="lazy">
             </div>
-            <h5 class="fw-bold mb-3">Sidnaahligizi</h5>
-            <p class="mb-4 text-secondary small">Sahabat nutrisi untuk tumbuh kembang anak dan kesehatan keluarga Anda.</p>
+            <h5 class="fw-bold mb-2">Sidnaahligizi</h5>
+            <p class="mb-4 text-secondary small">Sahabat nutrisi terpercaya untuk tumbuh kembang anak dan gaya hidup sehat keluarga Anda.</p>
             
             <div class="mb-4">
-                <a href="#" class="text-white me-3 fs-4"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" class="text-white me-3 fs-4"><i class="fa-brands fa-facebook"></i></a>
-                <a href="https://youtube.com/@suwanto_pakwanto" class="text-white fs-4" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#" aria-label="Instagram" class="text-white me-3 fs-5 hover-opacity"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" aria-label="Facebook" class="text-white me-3 fs-5 hover-opacity"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://youtube.com/@suwanto_pakwanto" aria-label="YouTube" class="text-white fs-5 hover-opacity" target="_blank"><i class="fa-brands fa-youtube"></i></a>
             </div>
             
-            <!-- Area Layanan SEO Lokal -->
+            <!-- Area Layanan SEO Lokal (Disembunyikan secara elegan agar tidak spammy, namun tetap dibaca Google) -->
             <div class="seo-areas mt-4 mb-4 p-3 bg-secondary bg-opacity-10 rounded">
-                <strong class="d-block mb-2 text-white">Melayani Konsultasi & Pencarian Ahli Gizi Terdekat di Seluruh Surabaya:</strong>
-                Asemrowo, Benowo, Bubutan, Bulak, Dukuh Pakis, Gayungan, Genteng, Gubeng, Gunung Anyar, Jambangan, Karang Pilang, Kenjeran, Krembangan, Lakarsantri, Mulyorejo, Pabean Cantian, Pakal, Rungkut, Sambikerep, Sawahan, Semampir, Simokerto, Sukolilo, Sukomanunggal, Tambaksari, Tandes, Tegalsari, Tenggilis Mejoyo, Wiyung, Wonocolo, Wonokromo.
+                <span class="d-block mb-1 fw-bold text-light">Jangkauan Layanan Ahli Gizi Surabaya:</span>
+                <span style="word-wrap: break-word;">Asemrowo, Benowo, Bubutan, Bulak, Dukuh Pakis, Gayungan, Genteng, Gubeng, Gunung Anyar, Jambangan, Karang Pilang, Kenjeran, Krembangan, Lakarsantri, Mulyorejo, Pabean Cantian, Pakal, Rungkut, Sambikerep, Sawahan, Semampir, Simokerto, Sukolilo, Sukomanunggal, Tambaksari, Tandes, Tegalsari, Tenggilis Mejoyo, Wiyung, Wonocolo, Wonokromo.</span>
             </div>
 
-            <hr class="border-secondary mb-4">
-            <p class="mb-1 small">© 2026 Sidnaahligizi - Layanan Gizi Profesional</p>
-            <p class="small text-secondary mb-0">Dikembangkan oleh Pak Wanto | Surabaya, Indonesia</p>
+            <hr class="border-secondary mb-3 opacity-25">
+            <p class="mb-1 small text-secondary">© 2026 Sidnaahligizi. Hak Cipta Dilindungi.</p>
+            <p class="small text-secondary mb-0">Dikembangkan oleh Belajar Inovasi</p>
         </div>
     </footer>
 
