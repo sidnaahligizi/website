@@ -42,233 +42,379 @@
     
     <style>
         :root {
-            --primary-green: #059669;
+            --primary-green: #059669; 
             --light-green: #d1fae5;
-            --accent-orange: #f59e0b;
+            --accent-orange: #f59e0b; 
             --dark-text: #1e293b;
         }
-        body { font-family: 'Poppins', sans-serif; color: #475569; scroll-behavior: smooth; background-color: #f8fafc; }
+
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            color: #475569; 
+            scroll-behavior: smooth; 
+            background-color: #f8fafc;
+        }
+        
         .bg-gradient-primary { background: linear-gradient(135deg, #065f46 0%, #10b981 100%); }
         .text-primary { color: var(--primary-green) !important; }
         .bg-primary { background-color: var(--primary-green) !important; }
         
-        .hero-section { padding: 120px 0 80px; color: white; position: relative; overflow: hidden; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; box-shadow: 0 10px 30px rgba(16, 185, 129, 0.1); }
-        .card-gizi { transition: all 0.3s ease; border-radius: 24px; background: #ffffff; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 1px solid rgba(16, 185, 129, 0.1); }
-        .card-gizi:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(16, 185, 129, 0.12); border-color: var(--light-green); }
+        /* Hero Section */
+        .hero-section { 
+            padding: 120px 0 80px; color: white; position: relative; overflow: hidden;
+            border-bottom-left-radius: 40px; border-bottom-right-radius: 40px;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.1);
+        }
         
+        /* Styling Card Gizi */
+        .card-gizi { 
+            border: none; transition: all 0.3s ease; border-radius: 24px; background: #ffffff;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 1px solid rgba(16, 185, 129, 0.1);
+        }
+        .card-gizi:hover { 
+            transform: translateY(-8px); box-shadow: 0 20px 40px rgba(16, 185, 129, 0.12); border-color: var(--light-green);
+        }
+        
+        /* Tombol */
         .btn-wa { background-color: #25d366; color: white; font-weight: 600; border-radius: 50px; transition: 0.3s; }
         .btn-wa:hover { background-color: #128c7e; color: white; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3); }
         .btn-outline-primary { border-color: var(--primary-green); color: var(--primary-green); border-radius: 50px; }
         .btn-outline-primary:hover { background-color: var(--primary-green); color: white; }
 
-        .feature-icon { font-size: 2.5rem; color: var(--primary-green); margin-bottom: 20px; background: var(--light-green); width: 80px; height: 80px; line-height: 80px; border-radius: 50%; margin-left: auto; margin-right: auto; display: flex; align-items: center; justify-content: center; }
-        .section-title { font-weight: 700; position: relative; margin-bottom: 50px; color: var(--dark-text); }
-        .section-title::after { content: ''; width: 60px; height: 4px; background: var(--accent-orange); position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); border-radius: 2px; }
+        /* Ikon Fitur */
+        .feature-icon { 
+            font-size: 2.5rem; color: var(--primary-green); margin-bottom: 20px; background: var(--light-green);
+            width: 80px; height: 80px; line-height: 80px; border-radius: 50%; margin-left: auto; margin-right: auto;
+            display: flex; align-items: center; justify-content: center;
+        }
         
+        /* Judul Section */
+        .section-title { font-weight: 700; position: relative; margin-bottom: 50px; color: var(--dark-text); }
+        .section-title::after { 
+            content: ''; width: 60px; height: 4px; background: var(--accent-orange); position: absolute;
+            bottom: -15px; left: 50%; transform: translateX(-50%); border-radius: 2px;
+        }
+        
+        /* Navbar */
         .navbar { padding: 12px 0; background: rgba(255, 255, 255, 0.98) !important; backdrop-filter: blur(10px); }
         .navbar-brand img { height: 45px; width: auto; object-fit: contain; }
         .nav-link { font-weight: 500; color: #475569 !important; padding: 10px 15px !important; }
         .nav-link:hover { color: var(--primary-green) !important; }
+
+        /* SEO Footer Area */
         .seo-areas { font-size: 0.85rem; color: #cbd5e1; line-height: 1.8; text-align: center; }
         
-        #loading-screen { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: white; z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; transition: opacity 0.5s; }
+        /* System Styles */
+        #loading-screen { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.9); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; transition: opacity 0.5s; }
+        
+        /* Admin Sidebar */
+        .admin-sidebar { width: 250px; background: #1e293b; color: white; min-height: 100vh; position: fixed; left: 0; top: 0; overflow-y: auto; z-index: 1000; }
+        .admin-sidebar a { display: block; padding: 15px 25px; color: #cbd5e1; text-decoration: none; font-weight: 500; border-left: 4px solid transparent; transition: 0.3s; }
+        .admin-sidebar a:hover, .admin-sidebar a.active { background: rgba(255,255,255,0.1); color: white; border-left-color: var(--primary-green); }
+        .admin-main { margin-left: 250px; padding: 30px; min-height: 100vh; background: #f1f5f9; }
         
         @media (max-width: 768px) {
             .hero-section { padding: 100px 0 60px; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px; }
             .display-4 { font-size: 2.2rem; }
+            .admin-sidebar { width: 100%; position: relative; min-height: auto; }
+            .admin-main { margin-left: 0; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Loading Screen -->
     <div id="loading-screen">
         <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
-        <p class="mt-3 text-secondary fw-bold">Memuat Data...</p>
+        <p class="mt-3 text-secondary fw-bold" id="loading-text">Memuat Data...</p>
     </div>
 
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm">
-        <div class="container">
-            <a class="navbar-brand fw-bold text-primary d-flex align-items-center" href="#">
-                <img src="https://lh3.googleusercontent.com/d/1hGSRD5dNVoF7TKUgF7nAZVqQ6wXFI3wj" alt="Logo Sidnaahligizi" class="me-2" loading="lazy">
-                Sidnaahligizi
-            </a>
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item"><a class="nav-link" href="#home">Beranda</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#layanan">Layanan</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#keunggulan">Metode Kami</a></li>
-                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
-                        <a class="btn btn-wa rounded-pill px-4 py-2 dyn-wa" href="#contact">
-                            <i class="fa-brands fa-whatsapp me-2"></i>Hubungi Ahli Gizi
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <main>
-        <header id="home" class="hero-section bg-gradient-primary text-center">
+    <div id="public-view">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm">
             <div class="container">
-                <h1 id="dyn-hero-title" class="display-4 fw-bold mb-4">Solusi Nutrisi Tepat untuk Kesehatan Optimal</h1>
-                <p id="dyn-hero-subtitle" class="lead mb-5 px-md-5 fw-light mx-auto" style="max-width: 800px; font-size: 1.15rem;">
-                    Bersama ahli gizi tepercaya di Surabaya, kami menghadirkan pendampingan nutrisi berbasis sains. Solusi nyata untuk tumbuh kembang anak, diet sehat, hingga terapi penyakit klinis.
-                </p>
-                <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
-                    <a href="#layanan" class="btn btn-outline-light btn-lg px-5 rounded-pill shadow-sm">Jelajahi Program</a>
-                    <a href="#" class="btn btn-wa btn-lg px-5 shadow-sm rounded-pill dyn-wa">
-                        Konsultasi Sekarang
-                    </a>
-                </div>
-            </div>
-        </header>
-
-        <section id="layanan" class="py-5 mt-4">
-            <div class="container py-4">
-                <h2 class="text-center section-title">Program Layanan Gizi</h2>
-                <div class="row g-4 mt-2 justify-content-center" id="layanan-container">
-                    <!-- Data Layanan akan dimuat dari Google Sheets di sini -->
-                </div>
-            </div>
-        </section>
-
-        <section id="keunggulan" class="py-5" style="background-color: #f0fdf4;">
-            <div class="container py-4">
-                <div class="row align-items-center">
-                    <div class="col-lg-5 mb-5 mb-lg-0 text-center">
-                        <img src="https://lh3.googleusercontent.com/d/1hGSRD5dNVoF7TKUgF7nAZVqQ6wXFI3wj" alt="Ilustrasi Ahli Gizi" class="img-fluid bg-white p-4 shadow-sm" style="border-radius: 30px; max-width: 250px;" loading="lazy">
-                    </div>
-                    <div class="col-lg-7">
-                        <h2 class="fw-bold mb-4">Mengapa Memilih Pendampingan Bersama Kami?</h2>
-                        <ul class="list-unstyled mt-4">
-                            <li class="mb-4 d-flex align-items-start">
-                                <div class="bg-primary text-white rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
-                                    <i class="fa-solid fa-microscope"></i>
-                                </div>
-                                <div class="ms-3">
-                                    <h4 class="fw-bold mb-1 h6">Berbasis Evidence-Based</h4>
-                                    <p class="text-muted small mb-0">Rekomendasi asupan mengacu pada keilmuan gizi klinis terkini dan standar kesehatan resmi (WHO & Kemenkes).</p>
-                                </div>
-                            </li>
-                            <li class="mb-4 d-flex align-items-start">
-                                <div class="bg-primary text-white rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
-                                    <i class="fa-solid fa-leaf"></i>
-                                </div>
-                                <div class="ms-3">
-                                    <h4 class="fw-bold mb-1 h6">Menu Fleksibel & Realistis</h4>
-                                    <p class="text-muted small mb-0">Meal plan disusun menggunakan bahan makanan lokal yang mudah didapat sesuai preferensi dan anggaran belanja Anda.</p>
-                                </div>
-                            </li>
-                            <li class="mb-4 d-flex align-items-start">
-                                <div class="bg-primary text-white rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
-                                    <i class="fa-solid fa-mobile-screen-button"></i>
-                                </div>
-                                <div class="ms-3">
-                                    <h4 class="fw-bold mb-1 h6">Monitoring Berkala Intensif</h4>
-                                    <p class="text-muted small mb-0">Pemantauan progres dan evaluasi diet secara intensif yang dapat diakses langsung melalui WhatsApp.</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="py-5">
-            <div class="container text-center py-5">
-                <h2 class="section-title">Mulai Perjalanan Sehat Anda</h2>
-                <p id="dyn-about-text" class="mb-5 text-muted mx-auto" style="max-width: 600px;">Jadwalkan sesi konsultasi dengan Ibu Siti di Surabaya sekarang. Kesehatan Anda adalah investasi terbaik jangka panjang.</p>
-                <div class="row justify-content-center">
-                    <div class="col-md-8 col-lg-6">
-                        <div class="card-gizi p-5 shadow-sm" style="border-top: 5px solid var(--accent-orange);">
-                            <i class="fa-solid fa-headset display-4 text-primary mb-4"></i>
-                            <h3 class="fw-bold mb-2 h4">Layanan Konsultasi Fleksibel</h3>
-                            <p class="text-muted mb-4 small">Tersedia untuk sesi *Online* maupun pertemuan langsung. Admin kami siap membantu Anda.</p>
-                            <a href="#" class="btn btn-wa btn-lg w-100 rounded-pill py-3 dyn-wa">
-                                <i class="fa-brands fa-whatsapp me-2 fa-lg"></i> Hubungi via WhatsApp
+                <a class="navbar-brand fw-bold text-primary d-flex align-items-center" href="#">
+                    <img src="https://lh3.googleusercontent.com/d/1hGSRD5dNVoF7TKUgF7nAZVqQ6wXFI3wj" alt="Logo Sidnaahligizi" class="me-2" loading="lazy">
+                    Sidnaahligizi
+                </a>
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto align-items-center">
+                        <li class="nav-item"><a class="nav-link" href="#home" onclick="nav('home')">Beranda</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#layanan" onclick="nav('layanan')">Layanan</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#keunggulan" onclick="nav('keunggulan')">Metode Kami</a></li>
+                        <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
+                            <a class="btn btn-wa rounded-pill px-4 py-2 dyn-wa" href="#contact" onclick="nav('contact')">
+                                <i class="fa-brands fa-whatsapp me-2"></i>Hubungi Ahli Gizi
                             </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            <header id="home" class="hero-section bg-gradient-primary text-center site-section">
+                <div class="container">
+                    <h1 id="dyn-hero-title" class="display-4 fw-bold mb-4">Solusi Nutrisi Tepat untuk Kesehatan Optimal</h1>
+                    <p id="dyn-hero-subtitle" class="lead mb-5 px-md-5 fw-light mx-auto" style="max-width: 800px; font-size: 1.15rem;">
+                        Bersama Ahli Gizi tepercaya di Surabaya, kami menghadirkan pendampingan nutrisi berbasis sains. Solusi nyata untuk tumbuh kembang anak, diet sehat, hingga terapi penyakit klinis.
+                    </p>
+                    <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                        <a href="#layanan" class="btn btn-outline-light btn-lg px-5 rounded-pill shadow-sm" onclick="nav('layanan')">Jelajahi Program</a>
+                        <a href="#" class="btn btn-wa btn-lg px-5 shadow-sm rounded-pill dyn-wa">
+                            Konsultasi Sekarang
+                        </a>
+                    </div>
+                </div>
+            </header>
+
+            <section id="layanan" class="py-5 mt-4 site-section">
+                <div class="container py-4">
+                    <h2 class="text-center section-title">Program Layanan Gizi</h2>
+                    <div class="row g-4 mt-2 justify-content-center" id="layanan-container">
+                        </div>
+                </div>
+            </section>
+
+            <section id="keunggulan" class="py-5 site-section" style="background-color: #f0fdf4;">
+                <div class="container py-4">
+                    <div class="row align-items-center">
+                        <div class="col-lg-5 mb-5 mb-lg-0 text-center">
+                            <img src="https://lh3.googleusercontent.com/d/1hGSRD5dNVoF7TKUgF7nAZVqQ6wXFI3wj" alt="Ilustrasi Ahli Gizi" class="img-fluid bg-white p-4 shadow-sm" style="border-radius: 30px; max-width: 250px;" loading="lazy">
+                        </div>
+                        <div class="col-lg-7">
+                            <h2 class="fw-bold mb-4">Mengapa Memilih Pendampingan Bersama Kami?</h2>
+                            <ul class="list-unstyled mt-4">
+                                <li class="mb-4 d-flex align-items-start">
+                                    <div class="bg-primary text-white rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
+                                        <i class="fa-solid fa-microscope"></i>
+                                    </div>
+                                    <div class="ms-3">
+                                        <h4 class="fw-bold mb-1 h6">Berbasis Evidence-Based</h4>
+                                        <p class="text-muted small mb-0">Rekomendasi asupan mengacu pada keilmuan gizi klinis terkini dan standar kesehatan resmi (WHO & Kemenkes).</p>
+                                    </div>
+                                </li>
+                                <li class="mb-4 d-flex align-items-start">
+                                    <div class="bg-primary text-white rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
+                                        <i class="fa-solid fa-leaf"></i>
+                                    </div>
+                                    <div class="ms-3">
+                                        <h4 class="fw-bold mb-1 h6">Menu Fleksibel & Realistis</h4>
+                                        <p class="text-muted small mb-0">Meal plan disusun menggunakan bahan makanan lokal yang mudah didapat sesuai preferensi dan anggaran belanja Anda.</p>
+                                    </div>
+                                </li>
+                                <li class="mb-4 d-flex align-items-start">
+                                    <div class="bg-primary text-white rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
+                                        <i class="fa-solid fa-mobile-screen-button"></i>
+                                    </div>
+                                    <div class="ms-3">
+                                        <h4 class="fw-bold mb-1 h6">Monitoring Berkala Intensif</h4>
+                                        <p class="text-muted small mb-0">Pemantauan progres dan evaluasi diet secara intensif yang dapat diakses langsung melalui WhatsApp.</p>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-    </main>
+            </section>
 
-    <footer class="pt-5 pb-3 bg-dark text-white">
-        <div class="container text-center">
-            <div class="mb-4">
-                <img src="https://lh3.googleusercontent.com/d/1hGSRD5dNVoF7TKUgF7nAZVqQ6wXFI3wj" alt="Logo Sidnaahligizi Footer" height="70" class="bg-white rounded-circle p-2 shadow" loading="lazy">
-            </div>
-            <h5 class="fw-bold mb-2">Sidnaahligizi</h5>
-            <p class="mb-4 text-secondary small">Sahabat nutrisi terpercaya untuk tumbuh kembang anak dan gaya hidup sehat keluarga Anda.</p>
-            
-            <div class="mb-4">
-                <a href="#" aria-label="Instagram" class="text-white me-3 fs-5 hover-opacity"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" aria-label="Facebook" class="text-white me-3 fs-5 hover-opacity"><i class="fa-brands fa-facebook"></i></a>
-                <a href="https://youtube.com/@suwanto_pakwanto" aria-label="YouTube" class="text-white fs-5 hover-opacity" target="_blank"><i class="fa-brands fa-youtube"></i></a>
-            </div>
-            
-            <div class="seo-areas mt-4 mb-4 p-3 bg-secondary bg-opacity-10 rounded">
-                <span class="d-block mb-1 fw-bold text-light">Jangkauan Layanan Ahli Gizi Surabaya:</span>
-                <span style="word-wrap: break-word;">Asemrowo, Benowo, Bubutan, Bulak, Dukuh Pakis, Gayungan, Genteng, Gubeng, Gunung Anyar, Jambangan, Karang Pilang, Kenjeran, Krembangan, Lakarsantri, Mulyorejo, Pabean Cantian, Pakal, Rungkut, Sambikerep, Sawahan, Semampir, Simokerto, Sukolilo, Sukomanunggal, Tambaksari, Tandes, Tegalsari, Tenggilis Mejoyo, Wiyung, Wonocolo, Wonokromo.</span>
-            </div>
+            <section id="contact" class="py-5 site-section">
+                <div class="container text-center py-5">
+                    <h2 class="section-title">Mulai Perjalanan Sehat Anda</h2>
+                    <p id="dyn-about-text" class="mb-5 text-muted mx-auto" style="max-width: 600px;">Jadwalkan sesi konsultasi dengan Ibu Siti di Surabaya sekarang. Kesehatan Anda adalah investasi terbaik jangka panjang.</p>
+                    <div class="row justify-content-center">
+                        <div class="col-md-8 col-lg-6">
+                            <div class="card-gizi p-5 shadow-sm" style="border-top: 5px solid var(--accent-orange);">
+                                <i class="fa-solid fa-headset display-4 text-primary mb-4"></i>
+                                <h3 class="fw-bold mb-2 h4">Layanan Konsultasi Fleksibel</h3>
+                                <p class="text-muted mb-4 small">Tersedia untuk sesi *Online* maupun pertemuan langsung. Admin kami siap membantu Anda.</p>
+                                <a href="#" class="btn btn-wa btn-lg w-100 rounded-pill py-3 dyn-wa">
+                                    <i class="fa-brands fa-whatsapp me-2 fa-lg"></i> Hubungi via WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
 
-            <hr class="border-secondary mb-3 opacity-25">
-            <p class="mb-1 small text-secondary">© 2026 Sidnaahligizi. Hak Cipta Dilindungi.</p>
-            <p class="small text-secondary mb-0">Dikembangkan oleh Belajar Inovasi</p>
+        <footer class="pt-5 pb-3 bg-dark text-white">
+            <div class="container text-center">
+                <div class="mb-4">
+                    <img src="https://lh3.googleusercontent.com/d/1hGSRD5dNVoF7TKUgF7nAZVqQ6wXFI3wj" alt="Logo Sidnaahligizi Footer" height="70" class="bg-white rounded-circle p-2 shadow" loading="lazy">
+                </div>
+                <h5 class="fw-bold mb-2">Sidnaahligizi</h5>
+                <p class="mb-4 text-secondary small">Sahabat nutrisi terpercaya untuk tumbuh kembang anak dan gaya hidup sehat keluarga Anda.</p>
+                
+                <div class="mb-4">
+                    <a href="#" aria-label="Instagram" class="text-white me-3 fs-5 hover-opacity"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" aria-label="Facebook" class="text-white me-3 fs-5 hover-opacity"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://youtube.com/@suwanto_pakwanto" aria-label="YouTube" class="text-white fs-5 hover-opacity" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+                
+                <div class="seo-areas mt-4 mb-4 p-3 bg-secondary bg-opacity-10 rounded">
+                    <span class="d-block mb-1 fw-bold text-light">Jangkauan Layanan Ahli Gizi Surabaya:</span>
+                    <span style="word-wrap: break-word;">Asemrowo, Benowo, Bubutan, Bulak, Dukuh Pakis, Gayungan, Genteng, Gubeng, Gunung Anyar, Jambangan, Karang Pilang, Kenjeran, Krembangan, Lakarsantri, Mulyorejo, Pabean Cantian, Pakal, Rungkut, Sambikerep, Sawahan, Semampir, Simokerto, Sukolilo, Sukomanunggal, Tambaksari, Tandes, Tegalsari, Tenggilis Mejoyo, Wiyung, Wonocolo, Wonokromo.</span>
+                </div>
+
+                <hr class="border-secondary mb-3 opacity-25">
+                <p class="mb-1 small text-secondary">© 2026 Sidnaahligizi. Hak Cipta Dilindungi.</p>
+                <p class="small text-secondary mb-0">Dikembangkan oleh Belajar Inovasi</p>
+            </div>
+        </footer>
+    </div>
+    <div id="login-view" style="display: none; height: 100vh; background: #e2e8f0; align-items: center; justify-content: center;">
+        <div class="bg-white p-5 rounded-4 shadow-lg w-100 mx-3" style="max-width: 400px;">
+            <div class="text-center mb-4">
+                <div class="feature-icon bg-primary text-white mx-auto mb-3" style="width: 60px; height: 60px; line-height: 60px; font-size: 1.5rem;"><i class="fa-solid fa-lock"></i></div>
+                <h3 class="fw-bold text-dark">Admin Panel</h3>
+            </div>
+            <form onsubmit="handleLogin(event)">
+                <div class="mb-3">
+                    <label class="form-label text-muted small fw-bold">Username</label>
+                    <input type="text" id="login-user" class="form-control py-2 rounded-3 bg-light border-0" required>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label text-muted small fw-bold">Password</label>
+                    <input type="password" id="login-pass" class="form-control py-2 rounded-3 bg-light border-0" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 rounded-pill py-2 fw-bold">Login Sistem</button>
+            </form>
+            <div class="text-center mt-4">
+                <a href="#home" class="text-muted small text-decoration-none"><i class="fa-solid fa-arrow-left me-1"></i> Kembali ke Website</a>
+            </div>
         </div>
-    </footer>
+    </div>
+
+    <div id="admin-view" style="display: none;">
+        <aside class="admin-sidebar">
+            <div class="p-4 text-center border-bottom border-secondary border-opacity-25 mb-3">
+                <h4 class="fw-bold text-white mb-0">SIDNA ADMIN</h4>
+                <p class="small text-muted mb-0 mt-1">Sistem Manajemen Konten</p>
+            </div>
+            <a onclick="loadAdminModule('Pengaturan')" class="admin-nav" id="nav-Pengaturan"><i class="fa-solid fa-sliders me-2"></i> Pengaturan Teks</a>
+            <a onclick="loadAdminModule('Layanan')" class="admin-nav" id="nav-Layanan"><i class="fa-solid fa-notes-medical me-2"></i> Kelola Layanan</a>
+            <a onclick="loadAdminModule('Program')" class="admin-nav" id="nav-Program"><i class="fa-solid fa-images me-2"></i> Katalog/Program</a>
+            <a href="#home" class="mt-5 border-top border-secondary border-opacity-25 pt-3 text-info"><i class="fa-solid fa-earth-asia me-2"></i> Lihat Website</a>
+            <a onclick="handleLogout()" class="text-danger"><i class="fa-solid fa-right-from-bracket me-2"></i> Keluar</a>
+        </aside>
+        <main class="admin-main">
+            <div class="d-flex justify-content-between align-items-center mb-4 bg-white p-4 rounded-4 shadow-sm">
+                <div>
+                    <h3 id="admin-title" class="fw-bold text-dark mb-0">Kelola Data</h3>
+                    <p class="text-muted small mb-0">Tambah, Edit, dan Hapus Data</p>
+                </div>
+                <button class="btn btn-primary rounded-pill px-4" onclick="openAdminModal('add')"><i class="fa-solid fa-plus me-2"></i> Tambah Data</button>
+            </div>
+            <div class="bg-white p-4 rounded-4 shadow-sm overflow-auto">
+                <table class="table table-hover align-middle">
+                    <thead id="admin-table-head" class="table-light"></thead>
+                    <tbody id="admin-table-body"></tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <div class="modal fade" id="adminModal" tabindex="-1" data-bs-backdrop="static">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-0 rounded-4 shadow-lg">
+                <div class="modal-header border-0 bg-light rounded-top-4 p-4">
+                    <h5 class="modal-title fw-bold text-dark" id="modal-title">Form Data</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="adminForm" class="row g-3"></form>
+                </div>
+                <div class="modal-footer border-0 p-4">
+                    <button type="button" class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" id="btnSave" class="btn btn-primary rounded-pill px-4 fw-bold" onclick="saveAdminData()">Simpan Data</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
-    <!-- Skrip API Fetch Data dari Google Apps Script -->
     <script>
         // MASUKKAN URL APLIKASI WEB ANDA DI SINI
-        const GAS_URL = "https://script.google.com/macros/s/AKfycbzYUKmChnbLgYhDPphBovbHwTZKEuYFpMw3e2lP6MtEy0JpnmFzDvrzhgfALQ506WWY_w/exec"; 
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbzm-107e4jkUZQ3DFaIukui-49-FYezcf9NbBLIqdB54P9GC8RxWOq228DSSaWliRhTTw/exec"; 
 
-        document.addEventListener("DOMContentLoaded", async function() {
-            try {
-                if(GAS_URL === "MASUKKAN_URL_WEB_APP_ANDA_DI_SINI") {
-                    console.log("GAS URL belum diset. Menampilkan data template default.");
-                    document.getElementById('loading-screen').style.opacity = '0';
-                    setTimeout(() => document.getElementById('loading-screen').style.display = 'none', 500);
-                    renderDefaultLayanan();
-                    return;
+        let currentAdminSheet = 'Pengaturan';
+        let currentAdminHeaders = [];
+        let currentEditId = null;
+
+        // Routing & Initialization
+        document.addEventListener("DOMContentLoaded", function() {
+            handleRouting();
+            window.addEventListener('hashchange', handleRouting);
+        });
+
+        function handleRouting() {
+            let hash = window.location.hash.substring(1);
+            if (hash === 'admin') {
+                document.getElementById('public-view').style.display = 'none';
+                if (sessionStorage.getItem('IS_ADMIN') === 'true') {
+                    document.getElementById('login-view').style.display = 'none';
+                    document.getElementById('admin-view').style.display = 'block';
+                    loadAdminModule('Pengaturan');
+                } else {
+                    document.getElementById('admin-view').style.display = 'none';
+                    document.getElementById('login-view').style.display = 'flex';
+                    hideLoading();
                 }
+            } else {
+                document.getElementById('admin-view').style.display = 'none';
+                document.getElementById('login-view').style.display = 'none';
+                document.getElementById('public-view').style.display = 'block';
+                loadPublicData();
+            }
+        }
 
+        function nav(section) {
+            window.location.hash = section;
+        }
+
+        function showLoading(msg = "Memuat Data...") {
+            document.getElementById('loading-text').innerText = msg;
+            document.getElementById('loading-screen').style.opacity = '1';
+            document.getElementById('loading-screen').style.display = 'flex';
+        }
+
+        function hideLoading() {
+            const loader = document.getElementById('loading-screen');
+            loader.style.opacity = '0';
+            setTimeout(() => loader.style.display = 'none', 500);
+        }
+
+        // ================= PUBLIC FETCH =================
+        async function loadPublicData() {
+            showLoading();
+            if(GAS_URL === "MASUKKAN_URL_WEB_APP_ANDA_DI_SINI") {
+                renderDefaultLayanan(); hideLoading(); return;
+            }
+            try {
                 const response = await fetch(`${GAS_URL}?action=getAllData`);
                 const result = await response.json();
-                
                 if(result.success) {
                     const pengaturan = result.data.pengaturan;
                     const layanan = result.data.layanan;
                     
-                    // Render Pengaturan (Teks & WA)
                     if(pengaturan.Hero_Title) document.getElementById('dyn-hero-title').innerText = pengaturan.Hero_Title;
                     if(pengaturan.Hero_Subtitle) document.getElementById('dyn-hero-subtitle').innerText = pengaturan.Hero_Subtitle;
                     if(pengaturan.About_Text) document.getElementById('dyn-about-text').innerText = pengaturan.About_Text;
                     
                     let linkWa = pengaturan.Link_WA || "https://wa.me/6285536666320";
-                    document.querySelectorAll('.dyn-wa').forEach(el => {
-                        el.href = linkWa;
-                    });
+                    document.querySelectorAll('.dyn-wa').forEach(el => el.href = linkWa);
 
-                    // Render Layanan
                     const layananContainer = document.getElementById('layanan-container');
                     layananContainer.innerHTML = ''; 
                     
                     if(layanan.length > 0) {
                         layanan.forEach((item, index) => {
                             let linkPesan = item.pesan_wa ? `${linkWa}?text=${encodeURIComponent(item.pesan_wa)}` : linkWa;
-                            let colorStyle = "";
-                            if(index % 3 === 2) {
-                                colorStyle = "style='color: var(--accent-orange); background: #fef3c7;'";
-                            }
-                            
+                            let colorStyle = (index % 3 === 2) ? "style='color: var(--accent-orange); background: #fef3c7;'" : "";
                             layananContainer.innerHTML += `
                             <div class="col-md-6 col-lg-4">
                                 <article class="card-gizi h-100 p-4 text-center d-flex flex-column">
@@ -277,52 +423,164 @@
                                     <p class="text-muted small mb-4 flex-grow-1">${item.deskripsi}</p>
                                     <a href="${linkPesan}" target="_blank" class="btn btn-outline-primary w-100 mt-auto">Daftar Program</a>
                                 </article>
-                            </div>
-                            `;
+                            </div>`;
                         });
-                    } else {
-                        renderDefaultLayanan();
-                    }
+                    } else { renderDefaultLayanan(); }
                 }
-            } catch (error) {
-                console.error("Gagal mengambil data:", error);
-                renderDefaultLayanan();
-            } finally {
-                // Sembunyikan loading screen
-                const loader = document.getElementById('loading-screen');
-                loader.style.opacity = '0';
-                setTimeout(() => loader.style.display = 'none', 500);
-            }
-        });
+            } catch (e) { renderDefaultLayanan(); }
+            hideLoading();
+        }
 
         function renderDefaultLayanan() {
-            const container = document.getElementById('layanan-container');
-            container.innerHTML = `
-                <div class="col-md-6 col-lg-4">
-                    <article class="card-gizi h-100 p-4 text-center d-flex flex-column">
-                        <div class="feature-icon"><i class="fa-solid fa-baby"></i></div>
-                        <h3 class="fw-bold mb-3 h5">Gizi Anak & Stunting</h3>
-                        <p class="text-muted small mb-4 flex-grow-1">Evaluasi status gizi presisi, perhitungan Z-Score WHO, dan terapi nutrisi khusus untuk kejar tumbuh serta pencegahan stunting pada balita.</p>
-                        <a href="https://wa.me/6285536666320" target="_blank" class="btn btn-outline-primary w-100 mt-auto">Daftar Program</a>
-                    </article>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <article class="card-gizi h-100 p-4 text-center d-flex flex-column">
-                        <div class="feature-icon"><i class="fa-solid fa-weight-scale"></i></div>
-                        <h3 class="fw-bold mb-3 h5">Manajemen Diet Optimal</h3>
-                        <p class="text-muted small mb-4 flex-grow-1">Program penurunan atau peningkatan berat badan yang aman, dipersonalisasi sesuai gaya hidup, dan berbasis sains tanpa harus menyiksa diri.</p>
-                        <a href="https://wa.me/6285536666320" target="_blank" class="btn btn-outline-primary w-100 mt-auto">Daftar Program</a>
-                    </article>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <article class="card-gizi h-100 p-4 text-center d-flex flex-column">
-                        <div class="feature-icon" style="color: var(--accent-orange); background: #fef3c7;"><i class="fa-solid fa-notes-medical"></i></div>
-                        <h3 class="fw-bold mb-3 h5">Terapi Diet Klinis</h3>
-                        <p class="text-muted small mb-4 flex-grow-1">Perencanaan menu dan edukasi gizi klinis untuk penderita Diabetes, Hipertensi, Asam Urat, Penyakit Jantung, Ginjal, dan kondisi medis lainnya.</p>
-                        <a href="https://wa.me/6285536666320" target="_blank" class="btn btn-outline-primary w-100 mt-auto">Daftar Program</a>
-                    </article>
-                </div>
-            `;
+            document.getElementById('layanan-container').innerHTML = `
+                <div class="col-md-6 col-lg-4"><article class="card-gizi h-100 p-4 text-center d-flex flex-column"><div class="feature-icon"><i class="fa-solid fa-baby"></i></div><h3 class="fw-bold mb-3 h5">Gizi Anak & Stunting</h3><p class="text-muted small mb-4 flex-grow-1">Evaluasi status gizi presisi, perhitungan Z-Score WHO, dan terapi nutrisi khusus untuk kejar tumbuh serta pencegahan stunting pada balita.</p><a href="https://wa.me/6285536666320" target="_blank" class="btn btn-outline-primary w-100 mt-auto">Daftar Program</a></article></div>
+                <div class="col-md-6 col-lg-4"><article class="card-gizi h-100 p-4 text-center d-flex flex-column"><div class="feature-icon"><i class="fa-solid fa-weight-scale"></i></div><h3 class="fw-bold mb-3 h5">Manajemen Diet Optimal</h3><p class="text-muted small mb-4 flex-grow-1">Program penurunan atau peningkatan berat badan yang aman, dipersonalisasi sesuai gaya hidup, dan berbasis sains tanpa harus menyiksa diri.</p><a href="https://wa.me/6285536666320" target="_blank" class="btn btn-outline-primary w-100 mt-auto">Daftar Program</a></article></div>
+                <div class="col-md-6 col-lg-4"><article class="card-gizi h-100 p-4 text-center d-flex flex-column"><div class="feature-icon" style="color: var(--accent-orange); background: #fef3c7;"><i class="fa-solid fa-notes-medical"></i></div><h3 class="fw-bold mb-3 h5">Terapi Diet Klinis</h3><p class="text-muted small mb-4 flex-grow-1">Perencanaan menu dan edukasi gizi klinis untuk penderita Diabetes, Hipertensi, Asam Urat, Penyakit Jantung, Ginjal, dan kondisi medis lainnya.</p><a href="https://wa.me/6285536666320" target="_blank" class="btn btn-outline-primary w-100 mt-auto">Daftar Program</a></article></div>`;
+        }
+
+        // ================= ADMIN FUNCTIONS =================
+        async function handleLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('login-user').value;
+            const p = document.getElementById('login-pass').value;
+            showLoading("Memverifikasi...");
+            try {
+                const response = await fetch(GAS_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({action: 'login', username: u, password: p})
+                });
+                const res = await response.json();
+                if (res.success) {
+                    sessionStorage.setItem('IS_ADMIN', 'true');
+                    handleRouting();
+                } else { hideLoading(); Swal.fire('Gagal', res.message, 'error'); }
+            } catch (err) { hideLoading(); Swal.fire('Error', 'Koneksi gagal.', 'error'); }
+        }
+
+        function handleLogout() {
+            sessionStorage.removeItem('IS_ADMIN'); 
+            handleRouting();
+        }
+
+        async function loadAdminModule(sheet) {
+            currentAdminSheet = sheet;
+            document.getElementById('admin-title').innerText = 'Data ' + sheet;
+            document.querySelectorAll('.admin-nav').forEach(n => n.classList.remove('active'));
+            document.getElementById('nav-' + sheet).classList.add('active');
+            
+            showLoading(`Memuat ${sheet}...`);
+            try {
+                const response = await fetch(GAS_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({action: 'getAdminData', sheetName: sheet})
+                });
+                const res = await response.json();
+                if(res.success) {
+                    currentAdminHeaders = res.headers;
+                    renderAdminTable(res.data);
+                } else { Swal.fire('Gagal', res.message, 'error'); }
+            } catch (e) { Swal.fire('Error', 'Gagal memuat data tabel.', 'error'); }
+            hideLoading();
+        }
+
+        function renderAdminTable(data) {
+            let head = '<tr>';
+            currentAdminHeaders.forEach(h => head += `<th class="text-uppercase text-secondary small">${h}</th>`);
+            head += '<th class="text-center">Aksi</th></tr>';
+            document.getElementById('admin-table-head').innerHTML = head;
+            
+            let body = '';
+            if(data.length === 0) {
+                body = `<tr><td colspan="${currentAdminHeaders.length + 1}" class="text-center py-4 text-muted">Belum ada data.</td></tr>`;
+            } else {
+                data.forEach(row => {
+                    body += '<tr>';
+                    row.forEach(cell => {
+                        let text = cell ? cell.toString() : '';
+                        body += `<td><div style="max-height:60px; overflow:hidden; text-overflow:ellipsis;">${text}</div></td>`;
+                    });
+                    body += `<td class="text-center">
+                        <button class="btn btn-sm btn-warning rounded-pill px-3 me-1" onclick="openAdminModal('edit', '${row[0]}', this)" data-row='${JSON.stringify(row)}'><i class="fa-solid fa-pen"></i></button>
+                        <button class="btn btn-sm btn-danger rounded-pill px-3" onclick="deleteAdminData('${row[0]}')"><i class="fa-solid fa-trash"></i></button>
+                    </td></tr>`;
+                });
+            }
+            document.getElementById('admin-table-body').innerHTML = body;
+        }
+
+        function openAdminModal(mode, id = null, btnObj = null) {
+            currentEditId = mode === 'edit' ? id : null;
+            document.getElementById('modal-title').innerText = mode === 'add' ? 'Tambah Data Baru' : 'Edit Data';
+            
+            let html = '';
+            let rowData = mode === 'edit' && btnObj ? JSON.parse(btnObj.getAttribute('data-row')) : [];
+
+            currentAdminHeaders.forEach((h, i) => {
+                const val = mode === 'edit' ? rowData[i] : '';
+                let readOnly = (mode === 'edit' && i === 0) ? 'readonly bg-light' : ''; // Kunci/ID tidak bisa diedit saat edit
+                html += `
+                <div class="col-12 mb-2">
+                    <label class="form-label text-muted small fw-bold">${h}</label>
+                    <textarea class="form-control bg-light border-0 rounded-3 admin-input" data-header="${h}" rows="2" ${readOnly}>${val}</textarea>
+                </div>`;
+            });
+            document.getElementById('adminForm').innerHTML = html;
+            new bootstrap.Modal(document.getElementById('adminModal')).show();
+        }
+
+        async function saveAdminData() {
+            let obj = {}; 
+            document.querySelectorAll('.admin-input').forEach(input => obj[input.dataset.header] = input.value);
+            
+            document.getElementById('btnSave').innerText = "Menyimpan...";
+            document.getElementById('btnSave').disabled = true;
+            showLoading("Menyimpan Database...");
+
+            try {
+                const payload = { 
+                    action: currentEditId ? 'updateData' : 'insertData', 
+                    sheetName: currentAdminSheet, 
+                    dataObj: obj 
+                };
+                if (currentEditId) payload.id = currentEditId;
+                
+                const response = await fetch(GAS_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                });
+                const res = await response.json();
+                
+                resetBtn(); hideLoading();
+                if(res.success) {
+                    bootstrap.Modal.getInstance(document.getElementById('adminModal')).hide();
+                    Swal.fire('Sukses', res.message, 'success');
+                    loadAdminModule(currentAdminSheet);
+                } else { Swal.fire('Error', res.message, 'error'); }
+            } catch (e) { resetBtn(); hideLoading(); Swal.fire('Error', 'Gagal menyimpan.', 'error'); }
+        }
+
+        function resetBtn() {
+            document.getElementById('btnSave').innerText = "Simpan Data";
+            document.getElementById('btnSave').disabled = false;
+        }
+
+        function deleteAdminData(id) {
+            Swal.fire({ title: 'Yakin hapus?', text: "Data akan dihapus permanen!", icon: 'warning', showCancelButton: true, confirmButtonText: 'Hapus'
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    showLoading("Menghapus...");
+                    try {
+                        const response = await fetch(GAS_URL, {
+                            method: 'POST',
+                            body: JSON.stringify({ action: 'deleteData', sheetName: currentAdminSheet, id: id })
+                        });
+                        const res = await response.json();
+                        hideLoading();
+                        if(res.success) { Swal.fire('Terhapus!', '', 'success'); loadAdminModule(currentAdminSheet); }
+                        else Swal.fire('Error', res.message, 'error');
+                    } catch(e) { hideLoading(); Swal.fire('Error', 'Gagal menghapus.', 'error'); }
+                }
+            });
         }
     </script>
 </body>
