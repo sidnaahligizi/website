@@ -5,19 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#10b981">
     
-    <!-- Optimasi SEO: Title, Description, dan Keywords -->
     <title>Ahli Gizi Surabaya Terdekat - Konsultasi & Diet | Sidnaahligizi</title>
     <meta name="description" content="Cari ahli gizi terdekat di Surabaya? Sidnaahligizi melayani pendampingan gizi anak stunting, manajemen diet, dan terapi penyakit klinis secara profesional.">
     <meta name="keywords" content="ahli gizi surabaya, konsultasi gizi terdekat, klinik gizi surabaya, diet stunting anak, ahli gizi diet, terapi nutrisi surabaya, konsultasi gizi online">
     <meta name="author" content="Sidnaahligizi">
     
-    <!-- Open Graph untuk Social Media Share -->
     <meta property="og:title" content="Ahli Gizi Surabaya Terdekat - Sidnaahligizi">
     <meta property="og:description" content="Pendampingan gizi anak stunting, program diet, dan terapi medis bersama ahli gizi terpercaya di Surabaya.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://sidnaahligizi.my.id/">
     
-    <!-- Schema.org Markup untuk Local SEO -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -39,131 +36,42 @@
     }
     </script>
     
-    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts: Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --primary-green: #059669; /* Emerald Green - Sayuran */
+            --primary-green: #059669;
             --light-green: #d1fae5;
-            --accent-orange: #f59e0b; /* Amber - Energi/Buah */
+            --accent-orange: #f59e0b;
             --dark-text: #1e293b;
         }
-
-        body { 
-            font-family: 'Poppins', sans-serif; 
-            color: #475569; 
-            scroll-behavior: smooth; 
-            background-color: #f8fafc;
-        }
-        
-        /* Gradient Alam/Kesehatan */
-        .bg-gradient-primary { 
-            background: linear-gradient(135deg, #065f46 0%, #10b981 100%); 
-        }
-        
+        body { font-family: 'Poppins', sans-serif; color: #475569; scroll-behavior: smooth; background-color: #f8fafc; }
+        .bg-gradient-primary { background: linear-gradient(135deg, #065f46 0%, #10b981 100%); }
         .text-primary { color: var(--primary-green) !important; }
         .bg-primary { background-color: var(--primary-green) !important; }
         
-        /* Hero Section */
-        .hero-section { 
-            padding: 120px 0 80px; 
-            color: white; 
-            position: relative; 
-            overflow: hidden;
-            border-bottom-left-radius: 40px;
-            border-bottom-right-radius: 40px;
-            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.1);
-        }
+        .hero-section { padding: 120px 0 80px; color: white; position: relative; overflow: hidden; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; box-shadow: 0 10px 30px rgba(16, 185, 129, 0.1); }
+        .card-gizi { transition: all 0.3s ease; border-radius: 24px; background: #ffffff; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 1px solid rgba(16, 185, 129, 0.1); }
+        .card-gizi:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(16, 185, 129, 0.12); border-color: var(--light-green); }
         
-        /* Styling Card Gizi */
-        .card-gizi { 
-            border: none; 
-            transition: all 0.3s ease; 
-            border-radius: 24px; 
-            background: #ffffff;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-            border: 1px solid rgba(16, 185, 129, 0.1);
-        }
-        .card-gizi:hover { 
-            transform: translateY(-8px); 
-            box-shadow: 0 20px 40px rgba(16, 185, 129, 0.12); 
-            border-color: var(--light-green);
-        }
-        
-        /* Tombol */
-        .btn-wa { 
-            background-color: #25d366; 
-            color: white; 
-            font-weight: 600; 
-            border-radius: 50px; 
-            transition: 0.3s;
-        }
-        .btn-wa:hover { 
-            background-color: #128c7e; 
-            color: white; 
-            transform: translateY(-2px); 
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
-        }
-        
-        .btn-outline-primary {
-            border-color: var(--primary-green);
-            color: var(--primary-green);
-            border-radius: 50px;
-        }
-        .btn-outline-primary:hover {
-            background-color: var(--primary-green);
-            color: white;
-        }
+        .btn-wa { background-color: #25d366; color: white; font-weight: 600; border-radius: 50px; transition: 0.3s; }
+        .btn-wa:hover { background-color: #128c7e; color: white; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3); }
+        .btn-outline-primary { border-color: var(--primary-green); color: var(--primary-green); border-radius: 50px; }
+        .btn-outline-primary:hover { background-color: var(--primary-green); color: white; }
 
-        /* Ikon Fitur */
-        .feature-icon { 
-            font-size: 2.5rem; 
-            color: var(--primary-green); 
-            margin-bottom: 20px; 
-            background: var(--light-green);
-            width: 80px;
-            height: 80px;
-            line-height: 80px;
-            border-radius: 50%;
-            margin-left: auto;
-            margin-right: auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        .feature-icon { font-size: 2.5rem; color: var(--primary-green); margin-bottom: 20px; background: var(--light-green); width: 80px; height: 80px; line-height: 80px; border-radius: 50%; margin-left: auto; margin-right: auto; display: flex; align-items: center; justify-content: center; }
+        .section-title { font-weight: 700; position: relative; margin-bottom: 50px; color: var(--dark-text); }
+        .section-title::after { content: ''; width: 60px; height: 4px; background: var(--accent-orange); position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); border-radius: 2px; }
         
-        /* Judul Section */
-        .section-title { 
-            font-weight: 700; 
-            position: relative; 
-            margin-bottom: 50px; 
-            color: var(--dark-text); 
-        }
-        .section-title::after { 
-            content: ''; 
-            width: 60px; 
-            height: 4px; 
-            background: var(--accent-orange); 
-            position: absolute; 
-            bottom: -15px; 
-            left: 50%; 
-            transform: translateX(-50%); 
-            border-radius: 2px;
-        }
-        
-        /* Navbar */
         .navbar { padding: 12px 0; background: rgba(255, 255, 255, 0.98) !important; backdrop-filter: blur(10px); }
         .navbar-brand img { height: 45px; width: auto; object-fit: contain; }
         .nav-link { font-weight: 500; color: #475569 !important; padding: 10px 15px !important; }
         .nav-link:hover { color: var(--primary-green) !important; }
-
-        /* SEO Footer Area */
         .seo-areas { font-size: 0.85rem; color: #cbd5e1; line-height: 1.8; text-align: center; }
+        
+        #loading-screen { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: white; z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; transition: opacity 0.5s; }
         
         @media (max-width: 768px) {
             .hero-section { padding: 100px 0 60px; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px; }
@@ -173,7 +81,12 @@
 </head>
 <body>
 
-    <!-- Navigasi -->
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
+        <p class="mt-3 text-secondary fw-bold">Memuat Data...</p>
+    </div>
+
     <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm">
         <div class="container">
             <a class="navbar-brand fw-bold text-primary d-flex align-items-center" href="#">
@@ -189,7 +102,7 @@
                     <li class="nav-item"><a class="nav-link" href="#layanan">Layanan</a></li>
                     <li class="nav-item"><a class="nav-link" href="#keunggulan">Metode Kami</a></li>
                     <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
-                        <a class="btn btn-wa rounded-pill px-4 py-2" href="#contact">
+                        <a class="btn btn-wa rounded-pill px-4 py-2 dyn-wa" href="#contact">
                             <i class="fa-brands fa-whatsapp me-2"></i>Hubungi Ahli Gizi
                         </a>
                     </li>
@@ -199,63 +112,30 @@
     </nav>
 
     <main>
-        <!-- Hero Section -->
         <header id="home" class="hero-section bg-gradient-primary text-center">
             <div class="container">
-                <h1 class="display-4 fw-bold mb-4">Solusi Nutrisi Tepat untuk Kesehatan Optimal</h1>
-                <p class="lead mb-5 px-md-5 fw-light mx-auto" style="max-width: 800px; font-size: 1.15rem;">
-                    Bersama Ahli Gizi tepercaya di Surabaya, kami menghadirkan pendampingan nutrisi berbasis sains. Solusi nyata untuk tumbuh kembang anak, diet sehat, hingga terapi penyakit klinis.
+                <h1 id="dyn-hero-title" class="display-4 fw-bold mb-4">Solusi Nutrisi Tepat untuk Kesehatan Optimal</h1>
+                <p id="dyn-hero-subtitle" class="lead mb-5 px-md-5 fw-light mx-auto" style="max-width: 800px; font-size: 1.15rem;">
+                    Bersama ahli gizi tepercaya di Surabaya, kami menghadirkan pendampingan nutrisi berbasis sains. Solusi nyata untuk tumbuh kembang anak, diet sehat, hingga terapi penyakit klinis.
                 </p>
                 <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
                     <a href="#layanan" class="btn btn-outline-light btn-lg px-5 rounded-pill shadow-sm">Jelajahi Program</a>
-                    <a href="https://wa.me/6285536666320" class="btn btn-wa btn-lg px-5 shadow-sm rounded-pill">
+                    <a href="#" class="btn btn-wa btn-lg px-5 shadow-sm rounded-pill dyn-wa">
                         Konsultasi Sekarang
                     </a>
                 </div>
             </div>
         </header>
 
-        <!-- Layanan Section -->
         <section id="layanan" class="py-5 mt-4">
             <div class="container py-4">
                 <h2 class="text-center section-title">Program Layanan Gizi</h2>
-                <div class="row g-4 mt-2 justify-content-center">
-                    
-                    <!-- Layanan 1 -->
-                    <div class="col-md-6 col-lg-4">
-                        <article class="card-gizi h-100 p-4 text-center d-flex flex-column">
-                            <div class="feature-icon"><i class="fa-solid fa-baby"></i></div>
-                            <h3 class="fw-bold mb-3 h5">Gizi Anak & Stunting</h3>
-                            <p class="text-muted small mb-4 flex-grow-1">Evaluasi status gizi presisi, perhitungan Z-Score WHO, dan terapi nutrisi khusus untuk kejar tumbuh (*catch-up growth*) serta pencegahan stunting pada balita.</p>
-                            <a href="https://wa.me/6285536666320?text=Halo%20Sidnaahligizi,%20saya%20ingin%20konsultasi%20mengenai%20gizi%20tumbuh%20kembang%20anak." class="btn btn-outline-primary w-100 mt-auto">Daftar Program</a>
-                        </article>
-                    </div>
-                    
-                    <!-- Layanan 2 -->
-                    <div class="col-md-6 col-lg-4">
-                        <article class="card-gizi h-100 p-4 text-center d-flex flex-column">
-                            <div class="feature-icon"><i class="fa-solid fa-weight-scale"></i></div>
-                            <h3 class="fw-bold mb-3 h5">Manajemen Diet Optimal</h3>
-                            <p class="text-muted small mb-4 flex-grow-1">Program penurunan atau peningkatan berat badan yang aman, dipersonalisasi sesuai gaya hidup, dan berbasis sains tanpa harus menyiksa diri.</p>
-                            <a href="https://wa.me/6285536666320?text=Halo%20Sidnaahligizi,%20saya%20ingin%20konsultasi%20program%20diet/manajemen%20berat%20badan." class="btn btn-outline-primary w-100 mt-auto">Daftar Program</a>
-                        </article>
-                    </div>
-                    
-                    <!-- Layanan 3 -->
-                    <div class="col-md-6 col-lg-4">
-                        <article class="card-gizi h-100 p-4 text-center d-flex flex-column">
-                            <div class="feature-icon" style="color: var(--accent-orange); background: #fef3c7;"><i class="fa-solid fa-notes-medical"></i></div>
-                            <h3 class="fw-bold mb-3 h5">Terapi Diet Klinis</h3>
-                            <p class="text-muted small mb-4 flex-grow-1">Perencanaan menu dan edukasi gizi klinis untuk penderita Diabetes, Hipertensi, Asam Urat, Penyakit Jantung, Ginjal, dan kondisi medis lainnya.</p>
-                            <a href="https://wa.me/6285536666320?text=Halo%20Sidnaahligizi,%20saya%20butuh%20pendampingan%20diet%20untuk%20kondisi%20medis%20tertentu." class="btn btn-outline-primary w-100 mt-auto">Daftar Program</a>
-                        </article>
-                    </div>
-
+                <div class="row g-4 mt-2 justify-content-center" id="layanan-container">
+                    <!-- Data Layanan akan dimuat dari Google Sheets di sini -->
                 </div>
             </div>
         </section>
 
-        <!-- Keunggulan Section -->
         <section id="keunggulan" class="py-5" style="background-color: #f0fdf4;">
             <div class="container py-4">
                 <div class="row align-items-center">
@@ -298,18 +178,17 @@
             </div>
         </section>
 
-        <!-- Kontak CTA Section -->
         <section id="contact" class="py-5">
             <div class="container text-center py-5">
                 <h2 class="section-title">Mulai Perjalanan Sehat Anda</h2>
-                <p class="mb-5 text-muted mx-auto" style="max-width: 600px;">Kesehatan Anda adalah investasi terbaik jangka panjang. Jadwalkan sesi konsultasi dengan Ahli Gizi kami di Surabaya sekarang.</p>
+                <p id="dyn-about-text" class="mb-5 text-muted mx-auto" style="max-width: 600px;">Jadwalkan sesi konsultasi dengan Ibu Siti di Surabaya sekarang. Kesehatan Anda adalah investasi terbaik jangka panjang.</p>
                 <div class="row justify-content-center">
                     <div class="col-md-8 col-lg-6">
                         <div class="card-gizi p-5 shadow-sm" style="border-top: 5px solid var(--accent-orange);">
                             <i class="fa-solid fa-headset display-4 text-primary mb-4"></i>
                             <h3 class="fw-bold mb-2 h4">Layanan Konsultasi Fleksibel</h3>
                             <p class="text-muted mb-4 small">Tersedia untuk sesi *Online* maupun pertemuan langsung. Admin kami siap membantu Anda.</p>
-                            <a href="https://wa.me/6285536666320" class="btn btn-wa btn-lg w-100 rounded-pill py-3">
+                            <a href="#" class="btn btn-wa btn-lg w-100 rounded-pill py-3 dyn-wa">
                                 <i class="fa-brands fa-whatsapp me-2 fa-lg"></i> Hubungi via WhatsApp
                             </a>
                         </div>
@@ -319,7 +198,6 @@
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="pt-5 pb-3 bg-dark text-white">
         <div class="container text-center">
             <div class="mb-4">
@@ -334,7 +212,6 @@
                 <a href="https://youtube.com/@suwanto_pakwanto" aria-label="YouTube" class="text-white fs-5 hover-opacity" target="_blank"><i class="fa-brands fa-youtube"></i></a>
             </div>
             
-            <!-- Area Layanan SEO Lokal (Disembunyikan secara elegan agar tidak spammy, namun tetap dibaca Google) -->
             <div class="seo-areas mt-4 mb-4 p-3 bg-secondary bg-opacity-10 rounded">
                 <span class="d-block mb-1 fw-bold text-light">Jangkauan Layanan Ahli Gizi Surabaya:</span>
                 <span style="word-wrap: break-word;">Asemrowo, Benowo, Bubutan, Bulak, Dukuh Pakis, Gayungan, Genteng, Gubeng, Gunung Anyar, Jambangan, Karang Pilang, Kenjeran, Krembangan, Lakarsantri, Mulyorejo, Pabean Cantian, Pakal, Rungkut, Sambikerep, Sawahan, Semampir, Simokerto, Sukolilo, Sukomanunggal, Tambaksari, Tandes, Tegalsari, Tenggilis Mejoyo, Wiyung, Wonocolo, Wonokromo.</span>
@@ -346,7 +223,107 @@
         </div>
     </footer>
 
-    <!-- Bootstrap Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Skrip API Fetch Data dari Google Apps Script -->
+    <script>
+        // MASUKKAN URL APLIKASI WEB ANDA DI SINI
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbzYUKmChnbLgYhDPphBovbHwTZKEuYFpMw3e2lP6MtEy0JpnmFzDvrzhgfALQ506WWY_w/exec"; 
+
+        document.addEventListener("DOMContentLoaded", async function() {
+            try {
+                if(GAS_URL === "MASUKKAN_URL_WEB_APP_ANDA_DI_SINI") {
+                    console.log("GAS URL belum diset. Menampilkan data template default.");
+                    document.getElementById('loading-screen').style.opacity = '0';
+                    setTimeout(() => document.getElementById('loading-screen').style.display = 'none', 500);
+                    renderDefaultLayanan();
+                    return;
+                }
+
+                const response = await fetch(`${GAS_URL}?action=getAllData`);
+                const result = await response.json();
+                
+                if(result.success) {
+                    const pengaturan = result.data.pengaturan;
+                    const layanan = result.data.layanan;
+                    
+                    // Render Pengaturan (Teks & WA)
+                    if(pengaturan.Hero_Title) document.getElementById('dyn-hero-title').innerText = pengaturan.Hero_Title;
+                    if(pengaturan.Hero_Subtitle) document.getElementById('dyn-hero-subtitle').innerText = pengaturan.Hero_Subtitle;
+                    if(pengaturan.About_Text) document.getElementById('dyn-about-text').innerText = pengaturan.About_Text;
+                    
+                    let linkWa = pengaturan.Link_WA || "https://wa.me/6285536666320";
+                    document.querySelectorAll('.dyn-wa').forEach(el => {
+                        el.href = linkWa;
+                    });
+
+                    // Render Layanan
+                    const layananContainer = document.getElementById('layanan-container');
+                    layananContainer.innerHTML = ''; 
+                    
+                    if(layanan.length > 0) {
+                        layanan.forEach((item, index) => {
+                            let linkPesan = item.pesan_wa ? `${linkWa}?text=${encodeURIComponent(item.pesan_wa)}` : linkWa;
+                            let colorStyle = "";
+                            if(index % 3 === 2) {
+                                colorStyle = "style='color: var(--accent-orange); background: #fef3c7;'";
+                            }
+                            
+                            layananContainer.innerHTML += `
+                            <div class="col-md-6 col-lg-4">
+                                <article class="card-gizi h-100 p-4 text-center d-flex flex-column">
+                                    <div class="feature-icon" ${colorStyle}><i class="${item.ikon || 'fa-solid fa-leaf'}"></i></div>
+                                    <h3 class="fw-bold mb-3 h5">${item.judul}</h3>
+                                    <p class="text-muted small mb-4 flex-grow-1">${item.deskripsi}</p>
+                                    <a href="${linkPesan}" target="_blank" class="btn btn-outline-primary w-100 mt-auto">Daftar Program</a>
+                                </article>
+                            </div>
+                            `;
+                        });
+                    } else {
+                        renderDefaultLayanan();
+                    }
+                }
+            } catch (error) {
+                console.error("Gagal mengambil data:", error);
+                renderDefaultLayanan();
+            } finally {
+                // Sembunyikan loading screen
+                const loader = document.getElementById('loading-screen');
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 500);
+            }
+        });
+
+        function renderDefaultLayanan() {
+            const container = document.getElementById('layanan-container');
+            container.innerHTML = `
+                <div class="col-md-6 col-lg-4">
+                    <article class="card-gizi h-100 p-4 text-center d-flex flex-column">
+                        <div class="feature-icon"><i class="fa-solid fa-baby"></i></div>
+                        <h3 class="fw-bold mb-3 h5">Gizi Anak & Stunting</h3>
+                        <p class="text-muted small mb-4 flex-grow-1">Evaluasi status gizi presisi, perhitungan Z-Score WHO, dan terapi nutrisi khusus untuk kejar tumbuh serta pencegahan stunting pada balita.</p>
+                        <a href="https://wa.me/6285536666320" target="_blank" class="btn btn-outline-primary w-100 mt-auto">Daftar Program</a>
+                    </article>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <article class="card-gizi h-100 p-4 text-center d-flex flex-column">
+                        <div class="feature-icon"><i class="fa-solid fa-weight-scale"></i></div>
+                        <h3 class="fw-bold mb-3 h5">Manajemen Diet Optimal</h3>
+                        <p class="text-muted small mb-4 flex-grow-1">Program penurunan atau peningkatan berat badan yang aman, dipersonalisasi sesuai gaya hidup, dan berbasis sains tanpa harus menyiksa diri.</p>
+                        <a href="https://wa.me/6285536666320" target="_blank" class="btn btn-outline-primary w-100 mt-auto">Daftar Program</a>
+                    </article>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <article class="card-gizi h-100 p-4 text-center d-flex flex-column">
+                        <div class="feature-icon" style="color: var(--accent-orange); background: #fef3c7;"><i class="fa-solid fa-notes-medical"></i></div>
+                        <h3 class="fw-bold mb-3 h5">Terapi Diet Klinis</h3>
+                        <p class="text-muted small mb-4 flex-grow-1">Perencanaan menu dan edukasi gizi klinis untuk penderita Diabetes, Hipertensi, Asam Urat, Penyakit Jantung, Ginjal, dan kondisi medis lainnya.</p>
+                        <a href="https://wa.me/6285536666320" target="_blank" class="btn btn-outline-primary w-100 mt-auto">Daftar Program</a>
+                    </article>
+                </div>
+            `;
+        }
+    </script>
 </body>
 </html>
