@@ -39,6 +39,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     
     <style>
         :root {
@@ -66,7 +67,7 @@
             box-shadow: 0 10px 30px rgba(16, 185, 129, 0.1);
         }
         
-        /* Styling Card Gizi */
+        /* Styling Card Gizi & Portofolio */
         .card-gizi { 
             border: none; transition: all 0.3s ease; border-radius: 24px; background: #ffffff;
             box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 1px solid rgba(16, 185, 129, 0.1);
@@ -106,18 +107,24 @@
         
         /* System Styles */
         #loading-screen { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.9); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; transition: opacity 0.5s; }
-        
+        .site-section { display: none; animation: fadeIn 0.5s; }
+        .site-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
         /* Admin Sidebar */
         .admin-sidebar { width: 250px; background: #1e293b; color: white; min-height: 100vh; position: fixed; left: 0; top: 0; overflow-y: auto; z-index: 1000; }
-        .admin-sidebar a { display: block; padding: 15px 25px; color: #cbd5e1; text-decoration: none; font-weight: 500; border-left: 4px solid transparent; transition: 0.3s; }
+        .admin-sidebar a { display: block; padding: 15px 25px; color: #cbd5e1; text-decoration: none; font-weight: 500; border-left: 4px solid transparent; transition: 0.3s; cursor: pointer; }
         .admin-sidebar a:hover, .admin-sidebar a.active { background: rgba(255,255,255,0.1); color: white; border-left-color: var(--primary-green); }
         .admin-main { margin-left: 250px; padding: 30px; min-height: 100vh; background: #f1f5f9; }
         
+        .note-modal-backdrop { z-index: 1040 !important; } 
+        .note-modal { z-index: 1050 !important; }
+
         @media (max-width: 768px) {
             .hero-section { padding: 100px 0 60px; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px; }
             .display-4 { font-size: 2.2rem; }
             .admin-sidebar { width: 100%; position: relative; min-height: auto; }
-            .admin-main { margin-left: 0; }
+            .admin-main { margin-left: 0; padding: 15px; }
         }
     </style>
 </head>
@@ -131,17 +138,18 @@
     <div id="public-view">
         <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm">
             <div class="container">
-                <a class="navbar-brand fw-bold text-primary d-flex align-items-center" href="#">
+                <a class="navbar-brand fw-bold text-primary d-flex align-items-center" href="#" onclick="nav('home')">
                     <img src="https://lh3.googleusercontent.com/d/1hGSRD5dNVoF7TKUgF7nAZVqQ6wXFI3wj" alt="Logo Sidnaahligizi" class="me-2" loading="lazy">
                     Sidnaahligizi
                 </a>
-                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto align-items-center">
                         <li class="nav-item"><a class="nav-link" href="#home" onclick="nav('home')">Beranda</a></li>
                         <li class="nav-item"><a class="nav-link" href="#layanan" onclick="nav('layanan')">Layanan</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#program" onclick="nav('program')">Katalog Program</a></li>
                         <li class="nav-item"><a class="nav-link" href="#keunggulan" onclick="nav('keunggulan')">Metode Kami</a></li>
                         <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
                             <a class="btn btn-wa rounded-pill px-4 py-2 dyn-wa" href="#contact" onclick="nav('contact')">
@@ -154,7 +162,7 @@
         </nav>
 
         <main>
-            <header id="home" class="hero-section bg-gradient-primary text-center site-section">
+            <header id="home" class="hero-section bg-gradient-primary text-center site-section active">
                 <div class="container">
                     <h1 id="dyn-hero-title" class="display-4 fw-bold mb-4">Solusi Nutrisi Tepat untuk Kesehatan Optimal</h1>
                     <p id="dyn-hero-subtitle" class="lead mb-5 px-md-5 fw-light mx-auto" style="max-width: 800px; font-size: 1.15rem;">
@@ -175,6 +183,22 @@
                     <div class="row g-4 mt-2 justify-content-center" id="layanan-container">
                         </div>
                 </div>
+            </section>
+
+            <section id="program" class="py-5 mt-4 site-section">
+                <div class="container py-4">
+                    <div class="text-center mb-5">
+                        <h2 class="section-title">Katalog & Portofolio</h2>
+                        <p class="text-muted mt-2">Berbagai program dan terapi diet yang telah kami susun.</p>
+                    </div>
+                    <div class="row g-4 justify-content-center" id="program-container">
+                        </div>
+                </div>
+            </section>
+
+            <section id="baca-program" class="py-5 mt-5 site-section">
+                <div class="container py-5" id="baca-container">
+                    </div>
             </section>
 
             <section id="keunggulan" class="py-5 site-section" style="background-color: #f0fdf4;">
@@ -293,31 +317,43 @@
                 <h4 class="fw-bold text-white mb-0">SIDNA ADMIN</h4>
                 <p class="small text-muted mb-0 mt-1">Sistem Manajemen Konten</p>
             </div>
+            <a onclick="loadAdminDashboard()" class="admin-nav" id="nav-Dashboard"><i class="fa-solid fa-chart-line me-2"></i> Dashboard</a>
+            
+            <p class="px-4 text-xs font-bold text-secondary mt-4 mb-2 text-uppercase">Konten Website</p>
             <a onclick="loadAdminModule('Pengaturan')" class="admin-nav" id="nav-Pengaturan"><i class="fa-solid fa-sliders me-2"></i> Pengaturan Teks</a>
             <a onclick="loadAdminModule('Layanan')" class="admin-nav" id="nav-Layanan"><i class="fa-solid fa-notes-medical me-2"></i> Kelola Layanan</a>
             <a onclick="loadAdminModule('Program')" class="admin-nav" id="nav-Program"><i class="fa-solid fa-images me-2"></i> Katalog/Program</a>
+            
             <a href="#home" class="mt-5 border-top border-secondary border-opacity-25 pt-3 text-info"><i class="fa-solid fa-earth-asia me-2"></i> Lihat Website</a>
             <a onclick="handleLogout()" class="text-danger"><i class="fa-solid fa-right-from-bracket me-2"></i> Keluar</a>
         </aside>
         <main class="admin-main">
-            <div class="d-flex justify-content-between align-items-center mb-4 bg-white p-4 rounded-4 shadow-sm">
-                <div>
-                    <h3 id="admin-title" class="fw-bold text-dark mb-0">Kelola Data</h3>
-                    <p class="text-muted small mb-0">Tambah, Edit, dan Hapus Data</p>
-                </div>
-                <button class="btn btn-primary rounded-pill px-4" onclick="openAdminModal('add')"><i class="fa-solid fa-plus me-2"></i> Tambah Data</button>
+            <div id="admin-dashboard-view" style="display:none;">
+                <h2 class="fw-bold text-dark mb-2">Monitoring Viewers</h2>
+                <p class="text-muted mb-4">Statistik kinerja program pada website Anda</p>
+                <div class="row g-4" id="dashboard-stats-container"></div>
             </div>
-            <div class="bg-white p-4 rounded-4 shadow-sm overflow-auto">
-                <table class="table table-hover align-middle">
-                    <thead id="admin-table-head" class="table-light"></thead>
-                    <tbody id="admin-table-body"></tbody>
-                </table>
+
+            <div id="admin-table-view" style="display:none;">
+                <div class="d-flex justify-content-between align-items-center mb-4 bg-white p-4 rounded-4 shadow-sm">
+                    <div>
+                        <h3 id="admin-title" class="fw-bold text-dark mb-0">Kelola Data</h3>
+                        <p class="text-muted small mb-0">Tambah, Edit, dan Hapus Data</p>
+                    </div>
+                    <button class="btn btn-primary rounded-pill px-4" onclick="openAdminModal('add')"><i class="fa-solid fa-plus me-2"></i> Tambah Baru</button>
+                </div>
+                <div class="bg-white p-4 rounded-4 shadow-sm overflow-auto">
+                    <table class="table table-hover align-middle">
+                        <thead id="admin-table-head" class="table-light"></thead>
+                        <tbody id="admin-table-body"></tbody>
+                    </table>
+                </div>
             </div>
         </main>
     </div>
 
     <div class="modal fade" id="adminModal" tabindex="-1" data-bs-backdrop="static">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content border-0 rounded-4 shadow-lg">
                 <div class="modal-header border-0 bg-light rounded-top-4 p-4">
                     <h5 class="modal-title fw-bold text-dark" id="modal-title">Form Data</h5>
@@ -326,15 +362,17 @@
                 <div class="modal-body p-4">
                     <form id="adminForm" class="row g-3"></form>
                 </div>
-                <div class="modal-footer border-0 p-4">
-                    <button type="button" class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Batal</button>
+                <div class="modal-footer border-0 bg-light p-4 rounded-bottom-4">
+                    <button type="button" class="btn btn-secondary rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Batal</button>
                     <button type="button" id="btnSave" class="btn btn-primary rounded-pill px-4 fw-bold" onclick="saveAdminData()">Simpan Data</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <script>
@@ -358,7 +396,7 @@
                 if (sessionStorage.getItem('IS_ADMIN') === 'true') {
                     document.getElementById('login-view').style.display = 'none';
                     document.getElementById('admin-view').style.display = 'block';
-                    loadAdminModule('Pengaturan');
+                    loadAdminDashboard();
                 } else {
                     document.getElementById('admin-view').style.display = 'none';
                     document.getElementById('login-view').style.display = 'flex';
@@ -368,12 +406,31 @@
                 document.getElementById('admin-view').style.display = 'none';
                 document.getElementById('login-view').style.display = 'none';
                 document.getElementById('public-view').style.display = 'block';
-                loadPublicData();
+                
+                let menuLink = document.querySelector(`.nav-link[onclick="nav('${hash}')"]`);
+                if(hash && !menuLink && hash !== 'baca-program') {
+                    bukaProgramSlug(hash, false); // Buka detail program jika hash berupa slug
+                } else {
+                    loadPublicData();
+                    if(hash) { setTimeout(() => nav(hash, false), 200); }
+                    else { nav('home', false); }
+                }
             }
         }
 
-        function nav(section) {
-            window.location.hash = section;
+        function nav(section, pushHistory = true) {
+            document.querySelectorAll('.site-section').forEach(s => s.classList.remove('active'));
+            const target = document.getElementById(section);
+            if(target) target.classList.add('active');
+            
+            // Tutup Navbar Mobile jika terbuka
+            const navbarCollapse = document.getElementById('navbarNav');
+            if (navbarCollapse.classList.contains('show')) {
+                new bootstrap.Collapse(navbarCollapse).hide();
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if(pushHistory) history.pushState({section: section}, '', '#' + section);
         }
 
         function showLoading(msg = "Memuat Data...") {
@@ -388,6 +445,10 @@
             setTimeout(() => loader.style.display = 'none', 500);
         }
 
+        function createSlugJS(str) {
+            return str ? str.toString().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '') : '';
+        }
+
         // ================= PUBLIC FETCH =================
         async function loadPublicData() {
             showLoading();
@@ -400,6 +461,7 @@
                 if(result.success) {
                     const pengaturan = result.data.pengaturan;
                     const layanan = result.data.layanan;
+                    const program = result.data.program;
                     
                     if(pengaturan.Hero_Title) document.getElementById('dyn-hero-title').innerText = pengaturan.Hero_Title;
                     if(pengaturan.Hero_Subtitle) document.getElementById('dyn-hero-subtitle').innerText = pengaturan.Hero_Subtitle;
@@ -408,9 +470,9 @@
                     let linkWa = pengaturan.Link_WA || "https://wa.me/6285536666320";
                     document.querySelectorAll('.dyn-wa').forEach(el => el.href = linkWa);
 
+                    // Render Layanan
                     const layananContainer = document.getElementById('layanan-container');
                     layananContainer.innerHTML = ''; 
-                    
                     if(layanan.length > 0) {
                         layanan.forEach((item, index) => {
                             let linkPesan = item.pesan_wa ? `${linkWa}?text=${encodeURIComponent(item.pesan_wa)}` : linkWa;
@@ -426,9 +488,89 @@
                             </div>`;
                         });
                     } else { renderDefaultLayanan(); }
+
+                    // Render Program Portofolio
+                    const programContainer = document.getElementById('program-container');
+                    programContainer.innerHTML = '';
+                    if(program.length > 0) {
+                        program.forEach(p => {
+                            let imgRaw = p.gambar || 'https://via.placeholder.com/600x400';
+                            let imgArr = [];
+                            try { imgArr = JSON.parse(imgRaw); } catch(e) { imgArr = [imgRaw]; }
+                            let imgSrc = imgArr.length > 0 ? imgArr[0] : imgRaw;
+                            let slug = createSlugJS(p.judul);
+
+                            programContainer.innerHTML += `
+                            <div class="col-md-6 col-lg-4">
+                                <div class="card-gizi h-100 d-flex flex-column overflow-hidden">
+                                    <div class="position-relative overflow-hidden cursor-pointer" onclick="bukaProgramSlug('${slug}')" style="height:200px;">
+                                        <img src="${imgSrc}" class="w-100 h-100 object-fit-cover" style="transition:0.5s;">
+                                        <span class="position-absolute top-0 end-0 bg-primary text-white small fw-bold px-3 py-1 m-3 rounded-pill">${p.kategori || 'Program'}</span>
+                                    </div>
+                                    <div class="p-4 d-flex flex-column flex-grow-1">
+                                        <h3 class="fw-bold h5 mb-3 cursor-pointer text-dark" onclick="bukaProgramSlug('${slug}')">${p.judul}</h3>
+                                        <div class="text-muted small flex-grow-1 mb-4">${p.deskripsi.replace(/<[^>]*>?/gm, '').substring(0, 100)}...</div>
+                                        <div class="d-flex gap-2 mt-auto">
+                                            ${p.link_demo ? `<a href="${p.link_demo}" target="_blank" class="btn btn-dark btn-sm flex-grow-1 rounded-pill"><i class="fa-solid fa-play me-1"></i> Demo</a>` : ''}
+                                            <button onclick="bukaProgramSlug('${slug}')" class="btn btn-outline-primary btn-sm flex-grow-1 rounded-pill">Detail</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`;
+                        });
+                    } else {
+                        programContainer.innerHTML = '<p class="text-muted text-center w-100">Belum ada portofolio program.</p>';
+                    }
                 }
             } catch (e) { renderDefaultLayanan(); }
             hideLoading();
+        }
+
+        async function bukaProgramSlug(slug, pushHistory = true) {
+            showLoading("Memuat Detail...");
+            nav('baca-program', false);
+            if (pushHistory) history.pushState({ section: 'baca-program', slug: slug }, '', '#' + slug);
+
+            try {
+                const response = await fetch(GAS_URL, {
+                    method: 'POST', body: JSON.stringify({action: 'getProgramBySlug', slug: slug})
+                });
+                const res = await response.json();
+                hideLoading();
+
+                if(res.success && res.data) {
+                    const headers = res.headers; const d = res.data;
+                    let iJ = headers.indexOf('judul'); let iK = headers.indexOf('kategori');
+                    let iI = headers.indexOf('deskripsi'); let iG = headers.indexOf('gambar');
+                    let iD = headers.indexOf('link_demo');
+
+                    let imgRaw = d[iG] || ''; let mediaList = [];
+                    try { mediaList = JSON.parse(imgRaw); } catch(e) { if(imgRaw) mediaList = [imgRaw]; }
+                    
+                    let imgHtml = '';
+                    if (mediaList.length > 0) {
+                        imgHtml = `<img src="${mediaList[0]}" class="w-100 rounded-4 shadow-sm mb-4" style="max-height:400px; object-fit:cover;">`;
+                    }
+                    
+                    let demoBtn = d[iD] ? `<a href="${d[iD]}" target="_blank" class="btn btn-dark btn-lg rounded-pill mt-4 px-5"><i class="fa-solid fa-external-link-alt me-2"></i> Akses Tautan / Demo</a>` : '';
+                    
+                    let html = `
+                    <div class="card-gizi p-4 p-md-5 mx-auto" style="max-width: 850px;">
+                        <button onclick="nav('program')" class="btn btn-light rounded-pill mb-4 fw-bold text-primary"><i class="fa-solid fa-arrow-left me-2"></i> Kembali ke Katalog</button>
+                        <br><span class="badge bg-primary px-3 py-2 rounded-pill mb-3">${d[iK]}</span>
+                        <h1 class="fw-bold text-dark mb-4">${d[iJ]}</h1>
+                        ${imgHtml}
+                        <div class="text-muted leading-relaxed" style="font-size:1.1rem; line-height: 1.8;">${d[iI]}</div>
+                        ${demoBtn}
+                    </div>`;
+                    document.getElementById('baca-container').innerHTML = html;
+                } else {
+                    document.getElementById('baca-container').innerHTML = `<div class="text-center text-danger py-5 fw-bold h4">Data tidak ditemukan.</div>`;
+                }
+            } catch (e) {
+                hideLoading();
+                document.getElementById('baca-container').innerHTML = `<div class="text-center text-danger py-5 fw-bold h4">Koneksi API Gagal.</div>`;
+            }
         }
 
         function renderDefaultLayanan() {
@@ -462,8 +604,55 @@
             handleRouting();
         }
 
+        // --- FUNGSI DASHBOARD ---
+        async function loadAdminDashboard() {
+            document.getElementById('admin-table-view').style.display = 'none';
+            document.getElementById('admin-dashboard-view').style.display = 'block';
+            document.querySelectorAll('.admin-nav').forEach(n => n.classList.remove('active'));
+            document.getElementById('nav-Dashboard').classList.add('active');
+            
+            showLoading("Memuat Dashboard...");
+            try {
+                const response = await fetch(GAS_URL, {
+                    method: 'POST', body: JSON.stringify({action: 'getDashboardStats'})
+                });
+                const detail = await response.json();
+                
+                let topProgHtml = '';
+                if(detail.topProgram && detail.topProgram.length > 0){
+                    topProgHtml = detail.topProgram.map(b => `
+                        <div class="d-flex justify-content-between align-items-center py-3 border-bottom border-light">
+                            <span class="text-dark fw-bold">${b.judul.substring(0, 50)}</span>
+                            <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2"><i class="fa-solid fa-eye me-1"></i> ${b.views} views</span>
+                        </div>
+                    `).join('');
+                } else {
+                    topProgHtml = '<p class="text-muted fst-italic">Belum ada data interaksi.</p>';
+                }
+
+                document.getElementById('dashboard-stats-container').innerHTML = `
+                    <div class="col-md-5">
+                        <div class="bg-white p-5 rounded-4 shadow-sm border-start border-4 border-primary h-100 d-flex flex-column justify-content-center align-items-center text-center">
+                            <div class="bg-light text-primary rounded-circle d-flex align-items-center justify-content-center fs-2 mb-4" style="width:70px; height:70px;"><i class="fa-solid fa-chart-line"></i></div>
+                            <h6 class="text-muted fw-bold text-uppercase mb-2">Total Viewers Portofolio</h6>
+                            <h1 class="display-3 fw-bolder text-dark mb-0">${detail.totalViews || 0}</h1>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="bg-white p-5 rounded-4 shadow-sm h-100">
+                            <h5 class="fw-bold text-dark mb-4 pb-3 border-bottom"><i class="fa-solid fa-star text-warning me-2"></i> Top 5 Program & Katalog</h5>
+                            ${topProgHtml}
+                        </div>
+                    </div>
+                `;
+            } catch(e) { document.getElementById('dashboard-stats-container').innerHTML = '<div class="col-12"><div class="alert alert-danger">Gagal memuat statistik.</div></div>'; }
+            hideLoading();
+        }
+
         async function loadAdminModule(sheet) {
             currentAdminSheet = sheet;
+            document.getElementById('admin-dashboard-view').style.display = 'none';
+            document.getElementById('admin-table-view').style.display = 'block';
             document.getElementById('admin-title').innerText = 'Data ' + sheet;
             document.querySelectorAll('.admin-nav').forEach(n => n.classList.remove('active'));
             document.getElementById('nav-' + sheet).classList.add('active');
@@ -479,29 +668,42 @@
                     currentAdminHeaders = res.headers;
                     renderAdminTable(res.data);
                 } else { Swal.fire('Gagal', res.message, 'error'); }
-            } catch (e) { Swal.fire('Error', 'Gagal memuat data tabel.', 'error'); }
+            } catch (e) { Swal.fire('Error', 'Gagal memuat data tabel. Pastikan Sheet tidak kosong.', 'error'); }
             hideLoading();
         }
 
         function renderAdminTable(data) {
             let head = '<tr>';
-            currentAdminHeaders.forEach(h => head += `<th class="text-uppercase text-secondary small">${h}</th>`);
-            head += '<th class="text-center">Aksi</th></tr>';
+            currentAdminHeaders.forEach((h, i) => {
+                if(i===0) head += `<th class="text-uppercase text-secondary small" style="width: 50px;">ID</th>`;
+                else head += `<th class="text-uppercase text-secondary small">${h}</th>`;
+            });
+            head += '<th class="text-center text-uppercase text-secondary small" style="width:120px;">Aksi</th></tr>';
             document.getElementById('admin-table-head').innerHTML = head;
             
             let body = '';
             if(data.length === 0) {
-                body = `<tr><td colspan="${currentAdminHeaders.length + 1}" class="text-center py-4 text-muted">Belum ada data.</td></tr>`;
+                body = `<tr><td colspan="${currentAdminHeaders.length + 1}" class="text-center py-5 text-muted">Belum ada data. Silakan tekan Tambah Baru.</td></tr>`;
             } else {
                 data.forEach(row => {
                     body += '<tr>';
-                    row.forEach(cell => {
+                    row.forEach((cell, i) => {
                         let text = cell ? cell.toString() : '';
-                        body += `<td><div style="max-height:60px; overflow:hidden; text-overflow:ellipsis;">${text}</div></td>`;
+                        let isMedia = typeof text === 'string' && (text.startsWith('http') || text.startsWith('['));
+                        
+                        if(isMedia) {
+                            try { let arr = JSON.parse(text); if(arr.length>0) text = arr[0]; } catch(e){}
+                            if(text.startsWith('http')) {
+                                body += `<td><img src="${text}" class="rounded-3 shadow-sm" style="width:50px; height:50px; object-fit:cover;"></td>`;
+                            } else { body += `<td><div style="max-height:50px; overflow:hidden;">${text}</div></td>`; }
+                        } else {
+                            let clean = text.replace(/<[^>]*>?/gm, '').substring(0, 50);
+                            body += `<td><div style="max-height:50px; overflow:hidden;" class="text-muted small">${clean}</div></td>`;
+                        }
                     });
                     body += `<td class="text-center">
-                        <button class="btn btn-sm btn-warning rounded-pill px-3 me-1" onclick="openAdminModal('edit', '${row[0]}', this)" data-row='${JSON.stringify(row)}'><i class="fa-solid fa-pen"></i></button>
-                        <button class="btn btn-sm btn-danger rounded-pill px-3" onclick="deleteAdminData('${row[0]}')"><i class="fa-solid fa-trash"></i></button>
+                        <button class="btn btn-sm btn-warning bg-opacity-25 text-warning border-0 rounded-3 px-2 me-1" onclick="openAdminModal('edit', '${row[0]}', this)" data-row='${JSON.stringify(row)}'><i class="fa-solid fa-pen"></i></button>
+                        <button class="btn btn-sm btn-danger bg-opacity-25 text-danger border-0 rounded-3 px-2" onclick="deleteAdminData('${row[0]}')"><i class="fa-solid fa-trash"></i></button>
                     </td></tr>`;
                 });
             }
@@ -517,37 +719,105 @@
 
             currentAdminHeaders.forEach((h, i) => {
                 const val = mode === 'edit' ? rowData[i] : '';
-                let readOnly = (mode === 'edit' && i === 0) ? 'readonly bg-light' : ''; // Kunci/ID tidak bisa diedit saat edit
-                html += `
-                <div class="col-12 mb-2">
-                    <label class="form-label text-muted small fw-bold">${h}</label>
-                    <textarea class="form-control bg-light border-0 rounded-3 admin-input" data-header="${h}" rows="2" ${readOnly}>${val}</textarea>
-                </div>`;
+                let hL = h.toLowerCase();
+                let readOnly = (mode === 'edit' && i === 0) ? 'readonly' : '';
+                
+                if (hL === 'views') {
+                    html += `
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label text-muted small fw-bold">${h} (Otomatis)</label>
+                        <input type="number" class="form-control bg-light border-0 rounded-3 admin-input" data-header="${h}" value="${val || 0}" readonly>
+                    </div>`;
+                } else if (hL.includes('gambar') || hL.includes('foto') || hL.includes('media')) {
+                    let preview = ''; let mediaArr = [];
+                    try { mediaArr = JSON.parse(val); } catch(e) { if(val) mediaArr = [val]; }
+                    if (mediaArr.length > 0) {
+                        preview = '<div class="mt-2 d-flex gap-2">';
+                        mediaArr.forEach(url => preview += `<img src="${url}" class="rounded shadow-sm" style="height:60px; width:60px; object-fit:cover;">`);
+                        preview += '</div>';
+                    }
+                    html += `
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label text-muted small fw-bold">${h} (File Upload)</label>
+                        <input type="file" class="form-control admin-file border-0 bg-light rounded-3" data-header="${h}" accept="image/*,video/*" multiple>
+                        <input type="hidden" class="admin-input" data-header="${h}" value='${val}'>
+                        ${preview}
+                    </div>`;
+                } else if (hL.includes('isi') || hL.includes('deskripsi')) {
+                    html += `
+                    <div class="col-12 mb-3">
+                        <label class="form-label text-muted small fw-bold">${h}</label>
+                        <textarea class="form-control bg-light border-0 rounded-3 admin-input rich-text" data-header="${h}">${val}</textarea>
+                    </div>`;
+                } else {
+                    html += `
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label text-muted small fw-bold">${h}</label>
+                        <input type="text" class="form-control bg-light border-0 rounded-3 admin-input" data-header="${h}" value="${val}" ${readOnly}>
+                    </div>`;
+                }
             });
             document.getElementById('adminForm').innerHTML = html;
+            
+            // Re-init Summernote
+            $('.rich-text').each(function() {
+                $(this).summernote({
+                    placeholder: 'Tulis deskripsi detail...', height: 250,
+                    toolbar: [ ['style', ['bold', 'italic', 'underline', 'clear']], ['para', ['ul', 'ol', 'paragraph']], ['insert', ['link']] ]
+                });
+            });
+
             new bootstrap.Modal(document.getElementById('adminModal')).show();
         }
 
+        const getBase64 = (file) => new Promise((resolve, reject) => {
+            const reader = new FileReader(); reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result); reader.onerror = error => reject(error);
+        });
+
         async function saveAdminData() {
             let obj = {}; 
-            document.querySelectorAll('.admin-input').forEach(input => obj[input.dataset.header] = input.value);
+            document.querySelectorAll('.admin-input').forEach(input => {
+                if(input.classList.contains('rich-text')) {
+                    let sVal = $(input).summernote('code');
+                    obj[input.dataset.header] = (sVal === '<p><br></p>') ? '' : sVal;
+                } else {
+                    obj[input.dataset.header] = input.value;
+                }
+            });
             
             document.getElementById('btnSave').innerText = "Menyimpan...";
             document.getElementById('btnSave').disabled = true;
-            showLoading("Menyimpan Database...");
 
+            // Handle File Uploads ke Google Drive via GAS API
+            const fileInputs = document.querySelectorAll('.admin-file');
+            for (let fileInput of fileInputs) {
+                const header = fileInput.dataset.header;
+                if (fileInput.files && fileInput.files.length > 0) {
+                    showLoading("Mengunggah File Media...");
+                    let uploadedUrls = [];
+                    for(let i=0; i<fileInput.files.length; i++) {
+                        try {
+                            let base64Str = await getBase64(fileInput.files[i]);
+                            const fName = "img_" + new Date().getTime() + "_" + fileInput.files[i].name;
+                            const response = await fetch(GAS_URL, {
+                                method: 'POST', body: JSON.stringify({ action: 'uploadMedia', base64Data: base64Str, fileName: fName })
+                            });
+                            const upRes = await response.json();
+                            if (upRes.success) { uploadedUrls.push(upRes.url); } 
+                            else { Swal.fire('Gagal', upRes.message, 'error'); hideLoading(); resetBtn(); return; }
+                        } catch (e) { Swal.fire('Error', 'Gagal upload media', 'error'); hideLoading(); resetBtn(); return; }
+                    }
+                    obj[header] = JSON.stringify(uploadedUrls); // Simpan URL array
+                }
+            }
+
+            showLoading("Menyimpan Database...");
             try {
-                const payload = { 
-                    action: currentEditId ? 'updateData' : 'insertData', 
-                    sheetName: currentAdminSheet, 
-                    dataObj: obj 
-                };
+                const payload = { action: currentEditId ? 'updateData' : 'insertData', sheetName: currentAdminSheet, dataObj: obj };
                 if (currentEditId) payload.id = currentEditId;
                 
-                const response = await fetch(GAS_URL, {
-                    method: 'POST',
-                    body: JSON.stringify(payload)
-                });
+                const response = await fetch(GAS_URL, { method: 'POST', body: JSON.stringify(payload) });
                 const res = await response.json();
                 
                 resetBtn(); hideLoading();
@@ -571,8 +841,7 @@
                     showLoading("Menghapus...");
                     try {
                         const response = await fetch(GAS_URL, {
-                            method: 'POST',
-                            body: JSON.stringify({ action: 'deleteData', sheetName: currentAdminSheet, id: id })
+                            method: 'POST', body: JSON.stringify({ action: 'deleteData', sheetName: currentAdminSheet, id: id })
                         });
                         const res = await response.json();
                         hideLoading();
