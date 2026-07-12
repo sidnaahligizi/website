@@ -159,8 +159,9 @@ body { background-color: #f4f7f6; font-family: 'Segoe UI', sans-serif; }
                             <option value="semua">Semua Wilayah</option>
                         </select>
                     </div>
-                    <div class="col-md-3 col-6 mb-2 d-none btn-cetak-gizi">
-                        <button class="btn btn-dark btn-sm w-100 fw-bold" onclick="cetakLaporanGizi()">🖨️ Cetak Gizi</button>
+                    <div class="col-md-3 col-12 mb-2 d-flex gap-2">
+                        <button class="btn btn-teal btn-sm w-100 fw-bold d-none action-nakes-admin" onclick="promptGenerateGizi()">⚙️ Generate</button>
+                        <button class="btn btn-dark btn-sm w-100 fw-bold" onclick="cetakLaporanGizi()">🖨️ Cetak</button>
                     </div>
                 </div>
             </div>
@@ -184,19 +185,6 @@ body { background-color: #f4f7f6; font-family: 'Segoe UI', sans-serif; }
                         <h1 id="countGiziTurun" class="fw-bold m-0 display-5">0</h1>
                     </div>
                 </div>
-            </div>
-
-            <div class="card p-3 border-primary shadow-sm d-none mb-3" id="panelGenerateGizi">
-                <h6 class="fw-bold text-primary mb-3">⚙️ Panel Eksekusi: Generate Kalkulasi Gizi 2 Bulan</h6>
-                <form onsubmit="doGenerateGizi(event)" class="row align-items-end">
-                    <div class="col-md-8 mb-2">
-                        <label class="form-label small fw-bold">Masukkan Nama Periode (Contoh: Bulan 1-2 / Jan-Feb 2024)</label>
-                        <input type="text" id="inputPeriodeGenerate" class="form-control form-control-sm border-primary" placeholder="Ketik Periode..." required>
-                    </div>
-                    <div class="col-md-4 mb-2">
-                        <button type="submit" id="btnGenerateGizi" class="btn btn-primary btn-sm w-100 fw-bold">🔄 Generate / Perbarui Data</button>
-                    </div>
-                </form>
             </div>
         </div>
 
@@ -243,10 +231,17 @@ body { background-color: #f4f7f6; font-family: 'Segoe UI', sans-serif; }
 </div>
 
 <div id="printArea" class="p-3">
-    <div class="text-center mb-4">
-        <img src="https://lh3.googleusercontent.com/d/1VCVDjg5YzMS26FAlYF1CR1UjyeUlfnmb" height="70" alt="Logo">
-        <h3 class="fw-bold mt-2 mb-0">LAPORAN SIPENDEKAR</h3>
-        <p id="printTitle" class="mb-0"></p>
+    <div class="text-center mb-4 border-bottom border-dark pb-3">
+        <div class="d-flex justify-content-center align-items-center gap-3">
+            <img src="https://lh3.googleusercontent.com/d/1VCVDjg5YzMS26FAlYF1CR1UjyeUlfnmb" height="75" alt="Logo">
+            <div class="text-center">
+                <h4 class="fw-bold m-0">PEMERINTAH KABUPATEN GRESIK</h4>
+                <h3 class="fw-bold m-0">PUSKESMAS NELAYAN</h3>
+                <p class="m-0 small">Kawasan Nelayan Terpadu, Kab. Gresik</p>
+            </div>
+        </div>
+        <h5 class="fw-bold mt-4 mb-0" id="printTitleMain">LAPORAN SIPENDEKAR</h5>
+        <p id="printTitle" class="mb-0 text-muted"></p>
     </div>
     <div class="table-responsive">
         <table class="table table-bordered table-sm text-center align-middle" style="font-size: 12px; width: 100%;">
@@ -387,7 +382,7 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzZgXVo183oVLquwo_y5
 let sessionUser = null;
 let listAnakData = [];
 let dataFisikUnconfirmed = {};
-let giziDataUtama = []; // Data Gizi (Baru)
+let giziDataUtama = []; 
 
 async function kirimDataKeServer(payload) {
     try {
@@ -437,13 +432,11 @@ async function loadApplication() {
     $('#wilayahBadge').text(sessionUser.wilayah);
 
     if (sessionUser.role === "Kader") {
-        $('.tab-nakes, .tab-laporan, #panelGenerateGizi, .btn-cetak-gizi, #wrapWilayahGizi').hide();
-    } else if (sessionUser.role === "Nakes") {
-        $('.tab-kader').hide();
-        $('#panelGenerateGizi, .btn-cetak-gizi, #wrapWilayahGizi').show();
-    } else if (sessionUser.role === "Admin") {
-        $('.tab-kader, .tab-nakes, .tab-laporan').show();
-        $('#panelGenerateGizi, .btn-cetak-gizi, #wrapWilayahGizi').show();
+        $('.tab-nakes, .tab-laporan, .action-nakes-admin, #wrapWilayahGizi').hide();
+    } else {
+        $('.action-nakes-admin').removeClass('d-none').show();
+        $('.tab-nakes, .tab-laporan, #wrapWilayahGizi').show();
+        if(sessionUser.role === "Nakes") $('.tab-kader').hide();
     }
 
     const res = await kirimDataKeServer({ action: 'getDashboard', wilayah: sessionUser.wilayah, role: sessionUser.role });
@@ -459,7 +452,7 @@ async function loadApplication() {
         renderChildLists();
         renderRekapTabel(res.rekap);
     }
-    await loadGiziData(); // Load Data Gizi 2 Bulan
+    await loadGiziData(); 
 }
 
 function renderChildLists() {
@@ -627,6 +620,7 @@ async function previewLaporan(e) {
             tbody += '</tr>';
         });
         let filterTitle = 'Data Laporan: ' + (idAnak === 'semua' ? 'Semua Anak' : $('#filterAnakCetak option:selected').text());
+        $('#printTitleMain').text('LAPORAN SIPENDEKAR');
         $('#previewTitle, #printTitle').text(filterTitle);
         $('#previewHead, #printHead').html(thead);
         $('#previewBody, #printBody').html(tbody);
@@ -671,9 +665,7 @@ function renderGiziCards() {
     let fTahap = $('#filterTahapGizi').val();
     let fWilayah = $('#filterWilayahGizi').val();
 
-    // Kader hanya melihat wilayahnya sendiri. Admin/Nakes melihat berdasarkan filter dropdown.
     let targetWilayah = (sessionUser.role === 'Kader') ? sessionUser.wilayah : fWilayah;
-
     let naik = 0, stag = 0, turun = 0;
     
     giziDataUtama.forEach(d => {
@@ -691,21 +683,32 @@ function renderGiziCards() {
     $('#countGiziTurun').text(turun);
 }
 
-async function doGenerateGizi(e) {
-    e.preventDefault();
-    let periode = $('#inputPeriodeGenerate').val();
-    if(!periode) return;
+async function promptGenerateGizi() {
+    const { value: formValues } = await Swal.fire({
+        title: '⚙️ Generate Rekap Gizi',
+        html: '<div class="text-start mb-2"><small>Ketik nama periode (Misal: Jan-Feb 2024)</small></div><input id="swal-input-periode" class="swal2-input m-0 w-100" placeholder="Periode...">',
+        focusConfirm: false,
+        showCancelButton: true,
+        confirmButtonText: 'Proses Generate',
+        cancelButtonText: 'Batal',
+        confirmButtonColor: '#0d9488',
+        preConfirm: () => {
+            const val = document.getElementById('swal-input-periode').value.trim();
+            if(!val) { Swal.showValidationMessage('Periode tidak boleh kosong!'); return false; }
+            return val;
+        }
+    });
 
-    const btn = $('#btnGenerateGizi'); btn.prop('disabled', true).text(' ⏳ Sedang Proses...');
-    const res = await kirimDataKeServer({ action: 'generateGizi', periode: periode });
-    if (res.success) {
-        Swal.fire('Berhasil!', res.message, 'success');
-        $('#inputPeriodeGenerate').val('');
-        await loadGiziData(); // Refresh Data Gizi di Dashboard
-    } else { 
-        Swal.fire('Gagal!', res.message, 'error'); 
+    if (formValues) {
+        Swal.fire({title: 'Memproses Data...', allowOutsideClick: false, didOpen: () => {Swal.showLoading()}});
+        const res = await kirimDataKeServer({ action: 'generateGizi', periode: formValues });
+        if(res.success) {
+            Swal.fire('Berhasil!', res.message, 'success');
+            await loadGiziData(); 
+        } else {
+            Swal.fire('Gagal!', res.message, 'error');
+        }
     }
-    btn.prop('disabled', false).text('🔄 Generate / Perbarui Data');
 }
 
 function cetakLaporanGizi() {
@@ -713,23 +716,34 @@ function cetakLaporanGizi() {
     let fTahap = $('#filterTahapGizi').val();
     let fWilayah = $('#filterWilayahGizi').val();
 
-    let thead = '<tr><th>Periode</th><th>ID Anak</th><th>Nama</th><th>Wilayah</th><th>Tahap</th><th>Trend Gizi</th></tr>';
-    let tbody = '';
-    
-    giziDataUtama.forEach(d => {
-        if (fPeriode !== 'semua' && d.periode !== fPeriode) return;
-        if (fTahap !== 'semua' && d.tahap !== fTahap) return;
-        if (fWilayah !== 'semua' && d.wilayah !== fWilayah) return;
-        tbody += `<tr><td>${d.periode}</td><td>${d.idAnak}</td><td>${d.nama}</td><td>${d.wilayah}</td><td>${d.tahap}</td><td><strong>${d.trend}</strong></td></tr>`;
-    });
-
-    if(tbody === '') {
-        Swal.fire('Kosong', 'Tidak ada data untuk dicetak dengan filter yang aktif', 'info');
+    if (fPeriode === 'semua') {
+        Swal.fire('Informasi', 'Silakan pilih Periode spesifik terlebih dahulu untuk dicetak.', 'info');
         return;
     }
 
-    let judulTeks = `Perkembangan Gizi<br><small>Periode: ${fPeriode} | Wilayah: ${fWilayah} | Tahap: ${fTahap}</small>`;
-    $('#printTitle').html(judulTeks);
+    let thead = '<tr><th>Periode</th><th>ID Anak</th><th>Nama</th><th>Wilayah</th><th>Tahap</th><th>Trend Gizi</th></tr>';
+    let tbody = '';
+    let hasData = false;
+    
+    giziDataUtama.forEach(d => {
+        if (d.periode !== fPeriode) return;
+        if (fTahap !== 'semua' && d.tahap !== fTahap) return;
+        if (fWilayah !== 'semua' && d.wilayah !== fWilayah) return;
+        
+        hasData = true;
+        tbody += `<tr><td>${d.periode}</td><td>${d.idAnak}</td><td>${d.nama}</td><td>${d.wilayah}</td><td>${d.tahap}</td><td><strong>${d.trend}</strong></td></tr>`;
+    });
+
+    if(!hasData) {
+        Swal.fire('Kosong', 'Tidak ada data untuk dicetak dengan filter yang aktif.', 'info');
+        return;
+    }
+
+    let judulUtama = 'LAPORAN REKAPITULASI GIZI (2 BULANAN)';
+    let judulSub = `Periode: ${fPeriode} &nbsp;|&nbsp; Wilayah: ${fWilayah === 'semua' ? 'Keseluruhan' : fWilayah} &nbsp;|&nbsp; Tahap: ${fTahap === 'semua' ? 'Semua Tahap' : fTahap}`;
+    
+    $('#printTitleMain').text(judulUtama);
+    $('#printTitle').html(judulSub);
     $('#printHead').html(thead);
     $('#printBody').html(tbody);
     window.print();
